@@ -1,17 +1,11 @@
 ---
-import Title from '@/components/shared/Title.astro'
+import MainLayout from '@/modules/shared/layouts/MainLayout.astro'
+import Title from '@/modules/shared/components/Title.astro'
 
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-    <title> 🚨 Alertas de Desastres Naturales 🌊 </title>
-	</head>
-	<body>
-    <Title> I'm, Pxndxs! 🐼 </Title>
-	</body>
-</html>
+<MainLayout>
+
+  <Title> 🚨 Disaster Predictor 🌍 </Title>
+
+</MainLayout>
