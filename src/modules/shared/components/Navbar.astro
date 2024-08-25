@@ -1,0 +1,59 @@
+---
+interface Props {
+  links: {
+    href: string,
+    title: string
+    icon?: string
+  }[]
+}
+
+const { links }: Props = Astro.props
+
+const currentPath = Astro.url.pathname
+
+const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md font-medium flex flex-col items-center gap-2 capitalize'
+
+const iconsPath = '/icons'
+---
+
+<nav class="bg-white shadow-md w-full">
+  <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center gap-4">
+      {
+        links.map( ({ href, title, icon }) => (
+          <a
+            href={ href }
+            class={`
+              ${ anchorClasses }
+              ${ currentPath === href ? 'bg-gray-100 text-gray-900' : '' }
+              ${ icon ? 'text-xs' : '' }
+            `}
+          >
+            {
+              ( icon ) && (
+                <img
+                  src={ `${ iconsPath }/${ icon }.svg` }
+                  alt={ title }
+                  class="h-6 w-6 text-yellow-500"
+                />
+              )
+            }
+            <span> { title } </span>
+            {
+              ( currentPath === href ) ? (
+                <div
+                  class="border-yellow-500 border-b-4 w-full"
+                  transition:name="menu-bar"
+                ></div>
+              ) : (
+                <div
+                  class="border-transparent border-b-4 w-full"
+                ></div>
+              )
+            }
+          </a>
+        ) )
+      }
+    </div>
+  </div>
+</nav>

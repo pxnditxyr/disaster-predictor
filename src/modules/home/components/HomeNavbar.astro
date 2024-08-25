@@ -1,0 +1,33 @@
+---
+import Navbar from '@/modules/shared/components/Navbar.astro'
+
+const links = [
+  {
+    href: '/',
+    title: 'inicio',
+    icon: 'home',
+  },
+  {
+    href: '/history',
+    title: 'historial de desastres',
+    icon: 'history',
+  },
+  {
+    href: '/mitigations',
+    title: 'mitigaciones',
+    icon: 'mitigations',
+  },
+  {
+    href: '/about',
+    title: 'sobre nosotros',
+    icon: 'about',
+  },
+  {
+    href: '/contact',
+    title: 'contacto',
+    icon: 'contact',
+  },
+]
+---
+
+<Navbar links={ links } />
