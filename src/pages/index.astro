@@ -3,6 +3,7 @@ import Layout from '@/modules/shared/layouts/Layout.astro'
 import Title from '@/modules/shared/components/ui/Title.astro'
 import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
 import HomeInfo from '@/modules/home/components/info/HomeInfo.astro'
+import Footer from '@/modules/shared/components/ui/Footer.astro'
 
 import { HomeMap } from '@/modules/home/components/maps/HomeMap.tsx'
 
@@ -13,8 +14,23 @@ import { HomeMap } from '@/modules/home/components/maps/HomeMap.tsx'
 
   <Title class="text-center text-pretty mt-8"> 🚨 Disaster Predictor 🌍 </Title>
 
-  <HomeMap client:load />
 
-  <HomeInfo />
+  <div class="w-full flex justify-center items-center flex-row mt-12">
+    <article class="w-1/2">
+      <p class="text-center text-pretty mt-8">
+        Disaster Predictor is a web application that predicts natural disasters in real-time.
+      </p>
+    </article>
+    <div class="w-1/2">
+      <HomeMap client:only />
+    </div>
+  </div>
 
+  <div class="pb-20">
+    <HomeInfo />
+  </div>
+
+  <div class="w-full mt-36">
+    <Footer />
+  </div>
 </Layout>
