@@ -4,8 +4,9 @@ import Title from '@/modules/shared/components/ui/Title.astro'
 import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
 import Footer from '@/modules/shared/components/ui/Footer.astro'
 import { Icon } from 'astro-icon/components'
-import { LastMitigations } from '@/modules/home/components/info/LastMitigations.tsx'
-import { AllMitigations } from '@/modules/home/components/info/AllMitigations.tsx'
+import { LastPredictions } from '@/modules/home/components/info/LastPredictions.tsx'
+import { AllPredictions } from '@/modules/home/components/info/AllPredictions.tsx'
+
 
 import { mitigationActions } from '@/constants/mitigations-data'
 
@@ -15,30 +16,37 @@ import { mitigationActions } from '@/constants/mitigations-data'
   <div class="min-h-screen w-full">
     <HomeNavbar />
 
-    <Title class="text-center text-pretty mt-16"> 🛡️ Mitigaciones 🏥 </Title>
+    <Title class="text-center text-pretty mt-16"> 🌪️ Predicciones de Desastres naturales 🌊 </Title>
+
+    <div class="w-full px-4 flex items-center justify-center mt-12">
+      <p class="text-pretty text-[#5c4f3d] text-md max-w-[450px] font-semibold">
+        En este apartado se muestran las Predicciones de Incidentes de Desastres Naturales relacionados
+        con el Fenómeno de El Niño. Se muestran las predicciones de los siguientes 5 días. 🚨
+      </p>
+    </div>
 
 
-    <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12 lg:mt-32">
+    <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12 lg:mt-16">
       <div class="w-full px-4 lg:w-1/3 lg:px-0 flex items-center justify-center">
         <Icon name="luggage-insurance" size={ 200 } />
       </div>
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <LastMitigations />
+        <LastPredictions />
       </div>
     </div>
   </div>
 
   <div class="min-h-screen w-full">
-    <Title class="text-center text-pretty my-8"> 📜 Historial de Mitigaciones 🏥 </Title>
-    <div class="w-full px-4 flex items-center justify-center">
+    <Title class="text-center text-pretty mt-16"> 📜 Historial de Predicciones 🏥 </Title>
+    <div class="w-full px-4 flex items-center justify-center mt-16">
       <p class="text-pretty text-[#5c4f3d] text-md max-w-[600px]">
-        En esta sección se muestra el historial de mitigaciones realizadas en el sistema.
-        La tabla muestra las mitigaciones desde las mas recientes hasta las mas antiguas.
+        En esta sección se muestra el historial de predicciones realizadas en el sistema.
+        La tabla muestra las predicciones desde las mas recientes hasta las mas antiguas.
       </p>
     </div>
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <AllMitigations />
+        <AllPredictions />
       </div>
     </div>
 
