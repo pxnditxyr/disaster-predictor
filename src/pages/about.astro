@@ -2,10 +2,30 @@
 import Layout from '@/modules/shared/layouts/Layout.astro'
 import Title from '@/modules/shared/components/ui/Title.astro'
 import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
+import AboutInfo from '@/modules/home/components/info/AboutInfo.astro'
+import LoadingPage from '@/modules/shared/components/ui/LoadingPage.astro'
+import Footer from '@/modules/shared/components/ui/Footer.astro'
+import ProfileCard from '@/modules/home/components/cards/ProfileCard.astro'
 
 ---
-
 <Layout>
+  <LoadingPage />
   <HomeNavbar />
   <Title> Sobre nosotros </Title>
+
+
+  <div class="pb-20">
+    <AboutInfo />
+  </div>
+
+
+  <div class="relative min-h-[50vh]">
+    <Title> Nuestro Equipo </Title>
+    <ProfileCard />
+  </div>
+
+  <div class="w-full mt-36">
+    <Footer />
+  </div>
 </Layout>
+

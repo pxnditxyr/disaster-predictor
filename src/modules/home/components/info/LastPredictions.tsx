@@ -70,38 +70,41 @@ export const LastPredictions = () => {
         <h2 className="text-2xl font-bold">Últimas Predicciones</h2>
       </section>
 
-      <section className="w-full overflow-x-auto max-w-[850px]">
+        <section className="w-full overflow-x-auto max-w-[850px]">
           <table className="w-full">
             <thead>
               <tr className="bg-[#B8d8d8]">
-                <th className="text-teal-700 text-left font-semibold py-4 px-4 first:rounded-tl-lg">Fecha</th>
+                <th className="text-teal-700 text-left font-semibold py-4 px-4 first:rounded-tl-lg">
+                  Fecha
+
+                </th>
                 <th className="text-teal-700 text-left font-semibold py-4 px-4">Región</th>
-                <th className="text-teal-700 text-left font-semibold py-4 px-4">Indicador de Peligro</th>
-                <th className="text-teal-700 text-left font-semibold py-4 px-4 last:rounded-tr-lg">Predicción</th>
+                <th className="text-teal-700 text-left font-semibold py-4 px-4">Predicción</th>
+                <th className="text-teal-700 text-left font-semibold py-4 px-4 last:rounded-tr-lg">Indicador de Peligro</th>
               </tr>
             </thead>
             <tbody>
               {
-                lastPredictions.map( ( prediction ) => {
-                  const styles = getRowStyles( prediction.dangerIndicator )
+              lastPredictions.map( ( prediction ) => {
+                const styles = getRowStyles( prediction.dangerIndicator )
                 return (
                   <tr
                     key={ prediction.id }
                     className={ `border-b transition-colors ${ styles.base }` }
                   >
-                    <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.date }</td>
-                    <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.region }</td>
-                    <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.prediction }</td>
-                    <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.dangerIndicator }</td>
-                  </tr>
+                      <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.date }</td>
+                      <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.region }</td>
+                      <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.prediction }</td>
+                      <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.dangerIndicator }</td>
+                    </tr>
                 )
-                } )
+              } )
             }
             </tbody>
           </table>
 
-      </section>
+        </section>
 
-    </article>
+      </article>
   )
 }

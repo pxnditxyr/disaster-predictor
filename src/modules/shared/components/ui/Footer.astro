@@ -1,20 +1,18 @@
 ---
+import { Icon } from 'astro-icon/components'
 
 const socialMedia = [
   {
-    name: 'X',
-    icon: '/icons/x.svg',
+    name: 'x',
     href:  'https://x.com/pxndxsyr',
   },
   {
-    name: 'Github',
-    icon: '/icons/github.svg',
+    name: 'github',
     href:  'https://github.com/pxndxsyr',
   },
 
   {
-    name: 'LinkedIn',
-    icon: '/icons/linkedin.svg',
+    name: 'linkedin',
     href:  'https://bo.linkedin.com/in/jose-enrique-ricaldi-7a9a98263',
   }
 ]
@@ -28,7 +26,7 @@ const socialMedia = [
     <!-- Social media icons container -->
     <div class="mb-6 flex justify-center space-x-2">
       {
-        socialMedia.map( ({ name, icon, href }) => (
+        socialMedia.map( ({ name, href }) => (
           <a
             href={ href }
             type="button"
@@ -36,7 +34,7 @@ const socialMedia = [
             data-twe-ripple-init
             target="_blank"
           >
-            <img src={ icon } alt={ name } class="w-5 h-5" />
+            <Icon name={ name } size={ 30 } />
           </a>
         ) )
       }

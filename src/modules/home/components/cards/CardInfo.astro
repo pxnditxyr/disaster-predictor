@@ -1,20 +1,26 @@
 ---
+import { Icon } from 'astro-icon/components'
 
 interface Props {
   title:       string
   description: string
-  imageUrl?:   string
+  icon?:       string
 }
 
-const { title, description, imageUrl = "/icons/storm.svg" } = Astro.props
+const { title, description, icon = "storm" } = Astro.props
 ---
 
-<article class="w-full sm:w-[300px] md:w-[350px] min-h-[300px] shadow-lg p-4 rounded-lg bg-[#FFF8E8]">
-  <section class="flex flex-col gap-4">
-    <img src={ imageUrl } alt="Tormenta" class="w-full h-32" />
-    <h2 class="text-pretty text-2xl font-bold"> { title } </h2>
-    <p class="text-sm text-pretty">
+<article class="w-full sm:w-[300px] md:w-[350px] min-h-[300px] shadow-2xl shadow-yellow-500 p-4 rounded-lg bg-[#FFF8E8]">
+  <section class="flex flex-col gap-4 items-center justify-center">
+    <Icon name={ icon } size={ 100 } class="text-pretty" />
+    <div class="w-full">
+      <h2 class="text-pretty text-2xl font-bold"> { title } </h2>
+    </div>
+  </section>
+  <section class="flex flex-col gap-2 mt-4">
+    <p class="text-sm text-pretty leading-7">
       { description }
     </p>
   </section>
+
 </article>

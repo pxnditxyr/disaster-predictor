@@ -5,12 +5,12 @@ const infoCards = [
   {
     title: '¿Qué es Disaster Predictor?',
     description: 'Bienvenido a DisasterPredictor, la innovadora aplicación web que aprovecha el poder de la IA para predecir, detectar y mitigar posibles desastres naturales.',
-    imageUrl: '/icons/storm.svg',
+    icon: 'storm',
   },
   {
     title: '¿Cómo funciona?',
     description: '🌍 Nuestras avanzadas redes neuronales analizan grandes volúmenes de datos para ofrecer alertas de posibles incidentes de desastres naturales 🚨, asegurando que las comunidades se mantengan seguras y preparadas.',
-    imageUrl: '/icons/emergency-kit.svg',
+    icon: 'emergency-kit',
   },
 ]
 ---
@@ -18,8 +18,8 @@ const infoCards = [
 <div class="mt-36" id="main-section">
   <div class="w-full flex flex-col justify-center items-center gap-12 md:flex-row px-8 sm:px-2">
     {
-      infoCards.map( ({ title, description, imageUrl  }) => (
-        <CardInfo title={ title } description={ description } imageUrl={ imageUrl } />
+      infoCards.map( ({ title, description, icon  }) => (
+        <CardInfo title={ title } description={ description } icon={ icon } />
       ) )
     }
   </div>
