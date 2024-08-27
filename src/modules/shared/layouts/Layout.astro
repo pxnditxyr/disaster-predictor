@@ -7,13 +7,14 @@ interface Props {
   image?:       string
   description?: string
   author?:      string
+  class?:       string
 }
 
 const {
   title = siteInfo.title,
   description = siteInfo.description,
   author = siteInfo.author,
-  image
+  image,
 } = Astro.props
 ---
 
@@ -36,7 +37,10 @@ const {
     <ViewTransitions />
 	</head>
 	<body>
-    <main class="w-full min-h-screen flex flex-col gap-6 items-center">
+    <main class:list={[
+      "w-full min-h-screen flex flex-col gap-6 items-center",
+      Astro.props.class
+    ]}>
       <slot />
     </main>
 	</body>

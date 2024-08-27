@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components'
+
+---
+
+<div class="flex justify-center items-center min-h-screen">
+  <div class="w-full max-w-2xl shadow-lg rounded-3xl p-8">
+    <div class="space-y-12">
+      <div class="text-3xl font-bold text-[#008B8B] text-center flex items-center justify-center">
+        Comunícate con nosotros ☎️
+      </div>
+      <div class="text-[#20B2AA] text-center text-lg font-semibold">
+        🐼 Completa el formulario para ponerte en contacto con nosotros 🐈
+      </div>
+    </div>
+    <div class="mt-12">
+      <form>
+        <div class="grid w-full items-center gap-8">
+          <div class="flex flex-col space-y-4">
+            <label for="nombre" class="text-[#008B8B] text-lg font-semibold flex items-center">
+              <Icon name="profile" size={ 24 } class="mr-2" />
+              Nombre
+            </label>
+            <input
+              id="nombre"
+              name="nombre"
+              placeholder="Tu nombre"
+              class="bg-[#F0FFFF] border-[#48D1CC] rounded-xl text-lg font-semibold px-4 py-3 focus:outline-[#20B2AA]"
+              title="Ejemplo: Juan Pérez"
+            />
+          </div>
+          <div class="flex flex-col space-y-4">
+            <label for="email" class="text-[#008B8B] text-lg font-semibold flex items-center">
+              <Icon name="mail" size={ 24 } class="mr-2" />
+              Correo electrónico
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="tu@email.com"
+              class="bg-[#F0FFFF] border-[#48D1CC] rounded-xl text-lg font-semibold px-4 py-3 focus:outline-[#20B2AA]"
+              title="Ejemplo: juan.perez@ejemplo.com"
+            />
+          </div>
+          <div class="flex flex-col space-y-4">
+            <label for="motivo" class="text-[#008B8B] text-lg font-semibold flex items-center">
+              <Icon name="category" size={ 24 } class="mr-2" />
+              Motivo de contacto
+            </label>
+            <select
+              name="motivo"
+              class="bg-[#F0FFFF] border-[#48D1CC] rounded-xl text-lg font-semibold px-4 py-3 focus:outline-[#20B2AA]"
+              title="Selecciona el motivo de tu contacto"
+            >
+              <option value="" disabled selected>Selecciona un motivo</option>
+              <option value="consulta">📝 Consulta general</option>
+              <option value="soporte">🛠️ Soporte técnico</option>
+              <option value="ventas">💼 Ventas</option>
+              <option value="otro">🔍 Otro</option>
+            </select>
+          </div>
+          <div class="flex flex-col space-y-4">
+            <label for="mensaje" class="text-[#008B8B] text-lg font-semibold flex items-center">
+              <Icon name="message" size={ 24 } class="mr-2" />
+              Mensaje
+            </label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              placeholder="Escribe tu mensaje aquí"
+              class="bg-[#F0FFFF] border-[#48D1CC] rounded-xl text-lg font-semibold px-4 py-3 min-h-[150px] focus:outline-[#20B2AA]"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="mt-8 w-full flex justify-end">
+      <button
+        type="submit"
+        class="bg-[#00CED1] hover:bg-[#20B2AA] text-white text-xl py-3 px-4 rounded-xl flex items-center justify-center gap-2"
+      >
+        <Icon name="send" size={ 35 } />
+        Enviar mensaje
+      </button>
+    </div>
+  </div>
+</div>

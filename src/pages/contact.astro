@@ -1,0 +1,31 @@
+---
+import Layout from '@/modules/shared/layouts/Layout.astro'
+import Title from '@/modules/shared/components/ui/Title.astro'
+import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
+import { Icon } from 'astro-icon/components'
+import Footer from '@/modules/shared/components/ui/Footer.astro'
+import ContactForm from '@/modules/home/components/forms/ContactForm.astro'
+
+---
+<Layout>
+  <HomeNavbar />
+
+  <Title class="text-center text-pretty mt-8"> Contáctanos 📬 </Title>
+
+  <div class="w-full flex flex-col justify-center items-center mt-12 gap-12 lg:flex-row lg:gap-4 px-8">
+    <div class="w-full px-6 lg:w-1/3 lg:px-0 flex flex-col justify-center items-center gap-12">
+      <Icon name="contact-notebook" size={ 300 } />
+      <p class="text-slate-800 text-pretty text-lg font-semibold max-w-[450px]">
+        "Tu opinión y necesidades son importantes para nosotros. No dudes en contactarnos para consultas, soporte técnico o cualquier otra solicitud. Estamos aquí para ayudarte."
+      </p>
+    </div>
+    <div class="w-full px-4 lg:w-2/3 lg:px-0">
+      <ContactForm />
+    </div>
+  </div>
+
+  <div class="w-full mt-36">
+    <Footer />
+  </div>
+</Layout>
+
