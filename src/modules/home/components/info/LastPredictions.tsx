@@ -7,51 +7,51 @@ export const LastPredictions = () => {
       date: '2024-08-25',
       region: 'Ninguna',
       prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'good'
+      dangerIndicator: 'nivel bajo'
     },
     {
       id: 2,
       date: '2024-08-25',
       region: 'Ninguna',
       prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'warning'
+      dangerIndicator: 'nivel moderado'
     },
     {
       id: 3,
       date: '2024-08-25',
       region: 'Ninguna',
       prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'danger'
+      dangerIndicator: 'nivel alto'
     },
     {
       id: 4,
       date: '2024-08-25',
       region: 'Ninguna',
       prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'good'
+      dangerIndicator: 'nivel bajo'
     },
     {
       id: 5,
       date: '2024-08-25',
       region: 'Ninguna',
       prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'warning'
+      dangerIndicator: 'nivel moderado'
     }
   ]
 
   const getRowStyles = ( dangerIndicator : string ) => {
     switch ( dangerIndicator ) {
-      case "good":
+      case "nivel bajo":
         return {
           base: "border-[#E6F2F2] hover:bg-[#F0F8F8]",
           text: "text-[#3A5F5F]"
         }
-      case "warning":
+      case "nivel moderado":
         return {
           base: "border-[#FFE0B2] bg-[#FFF3E0] hover:bg-[#FFE0B2]",
           text: "text-[#E65100]"
         }
-      case "danger":
+      case "nivel alto":
         return {
           base: "border-[#FFCCCB] bg-[#FFE5E5] hover:bg-[#FFD1D1]",
           text: "text-[#8B0000]"

@@ -37,7 +37,7 @@ export const mitigationActions : DisasterMitigation = {
     ]
   },
   'Incendios forestales': {
-    icon: 'no-water',
+    icon: 'forest-burn',
     actions: [
       'Gestión de combustibles: Reducir la cantidad de material inflamable en los bosques mediante técnicas como el desbroce controlado.',
       'Cinturones cortafuegos: Crear zonas despejadas de vegetación alrededor de áreas habitadas para prevenir la propagación de incendios.',
@@ -77,7 +77,7 @@ export const mitigationActions : DisasterMitigation = {
     ]
   },
   'Tormentas eléctricas y granizo': {
-    icon: 'no-water',
+    icon: 'thunderstorm',
     actions: [
       'Sistemas de protección de cultivos: Instalar redes y cubiertas en áreas agrícolas para proteger los cultivos del granizo.',
       'Mejoramiento de estructuras: Fortalecer techos y ventanas para resistir el impacto del granizo.',
@@ -86,28 +86,8 @@ export const mitigationActions : DisasterMitigation = {
       'Educación comunitaria: Informar a la población sobre las medidas de seguridad durante tormentas eléctricas y granizo.'
     ]
   },
-  'Erosión costera': {
-    icon: 'no-water',
-    actions: [
-      'Construcción de rompeolas y espigones: Instalar estructuras para reducir la energía de las olas y proteger las costas.',
-      'Reforestación de dunas: Plantar vegetación nativa en dunas para estabilizar el suelo y reducir la erosión.',
-      'Gestión sostenible de playas: Controlar las actividades humanas, como la construcción y el turismo, para minimizar la erosión.',
-      'Recuperación de playas: Implementar proyectos de relleno de arena para restaurar playas erosionadas.',
-      'Monitoreo continuo: Realizar estudios regulares para evaluar la tasa de erosión y la efectividad de las medidas de mitigación.'
-    ]
-  },
-  'Blanqueamiento de corales': {
-    icon: 'no-water',
-    actions: [
-      'Establecimiento de reservas marinas: Crear áreas protegidas donde la actividad humana esté restringida para permitir la recuperación de los corales.',
-      'Reducción de la contaminación: Implementar políticas para reducir la contaminación terrestre y marina que afecta la salud de los corales.',
-      'Monitoreo y restauración de corales: Utilizar técnicas de restauración, como la jardinería de corales, para rehabilitar los arrecifes dañados.',
-      'Educación y concienciación: Promover la protección de los corales a través de campañas educativas dirigidas a turistas y comunidades locales.',
-      'Investigación y desarrollo: Invertir en investigación para desarrollar variedades de corales resistentes al calor y otros estresores.'
-    ]
-  },
   'Desabastecimiento de agua': {
-    icon: 'no-water',
+    icon: 'faucet',
     actions: [
       'Optimización del uso del agua: Implementar tecnologías y prácticas que maximicen la eficiencia en el uso del agua en la agricultura, la industria y los hogares.',
       'Desalación de agua: Invertir en plantas desaladoras para convertir agua de mar en agua potable en regiones costeras.',
@@ -116,28 +96,28 @@ export const mitigationActions : DisasterMitigation = {
       'Protección de fuentes de agua: Implementar medidas para proteger los acuíferos y otras fuentes de agua dulce de la contaminación y la sobreexplotación.'
     ]
   },
-  'Plagas y enfermedades': {
-    icon: 'no-water',
-    actions: [
-      'Vigilancia epidemiológica: Monitorear y controlar la población de vectores y plagas mediante programas de salud pública.',
-      'Campañas de vacunación: Implementar campañas de vacunación y programas de control sanitario en regiones vulnerables.',
-      'Educación pública: Fomentar prácticas de higiene y prevención entre la población para reducir la propagación de enfermedades.',
-      'Control biológico: Utilizar métodos de control biológico para reducir la población de vectores y plagas.',
-      'Preparación y respuesta rápida: Establecer planes de contingencia y equipos de respuesta rápida para controlar brotes epidémicos.'
-    ]
-  },
-  'Salinización de suelos': {
-    icon: 'no-water',
-    actions: [
-      'Drenaje y lavado del suelo: Implementar sistemas de drenaje que ayuden a eliminar las sales acumuladas del suelo.',
-      'Uso de cultivos tolerantes a la sal: Introducir variedades de cultivos que sean resistentes a la salinidad en áreas afectadas.',
-      'Manejo adecuado del riego: Evitar el riego excesivo y utilizar técnicas de riego que minimicen la acumulación de sales.',
-      'Mejoras en la gestión del suelo: Aplicar enmiendas al suelo, como yeso, para mejorar su estructura y reducir la salinidad.',
-      'Monitoreo y manejo integrado: Realizar análisis regulares del suelo para monitorizar la salinidad y ajustar las prácticas agrícolas en consecuencia.'
-    ]
-  },
+  //'Plagas y enfermedades': {
+  //  icon: 'no-water',
+  //  actions: [
+  //    'Vigilancia epidemiológica: Monitorear y controlar la población de vectores y plagas mediante programas de salud pública.',
+  //    'Campañas de vacunación: Implementar campañas de vacunación y programas de control sanitario en regiones vulnerables.',
+  //    'Educación pública: Fomentar prácticas de higiene y prevención entre la población para reducir la propagación de enfermedades.',
+  //    'Control biológico: Utilizar métodos de control biológico para reducir la población de vectores y plagas.',
+  //    'Preparación y respuesta rápida: Establecer planes de contingencia y equipos de respuesta rápida para controlar brotes epidémicos.'
+  //  ]
+  //},
+  //'Salinización de suelos': {
+  //  icon: 'no-water',
+  //  actions: [
+  //    'Drenaje y lavado del suelo: Implementar sistemas de drenaje que ayuden a eliminar las sales acumuladas del suelo.',
+  //    'Uso de cultivos tolerantes a la sal: Introducir variedades de cultivos que sean resistentes a la salinidad en áreas afectadas.',
+  //    'Manejo adecuado del riego: Evitar el riego excesivo y utilizar técnicas de riego que minimicen la acumulación de sales.',
+  //    'Mejoras en la gestión del suelo: Aplicar enmiendas al suelo, como yeso, para mejorar su estructura y reducir la salinidad.',
+  //    'Monitoreo y manejo integrado: Realizar análisis regulares del suelo para monitorizar la salinidad y ajustar las prácticas agrícolas en consecuencia.'
+  //  ]
+  //},
   'Impactos en la producción agrícola': {
-    icon: 'no-water',
+    icon: 'stock-out',
     actions: [
       'Diversificación de cultivos: Fomentar la diversificación de cultivos para reducir la dependencia de un solo tipo de cultivo susceptible a El Niño.',
       'Rotación de cultivos: Implementar la rotación de cultivos para mejorar la salud del suelo y reducir la susceptibilidad a plagas y enfermedades.',
@@ -147,7 +127,7 @@ export const mitigationActions : DisasterMitigation = {
     ]
   },
   'Alteraciones en los patrones de migración de especies': {
-    icon: 'no-water',
+    icon: 'toucan-tropical',
     actions: [
       'Creación de corredores biológicos: Establecer corredores naturales que faciliten el movimiento y la migración de especies en respuesta a cambios ambientales.',
       'Protección de hábitats críticos: Identificar y proteger los hábitats esenciales para las especies migratorias durante eventos de El Niño.',
@@ -156,34 +136,4 @@ export const mitigationActions : DisasterMitigation = {
       'Investigación y adaptación: Fomentar la investigación sobre los impactos de El Niño en la migración de especies y adaptar las estrategias de conservación en consecuencia.'
     ]
   },
-  'Avalanchas de nieve': {
-    icon: 'no-water',
-    actions: [
-      'Monitoreo continuo: Utilizar radares, sensores y estaciones meteorológicas para monitorear las condiciones de nieve y prever posibles avalanchas.',
-      'Estabilización de pendientes: Implementar técnicas de estabilización, como la instalación de barreras y redes, para prevenir el deslizamiento de nieve.',
-      'Control preventivo: Realizar detonaciones controladas para desencadenar pequeñas avalanchas en condiciones seguras, reduciendo el riesgo de grandes eventos.',
-      'Educación y preparación: Capacitar a las comunidades y visitantes en áreas montañosas sobre los riesgos y las medidas de seguridad ante avalanchas.',
-      'Planificación del uso del suelo: Evitar la construcción de infraestructuras en zonas de alto riesgo de avalanchas y establecer rutas seguras.'
-    ]
-  },
-  'Desbordamiento de glaciares': {
-    icon: 'no-water',
-    actions: [
-      'Monitoreo de glaciares: Utilizar tecnologías satelitales y estaciones de monitoreo para vigilar el estado de los glaciares y predecir desbordamientos.',
-      'Drenaje controlado: Implementar sistemas de drenaje en lagos glaciares para reducir el volumen de agua acumulada y el riesgo de desbordamiento.',
-      'Planes de evacuación: Establecer y practicar planes de evacuación en comunidades situadas aguas abajo de glaciares susceptibles de desbordarse.',
-      'Construcción de diques: Construir diques y otras estructuras de contención para controlar el flujo de agua en caso de desbordamiento.',
-      'Investigación y modelado: Realizar estudios y modelado para predecir el comportamiento de los glaciares y las posibles consecuencias de su desbordamiento.'
-    ]
-  },
-  'Tsunamis': {
-    icon: 'no-water',
-    actions: [
-      'Sistemas de alerta temprana: Implementar y mantener sistemas de alerta temprana que puedan detectar terremotos submarinos y avisar sobre posibles tsunamis.',
-      'Educación y simulacros: Realizar campañas educativas y simulacros regulares en comunidades costeras para prepararse ante la posibilidad de un tsunami.',
-      'Construcción resistente: Diseñar infraestructuras costeras que puedan resistir el impacto de un tsunami, incluyendo edificios elevados y resistentes.',
-      'Zonificación y planificación costera: Restringir la construcción en áreas de alto riesgo de tsunamis y establecer zonas de evacuación seguras.',
-      'Barreras naturales y artificiales: Desarrollar barreras naturales, como manglares, y artificiales, como muros de contención, para mitigar el impacto de las olas de tsunami.'
-    ]
-  }
 }

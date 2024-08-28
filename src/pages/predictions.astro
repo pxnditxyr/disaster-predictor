@@ -9,6 +9,7 @@ import { AllPredictions } from '@/modules/home/components/info/AllPredictions.ts
 
 
 import { mitigationActions } from '@/constants/mitigations-data'
+import { disastersCatalogue } from '@/data/natural-disasters.data'
 
 ---
 
@@ -54,25 +55,19 @@ import { mitigationActions } from '@/constants/mitigations-data'
 
 
   <div class="pb-20">
-    <Title class="text-center text-pretty my-12"> 🛡️ Acciones de Mitigación 🏥 </Title>
+    <Title class="text-center text-pretty my-12"> ⛈️ Tipos de Desastres Naturales 🌋 </Title>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12 px-8">
       {
-        Object.entries( mitigationActions ).map( ([ disaster, data ]) => (
+        Object.entries( disastersCatalogue ).map( ([ disaster, data ]) => (
           <div class="bg-[#faf3e0] border-[#d2b48c] p-4 rounded-xl shadow-lg shadow-[#f0e6d2] border-2">
             <div class="flex flex-row items-center space-x-4 pb-2">
               <Icon name={ data.icon } size={ 60 } />
-              <div class="text-xl font-semibold text-[#8B4513]">{disaster}</div>
+              <div class="text-xl font-semibold text-[#8B4513]">{ disaster }</div>
             </div>
             <div>
-              <ul class="list-disc pl-5 space-y-2">
-                {
-                  data.actions.map( ( action ) => (
-                    <li class="text-sm text-[#5c4f3d]">
-                      { action }
-                    </li>
-                  )  )
-                }
-              </ul>
+              <p class="text-[#5c4f3d] text-md font-semibold text-pretty">
+                { data.description }
+              </p>
             </div>
           </div>
         ) )
