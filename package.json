@@ -17,6 +17,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@auth/core": "^0.32.0",
     "@fontsource/abel": "^5.0.13",
+    "@iconify-json/mdi": "^1.2.1",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.14.5",

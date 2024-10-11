@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components'
+const { isLoggedIn, user } = Astro.locals;
 
 interface Props {
   links: {
@@ -16,7 +17,7 @@ const currentPath = Astro.url.pathname
 const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md font-medium flex flex-col items-center gap-2 capitalize'
 ---
 
-<nav class="bg-white shadow-md w-full">
+<nav class="bg-white shadow-md w-full relative">
   <div class="flex items-center justify-center">
     <div class="flex items-center justify-center gap-4">
       {
@@ -51,6 +52,8 @@ const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 
         ) )
       }
 
+      {
+       ( !isLoggedIn ) && (
       <a
         href={ '/login' }
         class={`
@@ -61,21 +64,45 @@ const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 
         <Icon name={ 'engineer' } size={ 24 } class="text-yellow-500" />
         <span class="text-xs"> Iniciar Sesión </span>
         {
-          ( currentPath === '/login' ) ? (
-            <div
-              class="border-yellow-500 border-b-4 w-full"
-              transition:name="menu-bar"
-            ></div>
-          ) : (
-            <div
-              class="border-transparent border-b-4 w-full"
-            ></div>
-          )
+        ( currentPath === '/login' ) ? (
+        <div
+          class="border-yellow-500 border-b-4 w-full"
+          transition:name="menu-bar"
+        ></div>
+        ) : (
+        <div
+          class="border-transparent border-b-4 w-full"
+        ></div>
+        )
         }
       </a>
+      )
+      }
+
     </div>
-    <div class="flex items-center justify-center gap-4">
-      </a>
-    </div>
+    {
+      ( isLoggedIn ) && (
+      <div class="absolute right-4 top-4">
+        <button
+          class="text-xs hover:bg-red-600 hover:text-white py-2 px-4 rounded-full flex items-center transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+          id="logout"
+        >
+          <Icon name="mdi:logout" class="w-5 h-5 mr-2" />
+          Cerrar Sesión
+        </button>
+      </div>
+      )
+    }
   </div>
 </nav>
+
+<script>
+  const { signOut } = await import( 'auth-astro/client' )
+
+  const logoutElement = document.querySelector( '#logout' ) as HTMLLIElement
+
+  logoutElement.addEventListener('click', async () => {
+    await signOut()
+    window.location.href = '/login'
+  });
+</script>

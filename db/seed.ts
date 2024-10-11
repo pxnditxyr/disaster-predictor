@@ -36,7 +36,7 @@ export default async function seed() {
       id: 2,
       name: "Desborde de rio",
       description: "El desborde de río se produce cuando el caudal de un río excede su capacidad de contención, provocando que el agua se desborde de sus márgenes y se extienda sobre áreas adyacentes. Este fenómeno suele estar asociado a lluvias intensas, rápidos deshielos o bloqueos naturales o artificiales que impiden el flujo normal del agua. Las inundaciones resultantes pueden causar daños considerables a viviendas, cultivos, infraestructuras y ecosistemas, además de poner en riesgo la vida de las personas y animales que habitan en las zonas ribereñas.",
-      icon: "flood"
+      icon: "landslide"
     },
     {
       id: 4,
@@ -48,55 +48,55 @@ export default async function seed() {
       id: 5,
       name: "Granizada",
       description: "La granizada es un fenómeno meteorológico que se caracteriza por la caída de bolas de hielo, conocidas como granizo, desde las nubes durante tormentas eléctricas intensas. El tamaño y la frecuencia del granizo pueden variar, y en casos extremos, puede causar daños considerables a cultivos agrícolas, vehículos, edificaciones y otras infraestructuras. Además, las granizadas pueden representar un riesgo para la seguridad de las personas y los animales, especialmente cuando ocurren de manera repentina y en áreas densamente pobladas.",
-      icon: "hail"
+      icon: "landslide"
     },
     {
       id: 6,
       name: "Granizada e inundación",
       description: "La combinación de granizada e inundación ocurre cuando una tormenta intensa produce tanto granizo como lluvias torrenciales, llevando a un rápido aumento del nivel de los ríos y al desbordamiento de cuerpos de agua. Esta situación puede amplificar los daños causados por cada fenómeno por separado, afectando gravemente la agricultura, las infraestructuras, y poniendo en peligro la vida y la propiedad. Además, la saturación del suelo por las lluvias intensas puede dificultar la recuperación de los daños causados por el granizo, complicando aún más las labores de mitigación y reparación.",
-      icon: "hail"
+      icon: "landslide"
     },
     {
       id: 7,
       name: "Inundaciones",
       description: "La inundación es un evento natural en el que el agua cubre áreas que normalmente están secas, ya sea de manera temporal o prolongada. Las inundaciones pueden ser causadas por lluvias intensas, desbordes de ríos, tsunamis, marejadas ciclónicas o fallos en infraestructuras de contención como diques y presas. Este desastre puede tener efectos devastadores en comunidades, provocando la destrucción de viviendas, cultivos, infraestructura, así como la pérdida de vidas humanas y animales. Además, las inundaciones pueden facilitar la propagación de enfermedades y contaminar fuentes de agua potable.",
-      icon: ''
+      icon: "landslide"
     },
     {
       id: 8,
       name: "Riada",
       description: "Una riada es una crecida rápida y violenta de un río, generalmente causada por lluvias intensas, deshielos rápidos o bloqueos que impiden el flujo normal del agua. A diferencia de las inundaciones graduales, las riadas se desarrollan de manera súbita, dejando poco tiempo para la evacuación y aumentando el riesgo de daños materiales y pérdidas humanas. Las riadas pueden causar el colapso de infraestructuras, la destrucción de puentes y carreteras, y afectar gravemente a las comunidades ribereñas, además de interrumpir el suministro de servicios básicos como agua, electricidad y comunicaciones.",
-      icon: ''
+      icon: "landslide"
     },
     {
       id: 9,
       name: "Incendios forestales",
       description: "Las condiciones secas provocadas por las sequías asociadas a El Niño aumentan el riesgo de incendios forestales en áreas vulnerables, destruyendo grandes extensiones de vegetación y poniendo en peligro a las poblaciones.",
-      icon: ''
+      icon: "landslide"
     },
     {
       id: 10,
       name: "Huracanes y ciclones tropicales",
       description: "El Niño puede alterar los patrones de formación de huracanes y ciclones. En el Pacífico oriental, la actividad ciclónica aumenta, mientras que en el Atlántico la actividad de huracanes tiende a disminuir.",
-      icon: ''
+      icon: "landslide"
     },
     {
       id: 11,
       name: "Ondas de calor",
       description: "Las condiciones secas y cálidas asociadas a El Niño pueden llevar a episodios de calor extremo, afectando la salud pública, la agricultura y el consumo de energía.",
-      icon: ''
+      icon: "landslide"
     },
     {
       id: 12,
       name: "Alteraciones en la pesca y ecosistemas marinos",
       description: "El calentamiento de las aguas del océano Pacífico durante El Niño afecta los ecosistemas marinos, alterando la disponibilidad de recursos pesqueros y causando mortalidad en especies marinas sensibles.",
-      icon: ''
+      icon: "landslide"
     },
     {
       id: 13,
       name: "Tormentas eléctricas y granizo",
       description: "Las anomalías climáticas asociadas a El Niño pueden intensificar las tormentas eléctricas y dar lugar a tormentas severas de granizo, que pueden dañar cultivos, viviendas y vehículos.",
-      icon: '',
+      icon: "landslide",
     },
     {
       id: 14,

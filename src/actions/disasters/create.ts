@@ -2,7 +2,7 @@ import { defineAction } from 'astro:actions'
 import { db, DisasterType } from 'astro:db'
 import { z } from 'astro:schema'
 
-export const signupUser = defineAction({
+export const createDisasterType = defineAction({
   accept: 'form',
   input: z.object({
     name: z.string().min( 2, { message: '👤 El nombre debe tener al menos 2 caracteres.' } ),

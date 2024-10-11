@@ -1,0 +1,162 @@
+
+---
+import { Icon } from 'astro-icon/components'
+import DashboardLayout from '@/modules/dashboard/layouts/DashboardLayout.astro'
+import Title from '@/modules/shared/components/ui/Title.astro'
+import { actions } from 'astro:actions'
+
+
+const { data, error } = await actions.getDisasterType({})
+const disasters = data?.disasterTypes
+---
+
+<DashboardLayout>
+  <div class="container mx-auto p-8">
+    <Title class="text-center text-pretty my-8"> 📜 Dashboard - Administrador 🧗  </Title>
+    <div class="bg-cream-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-extrabold text-coffee-800 mb-8 text-center">
+          Gestor de Desastres Naturales 🌎
+        </h1>
+
+        <div class="bg-white rounded-xl shadow-2xl p-8 mb-12">
+          <h2 class="text-2xl font-bold text-coffee-700 mb-6 flex items-center">
+            <Icon name="mdi:form-textbox" class="w-8 h-8 mr-2 text-teal-500" />
+            Nuevo Desastre
+          </h2>
+          <form class="space-y-6">
+            <div class="flex space-x-4">
+              <div class="flex-1">
+                <label for="name" class="block text-sm font-medium text-coffee-600 mb-1">Nombre del Desastre</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+                  placeholder="Ej: Tsunami"
+                />
+              </div>
+              <div class="w-24">
+                <label for="emoji" class="block text-sm font-medium text-coffee-600 mb-1">Emoji</label>
+                <input
+                  id="emoji"
+                  name="emoji"
+                  type="text"
+                  required
+                  class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+                  placeholder="🌊"
+                />
+              </div>
+            </div>
+            <div>
+              <label for="description" class="block text-sm font-medium text-coffee-600 mb-1">Descripción</label>
+              <textarea
+                id="description"
+                name="description"
+                required
+                class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+                placeholder="Describe brevemente este tipo de desastre"
+              ></textarea>
+            </div>
+            <div>
+              <label for="icon" class="block text-sm font-medium text-coffee-600 mb-1">Icono (nombre del icono de Material Design)</label>
+              <input
+                id="icon"
+                name="icon"
+                type="text"
+                required
+                class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+                placeholder="Ej: mdi:tsunami"
+              />
+            </div>
+            <div class="flex justify-end space-x-3">
+              <button
+                type="button"
+                class="px-4 py-2 border border-coffee-300 text-coffee-700 rounded-md hover:bg-cream-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              >
+                Limpiar
+              </button>
+              <button
+                type="submit"
+                class="px-4 py-2 border border-transparent text-white bg-teal-600 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              >
+                Guardar Desastre
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* Lista de Desastres */}
+        <div class="bg-white rounded-xl shadow-2xl p-8">
+          <h2 class="text-2xl font-bold text-coffee-700 mb-6 flex items-center">
+            <Icon name="mdi:list-status" class="w-8 h-8 mr-2 text-teal-500" />
+            Lista de Desastres Naturales
+          </h2>
+          <ul class="space-y-4">
+      {
+        ( disasters ) && (
+        disasters.map( ( disaster : any ) => (
+        <li class="bg-cream-50 rounded-lg p-4 flex items-center justify-between transition duration-300 ease-in-out transform hover:scale-102 hover:shadow-md">
+          <div class="flex items-center space-x-4">
+            <div class="text-4xl" role="img" aria-label={disaster.name}>
+              {disaster.emoji}
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-coffee-700 flex items-center">
+                <Icon name={disaster.icon} class="w-6 h-6 mr-2 text-teal-500" />
+                {disaster.name}
+              </h3>
+              <p class="text-coffee-600 mt-1">{disaster.description}</p>
+            </div>
+          </div>
+          <div class="flex space-x-2">
+            <button
+              class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out"
+              aria-label={`Editar ${disaster.name}`}
+            >
+              <Icon name="mdi:pencil" class="w-5 h-5" />
+            </button>
+            <button
+              class="p-2 text-red-600 hover:bg-red-100 rounded-full transition duration-300 ease-in-out"
+              aria-label={`Eliminar ${disaster.name}`}
+            >
+              <Icon name="mdi:delete" class="w-5 h-5" />
+            </button>
+          </div>
+        </li>
+      ) )
+        )
+      }
+    </ul>
+        </div>
+      </div>
+    </div>
+</DashboardLayout>
+
+<style>
+  /* Definición de colores personalizados */
+  :root {
+    --color-coffee-100: #E6D7C3;
+    --color-coffee-600: #6F4E37;
+    --color-coffee-800: #3C2A21;
+    --color-cream-100: #FFF8E7;
+    --color-cream-200: #FFE6B3;
+    --color-teal-500: #14B8A6;
+  }
+
+  /* Clases de utilidad para los colores personalizados */
+  .bg-coffee-100 { background-color: var(--color-coffee-100); }
+  .bg-coffee-600 { background-color: var(--color-coffee-600); }
+  .text-coffee-600 { color: var(--color-coffee-600); }
+  .text-coffee-800 { color: var(--color-coffee-800); }
+  .bg-cream-100 { background-color: var(--color-cream-100); }
+  .bg-cream-50 { background-color: #FFF8E7; }
+  .text-cream-100 { color: var(--color-cream-100); }
+  .text-cream-200 { color: var(--color-cream-200); }
+  .bg-teal-500 { background-color: var(--color-teal-500); }
+  .text-teal-500 { color: var(--color-teal-500); }
+  .text-red-500 { color: #EF4444; }
+  .bg-red-500 { background-color: #EF4444; }
+  .hover\:bg-red-600:hover { background-color: #DC2626; }
+</style>
