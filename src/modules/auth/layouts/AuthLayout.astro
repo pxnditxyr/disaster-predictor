@@ -1,0 +1,50 @@
+---
+import { ViewTransitions } from 'astro:transitions'
+import { siteInfo } from '@/constants/site-info'
+
+interface Props {
+  title?: string
+  image?: string
+  description?: string
+  author?: string
+  class?: string
+}
+
+const {
+  title = siteInfo.title,
+  description = siteInfo.description,
+  author = siteInfo.author,
+  image,
+} = Astro.props
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={ Astro.generator } />
+
+    <meta name="description" content={ description } />
+    <meta name="author" content={ author } />
+
+    <meta property="og:title" content={ title } />
+    <meta property="og:description" content={ description } />
+    <meta property="og:image" content={ image } />
+
+    <title> { title } </title>
+
+    <ViewTransitions />
+	</head>
+  <body>
+    <main class:list={[
+      'w-full min-h-screen flex flex-col items-center gap-6',
+      Astro.props.class
+    ]}>
+      <div class="flex flex-col items-center justify-center gap-4 w-full min-h-screen ">
+        <slot />
+      </div>
+    </main>
+  </body>
+</html>

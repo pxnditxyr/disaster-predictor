@@ -50,6 +50,32 @@ const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 
           </a>
         ) )
       }
+
+      <a
+        href={ '/login' }
+        class={`
+          ${ anchorClasses }
+          ${ currentPath === '/login' ? 'bg-gray-100 text-gray-900' : '' }
+        `}
+      >
+        <Icon name={ 'engineer' } size={ 24 } class="text-yellow-500" />
+        <span class="text-xs"> Iniciar Sesión </span>
+        {
+          ( currentPath === '/login' ) ? (
+            <div
+              class="border-yellow-500 border-b-4 w-full"
+              transition:name="menu-bar"
+            ></div>
+          ) : (
+            <div
+              class="border-transparent border-b-4 w-full"
+            ></div>
+          )
+        }
+      </a>
+    </div>
+    <div class="flex items-center justify-center gap-4">
+      </a>
     </div>
   </div>
 </nav>
