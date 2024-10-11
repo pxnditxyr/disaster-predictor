@@ -1,43 +1,22 @@
+import type { IPrediction } from "@/interfaces"
+import { getPredictions } from "@/utils"
+import { useEffect, useState } from "react"
 
 export const LastPredictions = () => {
 
-  const lastPredictions = [
-    {
-      id: 1,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'nivel bajo'
-    },
-    {
-      id: 2,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'nivel moderado'
-    },
-    {
-      id: 3,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'nivel alto'
-    },
-    {
-      id: 4,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'nivel bajo'
-    },
-    {
-      id: 5,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      prediction: 'Ningun desastre naturale relacionado con el Fenomeno del Niño',
-      dangerIndicator: 'nivel moderado'
+  const [ predictions, setPredictions ] = useState<IPrediction[] | null>(null)
+
+  useEffect( () => {
+    const fetchPredictions = async () => {
+      const currentDate = new Date().toISOString().split( 'T' )[ 0 ]
+      const data = await getPredictions( currentDate )
+      if ( data ) {
+        setPredictions( data.predictions )
+      }
     }
-  ]
+    fetchPredictions()
+  }, [] )
+
 
   const getRowStyles = ( dangerIndicator : string ) => {
     switch ( dangerIndicator ) {
@@ -84,21 +63,31 @@ export const LastPredictions = () => {
               </tr>
             </thead>
             <tbody>
-              {
-              lastPredictions.map( ( prediction ) => {
-                const styles = getRowStyles( prediction.dangerIndicator )
-                return (
-                  <tr
-                    key={ prediction.id }
-                    className={ `border-b transition-colors ${ styles.base }` }
-                  >
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.date }</td>
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.region }</td>
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.prediction }</td>
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.dangerIndicator }</td>
-                    </tr>
+            {
+              ( predictions === null ) ? (
+                <tr>
+                  <td colSpan={ 4 }>
+                    <div className="flex justify-center items-center">
+                      Por favor, espera un momento...
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                  predictions.map( ( prediction ) => {
+                    const styles = getRowStyles( prediction.dangerIndicator )
+                    return (
+                      <tr
+                        key={ prediction.id }
+                        className={ `border-b transition-colors ${ styles.base }` }
+                      >
+                        <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.date }</td>
+                        <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.region }</td>
+                        <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.prediction }</td>
+                        <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.dangerIndicator }</td>
+                      </tr>
+                    )
+                  } )
                 )
-              } )
             }
             </tbody>
           </table>

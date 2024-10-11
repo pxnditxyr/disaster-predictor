@@ -1,43 +1,21 @@
+import type { IPrediction } from "@/interfaces"
+import { getPredictions } from "@/utils"
+import { useEffect, useState } from "react"
 
 export const LastMitigations = () => {
 
-  const lastMitigations = [
-    {
-      id: 1,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      dangerIndicator: 'nivel bajo',
-      mitigation: 'Ninguna acción de mitigación necesaria'
-    },
-    {
-      id: 2,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      dangerIndicator: 'nivel moderado',
-      mitigation: 'Ninguna acción de mitigación necesaria'
-    },
-    {
-      id: 3,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      dangerIndicator: 'nivel alto',
-      mitigation: 'Ninguna acción de mitigación necesaria'
-    },
-    {
-      id: 4,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      dangerIndicator: 'nivel bajo',
-      mitigation: 'Ninguna acción de mitigación necesaria'
-    },
-    {
-      id: 5,
-      date: '2024-08-25',
-      region: 'Ninguna',
-      dangerIndicator: 'nivel moderado',
-      mitigation: 'Ninguna acción de mitigación necesaria'
+  const [ predictions, setPredictions ] = useState<IPrediction[] | null>( null )
+  const [ date, setDate ] = useState<string>( new Date().toISOString().split( 'T' )[ 0 ] )
+
+  useEffect( () => {
+    const fetchPredictions = async () => {
+      const data = await getPredictions( date )
+      if ( data ) {
+        setPredictions( data.predictions )
+      }
     }
-  ]
+    fetchPredictions()
+  }, [ date ] )
 
   const getRowStyles = ( dangerIndicator : string ) => {
     switch ( dangerIndicator ) {

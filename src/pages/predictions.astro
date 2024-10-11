@@ -7,8 +7,6 @@ import { Icon } from 'astro-icon/components'
 import { LastPredictions } from '@/modules/home/components/info/LastPredictions.tsx'
 import { AllPredictions } from '@/modules/home/components/info/AllPredictions.tsx'
 
-
-import { mitigationActions } from '@/constants/mitigations-data'
 import { disastersCatalogue } from '@/data/natural-disasters.data'
 
 ---
@@ -32,22 +30,22 @@ import { disastersCatalogue } from '@/data/natural-disasters.data'
         <Icon name="luggage-insurance" size={ 200 } />
       </div>
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <LastPredictions />
+        <LastPredictions client:only="react" />
       </div>
     </div>
   </div>
 
   <div class="min-h-screen w-full">
-    <Title class="text-center text-pretty mt-16"> 📜 Historial de Predicciones 🏥 </Title>
+    <Title class="text-center text-pretty mt-16"> 📜 Generar predicciones anteriores 🏥 </Title>
     <div class="w-full px-4 flex items-center justify-center mt-16">
       <p class="text-pretty text-[#5c4f3d] text-md max-w-[600px]">
-        En esta sección se muestra el historial de predicciones realizadas en el sistema.
-        La tabla muestra las predicciones desde las mas recientes hasta las mas antiguas.
+        En esta sección se muestra las predicciones de la fecha que elijas.
+        La tabla muestra las predicciones desde las mas antiguas hasta las mas recientes.
       </p>
     </div>
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <AllPredictions />
+        <AllPredictions client:only="react" />
       </div>
     </div>
 

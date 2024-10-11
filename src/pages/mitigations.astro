@@ -23,7 +23,7 @@ import { mitigationActions } from '@/constants/mitigations-data'
         <Icon name="luggage-insurance" size={ 200 } />
       </div>
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <LastMitigations />
+        <LastMitigations client:only="react" />
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@ import { mitigationActions } from '@/constants/mitigations-data'
     </div>
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <AllMitigations />
+        <AllMitigations client:only="react" />
       </div>
     </div>
 

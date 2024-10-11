@@ -15,13 +15,12 @@ import { HomeMap } from '@/modules/home/components/maps/HomeMap.tsx'
 
   <Title class="text-center text-pretty mt-8"> 🚨 Disaster Predictor 🌍 </Title>
 
-
   <div class="w-full flex flex-col justify-center items-center mt-12 gap-12 lg:flex-row lg:gap-4 px-4">
     <div class="w-full px-4 lg:w-2/3 lg:px-0">
-      <LastPredictions />
+      <LastPredictions client:only="react" />
     </div>
     <div class="w-full px-4 lg:w-1/3 lg:px-0">
-      <HomeMap client:only />
+      <HomeMap client:only="react" />
     </div>
   </div>
 
