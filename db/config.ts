@@ -31,7 +31,7 @@ const MitigationAction = defineTable({
     id: column.number({ primaryKey: true }),
     description: column.text(),
     actionList:  column.text(),
-    objectives: column.text(),
+    objectives: column.text({ optional: true }),
     disasterTypeId: column.number({ references: () => DisasterType.columns.id }),
     riskLevel: column.number(),
     icon: column.text({ optional: true }),

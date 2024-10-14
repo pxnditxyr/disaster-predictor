@@ -118,48 +118,51 @@ const { disasterTypes } = data
 import { actions } from 'astro:actions'
 import Swal from 'sweetalert2'
 
-const deleteButtons = document.querySelectorAll( '.delete-button' )
 
-deleteButtons.forEach( ( button ) => {
-  button.addEventListener( 'click', async ( e ) => {
+document.addEventListener( 'astro:page-load', () => {
+  const deleteButtons = document.querySelectorAll( '.delete-button' )
 
-    const id = Number( button.getAttribute( 'data-id' ) )
-    const currentStatus = button.getAttribute( 'current-status' ) === 'true'
+  deleteButtons.forEach( ( button ) => {
+    button.addEventListener( 'click', async ( e ) => {
 
-    if ( !id ) return
+      const id = Number( button.getAttribute( 'data-id' ) )
+      const currentStatus = button.getAttribute( 'current-status' ) === 'true'
 
-    const { error } = await actions.toggleStatusDisasterType( { id, currentStatus } )
+      if ( !id ) return
 
-    if ( error ) {
+      const { error } = await actions.toggleStatusDisasterType( { id, currentStatus } )
 
-      Swal.fire( {
-        icon: 'error',
-        title: 'Error al eliminar el desastre',
-        text: 'No se pudo eliminar el desastre. Por favor, inténtelo de nuevo.',
-      } )
-      return
-    }
+      if ( error ) {
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Estado del desastre actualizado',
-      text: `El desastre ha sido marcado como ${ !currentStatus ? 'Activo' : 'Inactivo' }`,
-    })
+        Swal.fire( {
+          icon: 'error',
+          title: 'Error al eliminar el desastre',
+          text: 'No se pudo eliminar el desastre. Por favor, inténtelo de nuevo.',
+        } )
+        return
+      }
 
-    button.setAttribute( 'current-status', ( !currentStatus ).toString() )
+      Swal.fire({
+        icon: 'success',
+        title: 'Estado del desastre actualizado',
+        text: `El desastre ha sido marcado como ${ !currentStatus ? 'Activo' : 'Inactivo' }`,
+      })
 
-    const listItem = button.closest( 'li' )
-    if ( !listItem ) return
+      button.setAttribute( 'current-status', ( !currentStatus ).toString() )
 
-    const spanStatusActive = listItem.querySelector('.text-green-500')
-    const spanStatusInactive = listItem.querySelector('.text-red-500')
+      const listItem = button.closest( 'li' )
+      if ( !listItem ) return
 
-    if ( spanStatusActive ) {
-      spanStatusActive.classList.toggle( 'hidden', currentStatus )
-    }
-    if ( spanStatusInactive ) {
-      spanStatusInactive.classList.toggle( 'hidden', !currentStatus )
-    }
+      const spanStatusActive = listItem.querySelector('.text-green-500')
+      const spanStatusInactive = listItem.querySelector('.text-red-500')
+
+      if ( spanStatusActive ) {
+        spanStatusActive.classList.toggle( 'hidden', currentStatus )
+      }
+      if ( spanStatusInactive ) {
+        spanStatusInactive.classList.toggle( 'hidden', !currentStatus )
+      }
+    } )
   } )
 } )
 

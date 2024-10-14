@@ -85,9 +85,11 @@ const {
   </div>
 </DashboardLayout>
 <script>
-const backButton = document.querySelector( '#back-button' ) as HTMLButtonElement
+document.addEventListener( 'astro:page-load', () => {
+  const backButton = document.querySelector( '#back-button' ) as HTMLButtonElement
 
-backButton.addEventListener( 'click', async () => {
-  window.history.back()
+  backButton.addEventListener( 'click', async () => {
+    window.history.back()
+  } )
 } )
 </script>

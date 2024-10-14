@@ -101,34 +101,36 @@ import { actions } from 'astro:actions'
 import { getErrorMessage } from '@/utils'
 import Swal from 'sweetalert2'
 
-const form = document.querySelector( '#form' ) as HTMLFormElement
-const submitButton = document.querySelector( 'button' ) as HTMLButtonElement
+document.addEventListener( 'astro:page-load', () => {
+  const form = document.querySelector( '#form' ) as HTMLFormElement
+  const submitButton = document.querySelector( 'button' ) as HTMLButtonElement
 
-form.addEventListener( 'submit', async ( event ) => {
-  event.preventDefault()
-  submitButton.disabled = true
+  form.addEventListener( 'submit', async ( event ) => {
+    event.preventDefault()
+    submitButton.disabled = true
 
-  const formData = new FormData( form )
+    const formData = new FormData( form )
 
-  const { error } = await actions.createDisasterType( formData )
+    const { error } = await actions.createDisasterType( formData )
 
-  if ( error ) {
+    if ( error ) {
 
-    const errorMessage = getErrorMessage( error )
+      const errorMessage = getErrorMessage( error )
 
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: errorMessage,
-    })
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: errorMessage,
+      })
 
-    submitButton.disabled = false
-    return
-  }
+      submitButton.disabled = false
+      return
+    }
 
-  window.location.href = '/dashboard/disasters'
+    window.location.href = '/dashboard/disasters'
+  } )
+
 } )
-
 
 </script>
 <style>

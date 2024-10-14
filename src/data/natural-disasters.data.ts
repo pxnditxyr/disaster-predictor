@@ -36,14 +36,6 @@ export const disastersCatalogue = {
     description: "La combinación de sequías prolongadas y una mala gestión de los recursos hídricos durante El Niño puede provocar crisis de agua potable, afectando tanto a las comunidades urbanas como rurales.",
     icon: "faucet"
   },
-  //"Plagas y enfermedades": {
-  //  description: "Las condiciones climáticas alteradas por El Niño favorecen la propagación de plagas y enfermedades, como el dengue, la malaria y el zika, debido a cambios en la distribución de los vectores.",
-  //  icon: "🦟"
-  //},
-  //"Salinización de suelos": {
-  //  description: "En áreas costeras, la intrusión de agua salina debido a las marejadas provocadas por El Niño puede salinizar los suelos agrícolas, reduciendo su productividad y afectando la seguridad alimentaria.",
-  //  icon: "🏝️"
-  //},
   "Impactos en la producción agrícola": {
     description: "El Niño altera los patrones de lluvias y las temperaturas, afectando negativamente los ciclos de cultivo, lo que provoca la pérdida de cosechas y el aumento de la inseguridad alimentaria.",
     icon: "stock-out"
@@ -52,16 +44,4 @@ export const disastersCatalogue = {
     description: "Los cambios en las corrientes oceánicas y las temperaturas alteran los patrones de migración de muchas especies marinas y terrestres, afectando la biodiversidad y la disponibilidad de recursos alimentarios.",
     icon: "toucan-tropical"
   },
-  //"Avalanchas de nieve": {
-  //  description: "En regiones montañosas, las anomalías en los patrones de nevadas y deshielos causadas por El Niño pueden desencadenar avalanchas de nieve, poniendo en riesgo vidas e infraestructuras.",
-  //  icon: "🏔️"
-  //},
-  //"Desbordamiento de glaciares": {
-  //  description: "El calentamiento de las temperaturas y los cambios en las precipitaciones durante El Niño pueden acelerar el deshielo de los glaciares, lo que puede llevar a desbordamientos de lagos glaciares e inundaciones repentinas.",
-  //  icon: "🌊"
-  //},
-  //"Tsunamis": {
-  //  description: "Aunque El Niño no causa directamente tsunamis, los cambios en las tensiones tectónicas por la redistribución de masas de agua en los océanos pueden desencadenar terremotos submarinos que provocan tsunamis.",
-  //  icon: "🌊"
-  //}
 };

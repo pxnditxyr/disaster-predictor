@@ -99,10 +99,12 @@ const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 
 <script>
   const { signOut } = await import( 'auth-astro/client' )
 
-  const logoutElement = document.querySelector( '#logout' ) as HTMLLIElement
+  document.addEventListener( 'astro:page-load', () => {
+    const logoutElement = document.querySelector( '#logout' ) as HTMLLIElement
 
-  logoutElement.addEventListener('click', async () => {
-    await signOut()
-    window.location.href = '/login'
-  });
+    logoutElement.addEventListener( 'click', async () => {
+      await signOut()
+      window.location.href = '/login'
+    } );
+  })
 </script>
