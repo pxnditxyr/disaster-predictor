@@ -110,7 +110,7 @@ export default async function seed() {
   //interface IDisasterMitigation {
   //  id: number
   //  description: string
-  //  actions: string
+  //  actionList: string
   //  objectives: string
   //  disasterType: number
   //  riskLevel: number
@@ -121,533 +121,533 @@ export default async function seed() {
     {
       id: 1,
       description: "Implementar racionamiento de agua",
-      actions: [
+      actionList: [
         "Limitar la duración de las duchas",
         "Restringir el riego de jardines a horarios específicos",
         "Suspender el lavado de vehículos"
       ].join(', '),
       objectives: "Reducir el consumo de agua en actividades no esenciales",
-      disasterType: 1,
+      disasterTypeId: 1,
       riskLevel: 3,
-      icon: "water-rationing-icon"
+      icon: "faucet"
     },
     {
       id: 2,
       description: "Reparación rápida de infraestructuras de agua",
-      actions: [
+      actionList: [
         "Inspeccionar redes de distribución",
         "Arreglar fugas y roturas identificadas",
         "Optimizar el uso del agua disponible"
       ].join(', '),
       objectives: "Maximizar la disponibilidad de agua y prevenir pérdidas adicionales",
-      disasterType: 1,
+      disasterTypeId: 1,
       riskLevel: 2,
-      icon: "infrastructure-repair-icon"
+      icon: "faucet"
     },
     {
       id: 3,
       description: "Distribución de agua de emergencia",
-      actions: [
+      actionList: [
         "Establecer puntos de distribución estratégicos",
         "Movilizar camiones cisterna",
         "Instalar estaciones temporales de distribución"
       ].join(', '),
       objectives: "Asegurar el acceso a agua potable para toda la población",
-      disasterType: 1,
+      disasterTypeId: 1,
       riskLevel: 2,
-      icon: "emergency-water-distribution-icon"
+      icon: "faucet"
     },
     {
       id: 4,
       description: "Campañas de concientización sobre el uso responsable del agua",
-      actions: [
+      actionList: [
         "Difundir información a través de medios locales y redes sociales",
         "Promover prácticas de ahorro de agua en hogares e industrias",
         "Educar sobre la reutilización del agua para riego de plantas"
       ].join(', '),
       objectives: "Fomentar el uso responsable y sostenible del agua",
-      disasterType: 1,
+      disasterTypeId: 1,
       riskLevel: 1,
-      icon: "awareness-campaign-icon"
+      icon: "faucet"
     },
     {
       id: 5,
       description: "Promover el almacenamiento de agua de lluvia",
-      actions: [
+      actionList: [
         "Instalar sistemas temporales de recolección de agua",
         "Utilizar tanques portátiles o barriles para almacenar agua de lluvia",
         "Distribuir materiales necesarios para la recolección"
       ].join(', '),
       objectives: "Aumentar la disponibilidad de agua para usos no potables",
-      disasterType: 1,
+      disasterTypeId: 1,
       riskLevel: 2,
-      icon: "rainwater-collection-icon"
+      icon: "faucet"
     },
 
 
     {
       id: 6,
       description: "Evacuación de zonas de riesgo",
-      actions: [
+      actionList: [
         "Desalojar rápidamente a las personas de áreas propensas",
         "Establecer rutas de evacuación claras",
         "Proveer medios de transporte seguros"
       ].join(', '),
       objectives: "Proteger vidas humanas evitando la presencia en áreas inestables",
-      disasterType: 2,
+      disasterTypeId: 2,
       riskLevel: 3,
-      icon: "evacuation-icon"
+      icon: "faucet"
     },
     {
       id: 7,
       description: "Monitoreo intensivo del terreno",
-      actions: [
+      actionList: [
         "Instalar sensores móviles para detectar movimientos del suelo",
         "Realizar inspecciones visuales frecuentes",
         "Analizar datos para prever posibles derrumbes"
       ].join(', '),
       objectives: "Detectar movimientos inusuales y actuar preventivamente",
-      disasterType: 2,
+      disasterTypeId: 2,
       riskLevel: 2,
-      icon: "monitoring-icon"
+      icon: "faucet"
     },
     {
       id: 8,
       description: "Instalación de barreras temporales",
-      actions: [
+      actionList: [
         "Colocar sacos de arena en áreas críticas",
         "Utilizar materiales como madera para estabilizar el terreno",
         "Implementar barreras de retención temporales"
       ].join(', '),
       objectives: "Estabilizar el suelo y prevenir deslizamientos inmediatos",
-      disasterType: 2,
+      disasterTypeId: 2,
       riskLevel: 1,
-      icon: "temporary-barriers-icon"
+      icon: "faucet"
     },
     {
       id: 9,
       description: "Refuerzo de estructuras temporales",
-      actions: [
+      actionList: [
         "Instalar geotextiles en taludes inestables",
         "Colocar soportes metálicos para proporcionar estabilidad",
         "Reforzar áreas vulnerables con materiales de soporte"
       ].join(', '),
       objectives: "Proveer estabilidad adicional a estructuras y taludes",
-      disasterType: 2,
+      disasterTypeId: 2,
       riskLevel: 2,
-      icon: "structural-reinforcement-icon"
+      icon: "faucet"
     },
     {
       id: 10,
       description: "Despejar vegetación y obstáculos",
-      actions: [
+      actionList: [
         "Remover árboles y ramas que contribuyen al peso del suelo",
         "Eliminar escombros que puedan desestabilizar el terreno",
         "Mantener libres las áreas propensas a derrumbes"
       ].join(', '),
       objectives: "Reducir la carga sobre el suelo y prevenir desencadenantes externos",
-      disasterType: 2,
+      disasterTypeId: 2,
       riskLevel: 1,
-      icon: "vegetation-clearing-icon"
+      icon: "faucet"
     },
 
 
     {
       id: 11,
       description: "Evacuación de áreas vulnerables",
-      actions: [
+      actionList: [
         "Identificar comunidades cercanas al río en riesgo",
         "Organizar traslados seguros a zonas alejadas",
         "Proveer asistencia durante la evacuación"
       ].join(', '),
       objectives: "Proteger vidas humanas evacuando zonas en riesgo de desborde",
-      disasterType: 3,
+      disasterTypeId: 3,
       riskLevel: 3,
-      icon: "river-evacuation-icon"
+      icon: "faucet"
     },
     {
       id: 12,
       description: "Construcción de barreras temporales",
-      actions: [
+      actionList: [
         "Levantamiento de diques de emergencia",
         "Uso de sacos de arena para contener el flujo de agua",
         "Instalación de barreras portátiles en puntos críticos"
       ].join(', '),
       objectives: "Contener el flujo de agua y prevenir el desbordamiento",
-      disasterType: 3,
+      disasterTypeId: 3,
       riskLevel: 2,
-      icon: "temporary-barriers-river-icon"
+      icon: "faucet"
     },
     {
       id: 13,
       description: "Activación de sistemas de alerta",
-      actions: [
+      actionList: [
         "Emitir alertas a través de medios de comunicación",
         "Enviar notificaciones vía mensajes de texto y aplicaciones móviles",
         "Informar sobre medidas preventivas a la población"
       ].join(', '),
-      objectives: "Informar a la comunidad sobre el riesgo inminente para tomar actions preventivas",
-      disasterType: 3,
+      objectives: "Informar a la comunidad sobre el riesgo inminente para tomar actionList preventivas",
+      disasterTypeId: 3,
       riskLevel: 1,
-      icon: "alert-system-icon"
+      icon: "faucet"
     },
     {
       id: 14,
       description: "Despeje de canales y alcantarillas",
-      actions: [
+      actionList: [
         "Limpiar riberas de ríos y canales",
         "Eliminar obstrucciones en sistemas de drenaje",
         "Mejorar el flujo del agua para reducir presión sobre el río"
       ].join(', '),
       objectives: "Facilitar el flujo del agua y prevenir desbordes por obstrucciones",
-      disasterType: 3,
+      disasterTypeId: 3,
       riskLevel: 2,
-      icon: "drainage-clearing-icon"
+      icon: "faucet"
     },
     {
       id: 15,
       description: "Coordinación con equipos de respuesta",
-      actions: [
+      actionList: [
         "Preparar equipos de emergencia para actuar rápidamente",
         "Asignar roles y responsabilidades claras",
         "Coordinar recursos para una respuesta eficiente"
       ].join(', '),
       objectives: "Asegurar una respuesta rápida y organizada ante el desborde",
-      disasterType: 3,
+      disasterTypeId: 3,
       riskLevel: 1,
-      icon: "response-coordination-icon"
+      icon: "faucet"
     },
 
 
     {
       id: 16,
       description: "Evacuación inmediata de zonas de riesgo",
-      actions: [
+      actionList: [
         "Desalojar urgentemente áreas identificadas como altamente susceptibles",
         "Establecer puntos de reunión seguros",
         "Proveer transporte adecuado para la evacuación"
       ].join(', '),
       objectives: "Proteger vidas humanas desalojando áreas en riesgo inminente",
-      disasterType: 4,
+      disasterTypeId: 4,
       riskLevel: 3,
-      icon: "landslide-evacuation-icon"
+      icon: "faucet"
     },
     {
       id: 17,
       description: "Refuerzo de taludes",
-      actions: [
+      actionList: [
         "Aplicar mantas de retención en taludes inestables",
         "Instalar geotextiles para proporcionar estabilidad",
         "Colocar soportes temporales para prevenir el deslizamiento"
       ].join(', '),
       objectives: "Proveer estabilidad adicional al terreno para prevenir deslizamientos",
-      disasterType: 4,
+      disasterTypeId: 4,
       riskLevel: 2,
-      icon: "slope-reinforcement-icon"
+      icon: "faucet"
     },
     {
       id: 18,
       description: "Control del agua en el área",
-      actions: [
+      actionList: [
         "Instalar sistemas de drenaje temporales",
         "Mejorar el drenaje existente para reducir la acumulación de agua",
         "Regular el flujo de agua para evitar la saturación del suelo"
       ].join(', '),
       objectives: "Prevenir la saturación del suelo que puede desencadenar deslizamientos",
-      disasterType: 4,
+      disasterTypeId: 4,
       riskLevel: 1,
-      icon: "water-control-icon"
+      icon: "faucet"
     },
     {
       id: 19,
       description: "Inspección y mantenimiento de infraestructuras",
-      actions: [
+      actionList: [
         "Revisar puentes y carreteras cercanas a taludes",
         "Asegurar que las edificaciones no contribuyan a la inestabilidad del terreno",
         "Realizar reparaciones rápidas en infraestructuras dañadas"
       ].join(', '),
       objectives: "Garantizar la seguridad de las infraestructuras y prevenir su contribución a deslizamientos",
-      disasterType: 4,
+      disasterTypeId: 4,
       riskLevel: 2,
-      icon: "infrastructure-inspection-icon"
+      icon: "faucet"
     },
     {
       id: 20,
       description: "Comunicación y educación rápida",
-      actions: [
+      actionList: [
         "Informar a la población sobre señales de alerta de deslizamientos",
         "Capacitar sobre procedimientos de seguridad",
         "Distribuir materiales educativos sobre prevención de deslizamientos"
       ].join(', '),
       objectives: "Empoderar a la comunidad para actuar de manera adecuada ante señales de riesgo",
-      disasterType: 4,
+      disasterTypeId: 4,
       riskLevel: 1,
-      icon: "education-communication-icon"
+      icon: "faucet"
     },
 
     {
       id: 21,
       description: "Instalación de redes anti-granizo en áreas agrícolas",
-      actions: [
+      actionList: [
         "Colocar coberturas protectoras sobre cultivos vulnerables",
         "Distribuir redes anti-granizo a agricultores",
         "Instalar estructuras temporales para sostener las redes"
       ].join(', '),
       objectives: "Minimizar el daño a los cultivos causado por el granizo",
-      disasterType: 5,
+      disasterTypeId: 5,
       riskLevel: 3,
-      icon: "hail-protection-icon"
+      icon: "faucet"
     },
     {
       id: 22,
       description: "Protección de infraestructuras",
-      actions: [
+      actionList: [
         "Asegurar techos y ventanas de edificios",
         "Instalar láminas protectoras temporales",
         "Reparar estructuras vulnerables rápidamente"
       ].join(', '),
       objectives: "Minimizar daños materiales en edificaciones causados por el granizo",
-      disasterType: 5,
+      disasterTypeId: 5,
       riskLevel: 2,
-      icon: "infrastructure-protection-icon"
+      icon: "faucet"
     },
     {
       id: 23,
       description: "Cobertura de vehículos",
-      actions: [
+      actionList: [
         "Proteger vehículos con lonas",
         "Trasladar vehículos a garajes o estacionamientos cubiertos",
         "Utilizar protectores específicos para parabrisas y carrocerías"
       ].join(', '),
       objectives: "Prevenir daños en vehículos debido al impacto del granizo",
-      disasterType: 5,
+      disasterTypeId: 5,
       riskLevel: 1,
-      icon: "vehicle-coverage-icon"
+      icon: "faucet"
     },
     {
       id: 24,
       description: "Refuerzo de sistemas de alerta",
-      actions: [
+      actionList: [
         "Activar sistemas de monitoreo meteorológico",
         "Verificar el funcionamiento de alarmas y notificaciones",
         "Emitir alertas tempranas sobre la proximidad de granizadas"
       ].join(', '),
       objectives: "Informar oportunamente a la población sobre la amenaza de granizadas",
-      disasterType: 5,
+      disasterTypeId: 5,
       riskLevel: 2,
-      icon: "alert-system-hail-icon"
+      icon: "faucet"
     },
     {
       id: 25,
       description: "Distribución de materiales de protección",
-      actions: [
+      actionList: [
         "Proveer lonas, mallas y coberturas temporales a agricultores y propietarios",
         "Distribuir kits de protección para cultivos y edificaciones",
         "Facilitar el acceso a materiales necesarios para proteger propiedades"
       ].join(', '),
       objectives: "Asegurar que las comunidades tengan los recursos necesarios para protegerse del granizo",
-      disasterType: 5,
+      disasterTypeId: 5,
       riskLevel: 1,
-      icon: "protection-materials-icon"
+      icon: "faucet"
     },
 
     {
       id: 26,
       description: "Evacuación de zonas de alto riesgo",
-      actions: [
+      actionList: [
         "Identificar áreas vulnerables a ambos fenómenos",
         "Organizar traslados seguros a zonas alejadas",
         "Proveer asistencia durante la evacuación"
       ].join(', '),
       objectives: "Proteger vidas humanas desalojando áreas en riesgo de granizada e inundación",
-      disasterType: 6,
+      disasterTypeId: 6,
       riskLevel: 3,
-      icon: "combined-evacuation-icon"
+      icon: "faucet"
     },
     {
       id: 27,
       description: "Fortalecimiento de barreras temporales",
-      actions: [
+      actionList: [
         "Utilizar sacos de arena para proteger áreas propensas a inundaciones",
         "Instalar barreras portátiles que también protejan contra granizadas",
         "Reforzar diques de emergencia para contener el agua"
       ].join(', '),
       objectives: "Contener el agua y proteger infraestructuras contra ambos fenómenos",
-      disasterType: 6,
+      disasterTypeId: 6,
       riskLevel: 2,
-      icon: "combined-barriers-icon"
+      icon: "faucet"
     },
     {
       id: 28,
       description: "Activación de planes de emergencia integrados",
-      actions: [
-        "Coordinar actions para enfrentar granizadas e inundaciones simultáneamente",
+      actionList: [
+        "Coordinar actionList para enfrentar granizadas e inundaciones simultáneamente",
         "Movilizar equipos de rescate y recursos necesarios",
         "Establecer comunicación constante con la población sobre las medidas a seguir"
       ].join(', '),
       objectives: "Asegurar una respuesta cohesiva y eficiente ante ambos desastres",
-      disasterType: 6,
+      disasterTypeId: 6,
       riskLevel: 1,
-      icon: "emergency-plan-icon"
+      icon: "faucet"
     },
     {
       id: 29,
       description: "Protección de infraestructuras críticas",
-      actions: [
+      actionList: [
         "Asegurar instalaciones eléctricas y sanitarias",
         "Instalar coberturas protectoras sobre equipos esenciales",
         "Reforzar estructuras para mantener servicios vitales operativos"
       ].join(', '),
       objectives: "Mantener servicios esenciales durante y después de los desastres",
-      disasterType: 6,
+      disasterTypeId: 6,
       riskLevel: 2,
-      icon: "critical-infrastructure-protection-icon"
+      icon: "faucet"
     },
     {
       id: 30,
       description: "Comunicación efectiva y continua",
-      actions: [
+      actionList: [
         "Mantener informada a la población a través de múltiples canales",
         "Proveer actualizaciones regulares sobre el desarrollo de los eventos",
         "Instruir sobre medidas preventivas y procedimientos de seguridad"
       ].join(', '),
       objectives: "Garantizar que la población esté preparada para actuar de manera adecuada y oportuna",
-      disasterType: 6,
+      disasterTypeId: 6,
       riskLevel: 1,
-      icon: "effective-communication-icon"
+      icon: "faucet"
     },
 
 
     {
       id: 31,
       description: "Evacuación de zonas vulnerables",
-      actions: [
+      actionList: [
         "Organizar la evacuación inmediata de áreas bajas propensas a inundaciones",
         "Establecer rutas de evacuación claras y seguras",
         "Proveer medios de transporte adecuados para la evacuación"
       ].join(', '),
       objectives: "Proteger vidas humanas desalojando áreas en riesgo de inundación",
-      disasterType: 7,
+      disasterTypeId: 7,
       riskLevel: 3,
-      icon: "flood-evacuation-icon"
+      icon: "faucet"
     },
     {
       id: 32,
       description: "Construcción de barreras temporales",
-      actions: [
+      actionList: [
         "Levantamiento de diques de emergencia",
         "Uso de barreras portátiles para contener el flujo de agua",
         "Instalación de sacos de arena en puntos críticos"
       ].join(', '),
       objectives: "Contener el flujo de agua y proteger áreas habitadas de la inundación",
-      disasterType: 7,
+      disasterTypeId: 7,
       riskLevel: 2,
-      icon: "flood-barriers-icon"
+      icon: "faucet"
     },
     {
       id: 33,
       description: "Despeje de canales y sistemas de drenaje",
-      actions: [
+      actionList: [
         "Limpiar y desobstruir alcantarillas, canales y drenajes",
         "Eliminar escombros que puedan bloquear el flujo del agua",
         "Mantener sistemas de drenaje eficientes para facilitar el desagüe"
       ].join(', '),
       objectives: "Mejorar el flujo del agua y reducir la posibilidad de desbordes",
-      disasterType: 7,
+      disasterTypeId: 7,
       riskLevel: 1,
-      icon: "drainage-clearance-icon"
+      icon: "faucet"
     },
     {
       id: 34,
       description: "Protección de infraestructuras y propiedades",
-      actions: [
+      actionList: [
         "Elevar objetos de valor y equipamiento",
         "Asegurar edificaciones con materiales impermeables",
         "Instalar elevaciones temporales para instalaciones críticas"
       ].join(', '),
       objectives: "Prevenir daños materiales y asegurar la funcionalidad de infraestructuras esenciales",
-      disasterType: 7,
+      disasterTypeId: 7,
       riskLevel: 2,
-      icon: "infrastructure-protection-flood-icon"
+      icon: "faucet"
     },
     {
       id: 35,
       description: "Activación de equipos de respuesta rápida",
-      actions: [
+      actionList: [
         "Desplegar personal y recursos para la mitigación",
         "Coordinar esfuerzos de rescate y asistencia",
         "Proveer apoyo logístico a las comunidades afectadas"
       ].join(', '),
       objectives: "Asegurar una respuesta eficiente y coordinada ante la inundación",
-      disasterType: 7,
+      disasterTypeId: 7,
       riskLevel: 1,
-      icon: "rapid-response-icon"
+      icon: "faucet"
     },
 
     {
       id: 36,
       description: "Evacuación preventiva",
-      actions: [
+      actionList: [
         "Desalojar rápidamente las zonas más afectadas por la riada",
         "Identificar y movilizar a los residentes de áreas críticas",
         "Establecer puntos de reunión seguros antes de que la riada alcance su punto máximo"
       ].join(', '),
       objectives: "Proteger vidas humanas mediante la evacuación anticipada",
-      disasterType: 8,
+      disasterTypeId: 8,
       riskLevel: 3,
-      icon: "flood-wave-evacuation-icon"
+      icon: "faucet"
     },
     {
       id: 37,
       description: "Construcción de barreras temporales",
-      actions: [
+      actionList: [
         "Utilizar sacos de arena para contener el flujo de agua",
         "Levantamiento de diques de emergencia",
         "Instalar barreras portátiles en áreas propensas a inundación"
       ].join(', '),
       objectives: "Contener el flujo de agua y prevenir inundaciones severas",
-      disasterType: 8,
+      disasterTypeId: 8,
       riskLevel: 2,
-      icon: "riad-barriers-icon"
+      icon: "faucet"
     },
     {
       id: 38,
       description: "Protección de infraestructuras críticas",
-      actions: [
+      actionList: [
         "Asegurar puentes y carreteras cercanas al río",
         "Instalar coberturas protectoras sobre edificaciones cercanas",
         "Reforzar estructuras existentes para resistir el flujo de agua"
       ].join(', '),
       objectives: "Mantener operativas las infraestructuras esenciales durante la riada",
-      disasterType: 8,
+      disasterTypeId: 8,
       riskLevel: 1,
-      icon: "critical-infrastructure-riad-icon"
+      icon: "faucet"
     },
     {
       id: 39,
       description: "Monitoreo intensivo de niveles de agua",
-      actions: [
+      actionList: [
         "Vigilar constantemente los niveles de los ríos mediante estaciones móviles",
         "Analizar datos en tiempo real para prever crecidas",
         "Actualizar pronósticos y alertas basadas en el monitoreo continuo"
       ].join(', '),
       objectives: "Prever crecidas del río y tomar decisiones informadas para mitigar el impacto",
-      disasterType: 8,
+      disasterTypeId: 8,
       riskLevel: 2,
-      icon: "water-level-monitoring-icon"
+      icon: "faucet"
     },
     {
       id: 40,
       description: "Activación de alertas tempranas",
-      actions: [
+      actionList: [
         "Informar a la población sobre el aumento del caudal del río",
         "Emitir alertas a través de medios de comunicación locales y dispositivos móviles",
         "Proveer instrucciones claras sobre medidas preventivas a seguir"
       ].join(', '),
       objectives: "Permitir que las personas tomen medidas preventivas y se preparen para la evacuación si es necesario",
-      disasterType: 8,
+      disasterTypeId: 8,
       riskLevel: 1,
-      icon: "early-warning-alert-icon"
+      icon: "faucet"
     }
   ];
 

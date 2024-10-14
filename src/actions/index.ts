@@ -7,7 +7,11 @@ import {
 } from './disasters'
 
 import {
-  getMitigationActions
+  createMitigationAction,
+  toggleStatusMitigationAction,
+  findAllMitigationActions,
+  findOneMitigationAction,
+  updateMitigationAction
 } from './mitigations'
 
 import { findAllOurIcons } from './our-icons'
@@ -20,7 +24,11 @@ export const server = {
   toggleStatusDisasterType,
 
   // Mitigations
-  getMitigationActions,
+  createMitigationAction,
+  toggleStatusMitigationAction,
+  findAllMitigationActions,
+  findOneMitigationAction,
+  updateMitigationAction,
 
   // Icons
   findAllOurIcons,

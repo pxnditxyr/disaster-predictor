@@ -30,13 +30,14 @@ const MitigationAction = defineTable({
   columns: {
     id: column.number({ primaryKey: true }),
     description: column.text(),
-    actions:  column.text(),
+    actionList:  column.text(),
     objectives: column.text(),
-    disasterType: column.number({ references: () => DisasterType.columns.id }),
+    disasterTypeId: column.number({ references: () => DisasterType.columns.id }),
     riskLevel: column.number(),
     icon: column.text({ optional: true }),
     address: column.text({ optional: true }),
     safetyLevel: column.number({ optional: true }),
+    imageUrl: column.text({ optional: true }),
 
     createdAt: column.date({ default: new Date() }),
     updatedAt: column.date({ default: new Date() }),

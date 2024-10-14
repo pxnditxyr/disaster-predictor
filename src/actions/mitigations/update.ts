@@ -1,23 +1,35 @@
 import { defineAction } from 'astro:actions'
-import { db, DisasterType, eq } from 'astro:db'
+import { db, eq, MitigationAction } from 'astro:db'
 import { z } from 'astro:schema'
 
-export const updateDisasterType = defineAction({
+export const updateMitigationAction = defineAction({
   accept: 'form',
   input: z.object({
-    id: z.number({ message: 'Parece que el ID no es válido.' } ),
-    name: z.string().min( 2, { message: '👤 El nombre debe tener al menos 2 caracteres.' } ),
     description: z.string().min( 2, { message: '📝 La descripción debe tener al menos 2 caracteres.' } ),
-    icon: z.string({ message: '📸 La imagen debe ser una URL válida.' } ),
+    actionList: z.string().min( 2, { message: '👤 Las acciones deben tener al menos 2 caracteres.' } ),
+    objectives: z.string().min( 2, { message: '📝 La descripción debe tener al menos 2 caracteres.' } ),
+    disasterTypeId: z.number({ message: '📝 La descripción debe tener al menos 2 caracteres.' } ),
+    riskLevel: z.number({ message: '📝 La descripción debe tener al menos 2 caracteres.' } ),
+    icon: z.string({ message: '📸 La imagen debe ser una URL válida.' } ).optional(),
+    address: z.string({ message: '📸 La imagen debe ser una URL válida.' } ).optional(),
+    safetyLevel: z.number({ message: '📝 La descripción debe tener al menos 2 caracteres.' } ).optional(),
+    imageUrl: z.string({ message: '📸 La imagen debe ser una URL válida.' } ).optional(),
+    id: z.number({ message: 'Parece que el ID no es válido.' } ),
   }),
-  handler: async ( { name, description, icon, id }, { cookies } ) => {
-    await db.update( DisasterType ).set({
-      name,
+  handler: async ( { description, actionList, objectives, disasterTypeId, riskLevel, icon, address, safetyLevel, imageUrl, id } ) => {
+    await db.update( MitigationAction ).set({
       description,
+      actionList,
+      objectives,
+      disasterTypeId,
+      riskLevel,
       icon,
+      address,
+      safetyLevel,
+      imageUrl,
     }).where(
-      eq( DisasterType.id, id )
-    )
+      eq( MitigationAction.id, id )
+    );
 
     return {
       success: true,

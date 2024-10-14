@@ -1,5 +1,5 @@
 import { defineAction } from 'astro:actions'
-import { asc, db, desc, DisasterType } from 'astro:db'
+import { db, desc, DisasterType } from 'astro:db'
 
 export const findAllDisasterTypes = defineAction({
   accept: 'json',
