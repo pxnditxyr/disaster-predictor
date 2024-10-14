@@ -66,7 +66,7 @@ export const LastPredictions = () => {
             {
               ( predictions === null ) ? (
                 <tr>
-                  <td colSpan={ 4 }>
+                  <td colSpan={ 4 } className="bg-orange-200 p-4 rounded-bl-lg rounded-br-lg">
                     <div className="flex justify-center items-center">
                       Por favor, espera un momento...
                     </div>

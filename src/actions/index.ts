@@ -1,8 +1,27 @@
-import { createDisasterType, deleteDisasterType, getDisasterType, updateDisasterType } from './disasters'
+import {
+  createDisasterType,
+  toggleStatusDisasterType,
+  findAllDisasterTypes,
+  findOneDisasterType,
+  updateDisasterType
+} from './disasters'
+
+import {
+  getMitigationActions
+} from './mitigations'
+
+import { findAllOurIcons } from './our-icons'
 
 export const server = {
-  getDisasterType,
+  findOneDisasterType,
+  findAllDisasterTypes,
   createDisasterType,
   updateDisasterType,
-  deleteDisasterType,
+  toggleStatusDisasterType,
+
+  // Mitigations
+  getMitigationActions,
+
+  // Icons
+  findAllOurIcons,
 }

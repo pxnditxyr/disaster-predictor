@@ -1,8 +1,9 @@
-import { db, DisasterType, MitigationAction, Role, User } from 'astro:db'
+import { db, DisasterType, MitigationAction, OurIcons, Role, User } from 'astro:db'
 import { v4 as uuid } from 'uuid'
 import bcryptjs from 'bcryptjs'
 
 // https://astro.build/db/seed
+// TODO: move independently
 export default async function seed() {
   const roles = [
     { id: 'admin', name: 'Admin' },
@@ -106,16 +107,17 @@ export default async function seed() {
     }
   ]
 
-  interface IDisasterMitigation {
-    id: number
-    description: string
-    actions: string
-    objectives: string
-    disasterType: number
-    riskLevel: number
-    icon: string
-  }
-  const mitigationActions : IDisasterMitigation[] = [
+  //interface IDisasterMitigation {
+  //  id: number
+  //  description: string
+  //  actions: string
+  //  objectives: string
+  //  disasterType: number
+  //  riskLevel: number
+  //  icon: string
+  //
+  //}
+  const mitigationActions = [
     {
       id: 1,
       description: "Implementar racionamiento de agua",
@@ -649,10 +651,62 @@ export default async function seed() {
     }
   ];
 
-
+  const icons = [
+    "about",
+    "black-cat-statue",
+    "briefcase",
+    "category",
+    "contact-notebook",
+    "contact",
+    "crystal-ball"    ,
+    "date",
+    "emergency-kit",
+    "engineer",
+    "facebook",
+    "faucet",
+    "fishing",
+    "forest-burn",
+    "github",
+    "google",
+    "heat-wave",
+    "history",
+    "home",
+    "hurricane",
+    "instagram",
+    "landslide",
+    "linkedin",
+    "luggage-insurance",
+    "mail",
+    "message",
+    "mitigations",
+    "no-water",
+    "profile",
+    "rain",
+    "rocket",
+    "scientist",
+    "send",
+    "shield",
+    "starfall",
+    "stock-out",
+    "storm",
+    "thunderstorm",
+    "toucan-tropical",
+    "twitch",
+    "view-hide",
+    "view-show",
+    "x"
+  ]
 
   await db.insert( Role ).values( roles )
   await db.insert( User ).values( users )
   await db.insert( DisasterType ).values( disasterTypes )
   await db.insert( MitigationAction ).values( mitigationActions )
+  await db.insert( OurIcons ).values(
+    icons.map( ( icon, index ) => {
+      return {
+        id: index,
+        name: icon
+      }
+    } )
+  )
 }
