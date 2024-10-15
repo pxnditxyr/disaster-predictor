@@ -1,15 +1,16 @@
 ---
+import { actions } from 'astro:actions'
+import { Icon } from 'astro-icon/components'
+
+import { LastMitigations } from '@/modules/home/components/info/LastMitigations.tsx'
+import { AllMitigations } from '@/modules/home/components/info/AllMitigations.tsx'
 import Layout from '@/modules/shared/layouts/Layout.astro'
 import Title from '@/modules/shared/components/ui/Title.astro'
 import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
 import Footer from '@/modules/shared/components/ui/Footer.astro'
-import { Icon } from 'astro-icon/components'
-import { LastMitigations } from '@/modules/home/components/info/LastMitigations.tsx'
-import { AllMitigations } from '@/modules/home/components/info/AllMitigations.tsx'
 
 import { getRiskLevelColor, getRiskLevelName } from '@/utils'
 
-import { actions } from 'astro:actions'
 
 const { data: mitigationActionsData, error: findMitigationActionsError } = await actions.findAllMitigationActions({})
 const { data: disasterTypesData, error: findOneError } = await actions.findAllDisasterTypes()

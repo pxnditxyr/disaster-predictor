@@ -3,7 +3,16 @@ import { Icon } from 'astro-icon/components'
 import DashboardLayout from '@/modules/dashboard/layouts/DashboardLayout.astro'
 import Title from '@/modules/shared/components/ui/Title.astro'
 import { AllMitigations } from '@/modules/home/components/info/AllMitigations.tsx'
+import { actions } from 'astro:actions'
 
+
+const { data: mitigationActionsData, error: findMitigationActionsError } = await actions.findAllMitigationActions({})
+const { data: disasterTypesData, error: findOneError } = await actions.findAllDisasterTypes()
+
+if ( findMitigationActionsError || findOneError ) return Astro.redirect( '/404' )
+
+const { mitigationActions } = mitigationActionsData
+const { disasterTypes } = disasterTypesData
 ---
 
 <DashboardLayout>
@@ -66,7 +75,11 @@ import { AllMitigations } from '@/modules/home/components/info/AllMitigations.ts
           </div>
           <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">
             <div class="w-full px-4 lg:w-2/3 lg:px-0">
-              <AllMitigations client:only="react" />
+              <AllMitigations
+                mitigationActions={ mitigationActions }
+                disasterTypes={ disasterTypes }
+                client:only="react"
+              />
             </div>
           </div>
 

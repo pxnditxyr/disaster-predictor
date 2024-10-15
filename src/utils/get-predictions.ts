@@ -44,20 +44,20 @@ export const getPredictions = async ( date : string ): Promise<{ predictions: IP
       } else if ( maxPrediction[1] > 0.55 ) {
         dangerIndicator = 'nivel moderado'
       }
-      if ( prediction.address === 'no hay direccion' ) dangerIndicator = 'nivel bajo'
+      if ( prediction.address === 'no hay direccion' ) {
+        dangerIndicator = 'nivel bajo'
+      }
 
       return {
         id: prediction.date,
         date: prediction.date,
         region: prediction.address === 'no hay direccion' ? 'Ninguna' : prediction.address,
-        prediction: maxPrediction[0],
+        prediction: prediction.address === 'no hay direccion' ? 'Ninguna' : maxPrediction[0],
         dangerIndicator: dangerIndicator,
-        probablity: maxPrediction[ 1 ],
-        allPredictions: prediction
+        probablity: maxPrediction[ 1 ]
       }
     } )
 
-    console.log({ data: data.predictions })
     return {
       predictions: formattedPredictions ,
       fullDataPredictions: data.predictions
