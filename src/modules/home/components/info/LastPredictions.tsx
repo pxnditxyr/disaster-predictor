@@ -10,6 +10,7 @@ export const LastPredictions = () => {
     const fetchPredictions = async () => {
       const currentDate = new Date().toISOString().split( 'T' )[ 0 ]
       const data = await getPredictions( currentDate )
+      console.log(data)
       if ( data ) {
         setPredictions( data.predictions )
       }

@@ -7,8 +7,17 @@ import { Icon } from 'astro-icon/components'
 import { LastMitigations } from '@/modules/home/components/info/LastMitigations.tsx'
 import { AllMitigations } from '@/modules/home/components/info/AllMitigations.tsx'
 
-import { mitigationActions } from '@/constants/mitigations-data'
+import { getRiskLevelColor, getRiskLevelName } from '@/utils'
 
+import { actions } from 'astro:actions'
+
+const { data: mitigationActionsData, error: findMitigationActionsError } = await actions.findAllMitigationActions({})
+const { data: disasterTypesData, error: findOneError } = await actions.findAllDisasterTypes()
+
+if ( findMitigationActionsError || findOneError ) return Astro.redirect( '/404' )
+
+const { mitigationActions } = mitigationActionsData
+const { disasterTypes } = disasterTypesData
 ---
 
 <Layout>
@@ -23,22 +32,30 @@ import { mitigationActions } from '@/constants/mitigations-data'
         <Icon name="luggage-insurance" size={ 200 } />
       </div>
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <LastMitigations client:only="react" />
+        <LastMitigations
+          mitigationActions={ mitigationActions }
+          disasterTypes={ disasterTypes }
+          client:idle
+        />
       </div>
     </div>
   </div>
 
   <div class="min-h-screen w-full">
-    <Title class="text-center text-pretty my-8"> 📜 Historial de Mitigaciones 🏥 </Title>
+    <Title class="text-center text-pretty my-8"> 📜 Generar Mitigaciones con Predicciones anteriores 🏥 </Title>
     <div class="w-full px-4 flex items-center justify-center">
       <p class="text-pretty text-[#5c4f3d] text-md max-w-[600px]">
-        En esta sección se muestra el historial de mitigaciones realizadas en el sistema.
-        La tabla muestra las mitigaciones desde las mas recientes hasta las mas antiguas.
+        En esta sección puedes generar una planificación de mitigaciones de una predicción anterior.
+        Por favor, selecciona la fecha de predicción.
       </p>
     </div>
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <AllMitigations client:only="react" />
+        <AllMitigations
+          mitigationActions={ mitigationActions }
+          disasterTypes={ disasterTypes }
+          client:only="react"
+        />
       </div>
     </div>
 
@@ -47,27 +64,51 @@ import { mitigationActions } from '@/constants/mitigations-data'
 
   <div class="pb-20">
     <Title class="text-center text-pretty my-12"> 🛡️ Acciones de Mitigación 🏥 </Title>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12 px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 py-12 px-8">
       {
-        Object.entries( mitigationActions ).map( ([ disaster, data ]) => (
-          <div class="bg-[#faf3e0] border-[#d2b48c] p-4 rounded-xl shadow-lg shadow-[#f0e6d2] border-2">
-            <div class="flex flex-row items-center space-x-4 pb-2">
-              <Icon name={ data.icon } size={ 60 } />
-              <div class="text-xl font-semibold text-[#8B4513]">{disaster}</div>
-            </div>
-            <div>
-              <ul class="list-disc pl-5 space-y-2">
-                {
-                  data.actions.map( ( action ) => (
-                    <li class="text-sm text-[#5c4f3d]">
-                      { action }
-                    </li>
-                  )  )
-                }
-              </ul>
+      mitigationActions.filter( m => m.status ).map( ({ disasterTypeId, description, icon, actionList, objectives, riskLevel }) => (
+      <div class="max-w-sm">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-teal-600 to-coffee-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <div class="relative px-7 py-6 bg-white ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-start space-x-6">
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <Icon name={ icon } class="h-8 w-8 text-teal-600" />
+              </div>
+              <p class="text-slate-800 group-hover:text-slate-600 transition duration-200 font-semibold line-clamp-1">{ description }</p>
+              <div class="pt-2">
+                <span class={`px-2 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${ getRiskLevelColor( riskLevel ) }`}>
+                  Riesgo:
+                  { getRiskLevelName( riskLevel ) }
+                </span>
+              </div>
+              <div class="space-y-2 max-h-48 overflow-auto">
+                <p class="text-sm font-medium text-slate-700">Acciones:</p>
+                <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                  { actionList.split( ';' ).slice( 0, 2 ).map( ( action ) => (
+                  <li
+                    class="line-clamp-1"
+                  >{ action.trim() }</li>
+                  )) }
+                </ul>
+              </div>
+              <div class="pt-2">
+                <p class="text-sm font-medium text-slate-700">Objetivo:</p>
+                <p class="text-sm text-slate-600 line-clamp-1">{ objectives }</p>
+              </div>
+              <div class="pt-2">
+                <span class="px-2 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-coffee-400 to-coffee-600">
+                  Desastre:
+                  {
+                  disasterTypes.find( d => d.id === disasterTypeId )?.name ?? 'No hay tipo de desastre'
+                  }
+                </span>
+              </div>
             </div>
           </div>
-        ) )
+        </div>
+      </div>
+      ) )
       }
     </div>
   </div>

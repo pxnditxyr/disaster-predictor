@@ -116,7 +116,7 @@ document.addEventListener( 'astro:page-load', () => {
   });
 
   const backElement = document.querySelector( '#back' ) as HTMLLIElement
-  console.log(backElement)
+  if ( !backElement ) return
 
   backElement.addEventListener( 'click', async () => {
     navigate( '/' )

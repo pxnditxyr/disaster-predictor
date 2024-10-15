@@ -1,6 +1,6 @@
-import type { IPrediction } from "@/interfaces"
+import type { IApiPredictionResponse, IPrediction } from "@/interfaces"
 
-export const getPredictions = async ( date : string ): Promise<{ predictions: IPrediction[] } | null> => {
+export const getPredictions = async ( date : string ): Promise<{ predictions: IPrediction[], fullDataPredictions: IApiPredictionResponse[] } | null> => {
   const adjustedDate = new Date(date)
   adjustedDate.setDate(adjustedDate.getDate() - 1)
   const formattedDate = adjustedDate.toISOString().split('T')[0]
@@ -52,11 +52,16 @@ export const getPredictions = async ( date : string ): Promise<{ predictions: IP
         region: prediction.address === 'no hay direccion' ? 'Ninguna' : prediction.address,
         prediction: maxPrediction[0],
         dangerIndicator: dangerIndicator,
-        probablity: maxPrediction[ 1 ]
+        probablity: maxPrediction[ 1 ],
+        allPredictions: prediction
       }
     } )
 
-    return { predictions: formattedPredictions }
+    console.log({ data: data.predictions })
+    return {
+      predictions: formattedPredictions ,
+      fullDataPredictions: data.predictions
+    }
   } catch ( error ) {
     console.error( 'Error:', error )
     return null

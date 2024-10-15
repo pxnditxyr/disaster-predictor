@@ -1,46 +1,26 @@
-import type { IPrediction } from "@/interfaces"
-import { getPredictions } from "@/utils"
+import type { IDisaster, IMitigationAction, IMitigationPlan } from "@/interfaces"
+import { generateMitigationPlan, getPredictions, getRiskLevelName, getRowStyles } from "@/utils"
 import { useEffect, useState } from "react"
 
-export const LastMitigations = () => {
+interface Props {
+  mitigationActions: IMitigationAction[]
+  disasterTypes: IDisaster[]
+}
 
-  const [ predictions, setPredictions ] = useState<IPrediction[] | null>( null )
+export const LastMitigations = ( { mitigationActions, disasterTypes }: Props ) => {
+
+  const [ mitigationPlan, setMitigationPlan ] = useState<IMitigationPlan[] | null>( null )
   const [ date, setDate ] = useState<string>( new Date().toISOString().split( 'T' )[ 0 ] )
 
   useEffect( () => {
     const fetchPredictions = async () => {
       const data = await getPredictions( date )
       if ( data ) {
-        setPredictions( data.predictions )
+        setMitigationPlan( generateMitigationPlan( mitigationActions, disasterTypes, data.fullDataPredictions ) )
       }
     }
     fetchPredictions()
   }, [ date ] )
-
-  const getRowStyles = ( dangerIndicator : string ) => {
-    switch ( dangerIndicator ) {
-      case "nivel bajo":
-        return {
-          base: "border-[#E6F2F2] hover:bg-[#F0F8F8]",
-          text: "text-[#3A5F5F]"
-        }
-      case "nivel moderado":
-        return {
-          base: "border-[#FFE0B2] bg-[#FFF3E0] hover:bg-[#FFE0B2]",
-          text: "text-[#E65100]"
-        }
-      case "nivel alto":
-        return {
-          base: "border-[#FFCCCB] bg-[#FFE5E5] hover:bg-[#FFD1D1]",
-          text: "text-[#8B0000]"
-        }
-      default:
-        return {
-          base: "border-[#E6F2F2] hover:bg-[#F0F8F8]",
-          text: "text-[#3A5F5F]"
-        }
-    }
-  }
 
   return (
     <article className="w-full flex flex-col justify-center items-center gap-8">
@@ -60,17 +40,17 @@ export const LastMitigations = () => {
             </thead>
             <tbody>
               {
-                lastMitigations.map( ( mitigation ) => {
+                mitigationPlan?.map( ( mitigation ) => {
                   const styles = getRowStyles( mitigation.dangerIndicator )
                   return (
                     <tr
-                      key={ mitigation.id }
+                      key={ mitigation.date }
                       className={ `border-b transition-colors ${ styles.base }` }
                     >
                       <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.date }</td>
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.region }</td>
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.mitigation }</td>
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.dangerIndicator }</td>
+                      <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.address }</td>
+                      <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.mitigationAction?.description ?? 'Ninguna acción de mitigación' }</td>
+                      <td className={ `py-3 px-4 ${ styles.text }` }>{ getRiskLevelName( mitigation.dangerIndicator ) }</td>
                     </tr>
                   )
                 } )

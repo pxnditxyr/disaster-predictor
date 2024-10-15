@@ -23,7 +23,6 @@ const socialMedia = [
 <footer
   class="flex flex-col items-center bg-zinc-50 text-center text-surface dark:bg-neutral-700 dark:text-white">
   <div class="container pt-9">
-    <!-- Social media icons container -->
     <div class="mb-6 flex justify-center space-x-2">
       {
         socialMedia.map( ({ name, href }) => (
@@ -41,15 +40,9 @@ const socialMedia = [
     </div>
   </div>
 
-  <!--Copyright section-->
   <div class="w-full bg-black/5 p-4 text-center">
     ©
-    <span>
-      <script is:inline>
-      const selfScript = document.currentScript;
-      selfScript.parentNode.innerHTML = new Date().getFullYear();
-      </script>
-    </span>
+    <span id="current-year"> 2024 </span>
     Copyright:
     Pxndxs 🐼
   </div>
@@ -60,6 +53,16 @@ const socialMedia = [
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener( 'astro:page-load', () => {
+  const currentYear = new Date().getFullYear()
+  const currentYearElement = document.querySelector( '#current-year' ) as HTMLSpanElement
+  if ( !currentYearElement ) return
+
+  currentYearElement.innerHTML = String( currentYear )
+} )
+</script>
 
 <style>
 
