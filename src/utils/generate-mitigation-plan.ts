@@ -75,6 +75,7 @@ const getDisasterTypeIdByName = ( disasterTypes: IDisaster[], name: string ): nu
 
 
 export const generateMitigationPlan = ( mitigationActions: IMitigationAction[], disasterTypes: IDisaster[], predictions: IApiPredictionResponse[] ) : IMitigationPlan[] => {
+  console.log({ predictions })
 
   const threshold = 0.3
   const transformedApiResponses = predictions.map( transformApiResponse )
@@ -166,6 +167,7 @@ export const generateMitigationPlan = ( mitigationActions: IMitigationAction[], 
     dangerIndicator: 1
   }) )
 
+  console.log({ mitigationPlan })
    return baseMitigationPlan.map( ( baseMitigation ) => {
 
     const currentData = mitigationPlan.find( ( plan ) => plan.date === baseMitigation.date )

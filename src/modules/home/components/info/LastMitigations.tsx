@@ -10,17 +10,16 @@ interface Props {
 export const LastMitigations = ( { mitigationActions, disasterTypes }: Props ) => {
 
   const [ mitigationPlan, setMitigationPlan ] = useState<IMitigationPlan[] | null>( null )
-  const [ date, setDate ] = useState<string>( new Date().toISOString().split( 'T' )[ 0 ] )
 
   useEffect( () => {
     const fetchPredictions = async () => {
-      const data = await getPredictions( date )
+      const data = await getPredictions( new Date().toISOString().split( 'T' )[ 0 ] )
       if ( data ) {
         setMitigationPlan( generateMitigationPlan( mitigationActions, disasterTypes, data.fullDataPredictions ) )
       }
     }
     fetchPredictions()
-  }, [ date ] )
+  }, [] )
 
   return (
     <article className="w-full flex flex-col justify-center items-center gap-8">

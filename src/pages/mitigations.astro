@@ -4,6 +4,8 @@ import { Icon } from 'astro-icon/components'
 
 import { LastMitigations } from '@/modules/home/components/info/LastMitigations.tsx'
 import { AllMitigations } from '@/modules/home/components/info/AllMitigations.tsx'
+import { MitigationToast } from '@/modules/home/components/toast/MitigationToast'
+
 import Layout from '@/modules/shared/layouts/Layout.astro'
 import Title from '@/modules/shared/components/ui/Title.astro'
 import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
@@ -27,6 +29,11 @@ const { disasterTypes } = disasterTypesData
 
     <Title class="text-center text-pretty mt-16"> 🛡️ Mitigaciones 🏥 </Title>
 
+    <MitigationToast
+      mitigationActions={ mitigationActions }
+      disasterTypes={ disasterTypes }
+      client:idle
+    />
 
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12 lg:mt-32">
       <div class="w-full px-4 lg:w-1/3 lg:px-0 flex items-center justify-center">
