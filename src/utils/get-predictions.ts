@@ -1,7 +1,9 @@
 import type { IApiPredictionResponse, IPrediction } from "@/interfaces"
 
+
 export const getPredictions = async ( date : string ): Promise<{ predictions: IPrediction[], fullDataPredictions: IApiPredictionResponse[] } | null> => {
-  const adjustedDate = new Date(date)
+  const adjustedDate = new Date( date )
+
   adjustedDate.setDate(adjustedDate.getDate() - 1)
   const formattedDate = adjustedDate.toISOString().split('T')[0]
 

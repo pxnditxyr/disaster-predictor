@@ -66,6 +66,27 @@ const OurIcons = defineTable({
   }
 })
 
+const Prediction = defineTable({
+  columns: {
+    id: column.number({ primaryKey: true }),
+    date: column.date(),
+    address: column.text(),
+    prediction: column.text(),
+    dangerIndicator: column.number(),
+  }
+})
+
+const Mitigation = defineTable({
+  columns: {
+    id: column.number({ primaryKey: true }),
+    date: column.date(),
+    address: column.text(),
+    mitigationActionId: column.number({ references: () => MitigationAction.columns.id }),
+    dangerIndicator: column.number(),
+    predictionId: column.number({ references: () => Prediction.columns.id }),
+  },
+})
+
 export default defineDb({
   tables: {
     MitigationAction,
@@ -73,5 +94,7 @@ export default defineDb({
     User,
     Role,
     OurIcons,
+    Prediction,
+    Mitigation,
   },
 });

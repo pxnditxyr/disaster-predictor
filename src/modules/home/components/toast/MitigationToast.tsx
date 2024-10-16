@@ -100,7 +100,7 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
   return (
     <>
       <audio ref={ audioRef } src="/alarm-alert.weba" />
-      <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-[32rem] p-6 rounded-xl shadow-2xl ${getBackgroundColor(riskLevel)} backdrop-filter backdrop-blur-lg bg-opacity-90 border border-white border-opacity-20 transition-all duration-300 ease-in-out`}>
+      <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-[32rem] p-6 rounded-xl shadow-2xl ${getBackgroundColor(riskLevel)} backdrop-filter backdrop-blur-lg bg-opacity-90 border border-white border-opacity-20 transition-all duration-300 ease-in-out z-20`}>
         <div className="flex items-start space-x-4">
           <div className="flex-shrink-0">
             { getRiskIcon( riskLevel ) }

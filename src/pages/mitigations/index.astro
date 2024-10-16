@@ -74,7 +74,7 @@ const { disasterTypes } = disasterTypesData
     <Title class="text-center text-pretty my-12"> 🛡️ Acciones de Mitigación 🏥 </Title>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 py-12 px-8">
       {
-      mitigationActions.filter( m => m.status ).map( ({ disasterTypeId, description, icon, actionList, objectives, riskLevel }) => (
+      mitigationActions.filter( m => m.status ).map( ({ disasterTypeId, description, icon, actionList, objectives, riskLevel, id }) => (
       <div class="max-w-sm">
         <div class="relative group">
           <div class="absolute -inset-1 bg-gradient-to-r from-teal-600 to-coffee-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
@@ -111,6 +111,12 @@ const { disasterTypes } = disasterTypesData
                   disasterTypes.find( d => d.id === disasterTypeId )?.name ?? 'No hay tipo de desastre'
                   }
                 </span>
+                <a
+                  class=""
+                  href={ `/mitigations/${ id }` }
+                >
+                  Ver mas
+                </a>
               </div>
             </div>
           </div>
