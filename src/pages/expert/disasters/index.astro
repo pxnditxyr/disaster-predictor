@@ -1,4 +1,3 @@
-
 ---
 import { actions } from 'astro:actions'
 import { Icon } from 'astro-icon/components'
@@ -7,7 +6,7 @@ import ExpertLayout from '@/modules/expert/layouts/ExpertLayout.astro'
 const { data, error } = await actions.findAllDisasterTypes({})
 
 if ( error ) {
-  return Astro.redirect( '/admin' )
+  return Astro.redirect( '/expert' )
 }
 
 const { disasterTypes } = data
@@ -23,7 +22,7 @@ const { disasterTypes } = data
 
         <div class="w-full flex justify-end">
           <a
-            href={ `/admin/disasters/new` }
+            href={ `/expert/disasters/new` }
             class="text-2xl font-bold text-coffee-700 flex items-center rounded-xl shadow-2xl bg-white p-4"
           >
             <Icon name="mdi:newspaper-plus" class="w-8 h-8 mr-2 text-teal-500" />
@@ -40,7 +39,7 @@ const { disasterTypes } = data
             {
             disasterTypes.map( ( disaster ) => (
             <li class="bg-cream-50 rounded-lg p-4 flex items-center justify-between transition duration-300 ease-in-out transform hover:scale-102 hover:shadow-md gap-8">
-              <a href={ `/admin/disasters/${ disaster.id }` }>
+              <a href={ `/expert/disasters/${ disaster.id }` }>
                 <div class="flex items-center space-x-4">
                   <div>
                     <h3 class="text-xl font-semibold text-coffee-700 flex items-center">
@@ -83,7 +82,7 @@ const { disasterTypes } = data
                 <a
                   class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out edit-button"
                   aria-label={ `Ver detalles del desastre ${ disaster.name }` }
-                  href={ `/admin/disasters/${ disaster.id }` }
+                  href={ `/expert/disasters/${ disaster.id }` }
                 >
                   <Icon name="mdi:eye" class="w-5 h-5" />
                 </a>
@@ -91,7 +90,7 @@ const { disasterTypes } = data
                 <a
                   class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out"
                   aria-label={`Editar ${ disaster.name }`}
-                  href={ `/admin/disasters/edit/${ disaster.id }` }
+                  href={ `/expert/disasters/edit/${ disaster.id }` }
                 >
                   <Icon name="mdi:pencil" class="w-5 h-5" />
                 </a>
