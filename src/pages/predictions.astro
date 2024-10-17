@@ -5,7 +5,10 @@ import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
 import Footer from '@/modules/shared/components/ui/Footer.astro'
 import { Icon } from 'astro-icon/components'
 import { LastPredictions } from '@/modules/home/components/info/LastPredictions.tsx'
+import { LastDetections } from '@/modules/home/components/info/LastDetections.tsx'
 import { AllPredictions } from '@/modules/home/components/info/AllPredictions.tsx'
+import { AllDetections } from '@/modules/home/components/info/AllDetections.tsx'
+import { DetectionToast } from '@/modules/home/components/toast/DetectionToast'
 import { actions } from 'astro:actions'
 
 const { data: disasterTypesData, error } = await actions.findAllDisasterTypes()
@@ -19,12 +22,18 @@ const { disasterTypes } = disasterTypesData
   <div class="min-h-screen w-full">
     <HomeNavbar />
 
+    <DetectionToast
+      disasterTypes={ disasterTypes }
+      client:only="react"
+    />
+
+
     <Title class="text-center text-pretty mt-16"> 🌪️ Detección de Desastres naturales 🌊 </Title>
 
     <div class="w-full px-4 flex items-center justify-center mt-12">
       <p class="text-pretty text-[#5c4f3d] text-md max-w-[450px] font-semibold">
-        En este apartado se muestran las Predicciones de Incidentes de Desastres Naturales relacionados
-        con el Fenómeno de El Niño. Se muestran las predicciones de los siguientes 5 días. 🚨
+        En este apartado se muestran las Detecciones de Incidentes de Desastres Naturales relacionados
+        con el Fenómeno de El Niño. Se muestran las detecciones de los siguientes 5 días. 🚨
       </p>
     </div>
 
@@ -34,17 +43,55 @@ const { disasterTypes } = disasterTypesData
         <Icon name="luggage-insurance" size={ 200 } />
       </div>
       <div class="w-full px-4 lg:w-2/3 lg:px-0">
-        <LastPredictions client:only="react" />
+        <LastDetections client:only="react" />
       </div>
     </div>
   </div>
 
+
+  <Title class="text-center text-pretty mt-16"> 🔮 Predicción de Desastres Naturales 📈 </Title>
+
+  <div class="w-full px-4 flex items-center justify-center mt-12">
+    <p class="text-pretty text-[#5c4f3d] text-md max-w-[450px] font-semibold">
+      En este apartado se muestran las Predicciones de Incidentes de Desastres Naturales relacionados
+      con el Fenómeno de El Niño. Se muestran las predicciones de los siguientes 5 días. 🚨
+    </p>
+  </div>
+
+
+  <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12 lg:mt-16">
+    <div class="w-full px-4 lg:w-1/3 lg:px-0 flex items-center justify-center">
+      <Icon name="luggage-insurance" size={ 200 } />
+    </div>
+    <div class="w-full px-4 lg:w-2/3 lg:px-0">
+      <LastPredictions client:only="react" />
+    </div>
+  </div>
+  </div>
+
+
   <div class="min-h-screen w-full">
-    <Title class="text-center text-pretty mt-16"> 📜 Generar predicciones anteriores 🏥 </Title>
+    <Title class="text-center text-pretty mt-16"> 📜 Generar Detecciones anteriores 🏥 </Title>
+    <div class="w-full px-4 flex items-center justify-center mt-16">
+      <p class="text-pretty text-[#5c4f3d] text-md max-w-[600px]">
+        En esta sección se muestra las detecciones de la fecha que elijas.
+        La tabla muestra las detecciones desde la fecha elegida a 5 dias posteriores.
+      </p>
+    </div>
+    <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">
+      <div class="w-full px-4 lg:w-2/3 lg:px-0">
+        <AllDetections client:only="react" />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="min-h-screen w-full">
+    <Title class="text-center text-pretty mt-16"> 📜 Generar Predicciones anteriores 🔮  </Title>
     <div class="w-full px-4 flex items-center justify-center mt-16">
       <p class="text-pretty text-[#5c4f3d] text-md max-w-[600px]">
         En esta sección se muestra las predicciones de la fecha que elijas.
-        La tabla muestra las predicciones desde las mas antiguas hasta las mas recientes.
+        La tabla muestra las predicciones desde la fecha elegida a 5 dias posteriores.
       </p>
     </div>
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">

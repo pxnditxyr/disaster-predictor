@@ -1,35 +1,36 @@
+
 import { useState, useEffect, useRef } from 'react'
-import type { IMitigationAction, IDisaster, IMitigationPlan } from '@/interfaces'
-import { formatDate, generateMitigationPlan, getPredictions } from '@/utils'
+import { formatDate, getPredictions } from '@/utils'
+import type { IDisaster, IPrediction } from '@/interfaces'
 
 interface IProps {
-  mitigationActions: IMitigationAction[]
   disasterTypes: IDisaster[]
 }
 
-export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps ) => {
+export const DetectionToast = ( { disasterTypes } : IProps ) => {
 
-  const [ activeMitigation, setActiveMitigation ] = useState<IMitigationPlan | null>( null )
+  const [ activeDetection, setActiveDetection ] = useState<IPrediction | null>( null )
   const [ isVisible, setIsVisible ] = useState( false )
   const audioRef = useRef<HTMLAudioElement | null>( null )
 
-  const [ mitigationPlan, setMitigationPlan ] = useState<IMitigationPlan[] | null>( null )
+  const [ predictions, setPredictions ] = useState<IPrediction[] | null>( null )
 
   useEffect( () => {
     const fetchPredictions = async () => {
-      const data = await getPredictions( new Date().toISOString().split( 'T' )[ 0 ] )
+      const currentDate = new Date().toISOString().split( 'T' )[ 0 ]
+      const data = await getPredictions( currentDate )
       if ( data ) {
-        setMitigationPlan( generateMitigationPlan( mitigationActions, disasterTypes, data.fullDataPredictions ) )
+        setPredictions( data.predictions )
       }
     }
     fetchPredictions()
   }, [] )
 
   useEffect( () => {
-    if ( mitigationPlan !== null )  {
-      const mitigationPlanWithActions = mitigationPlan.filter( m => m.mitigationAction !== null )
-      if ( mitigationPlanWithActions.length > 0 ) {
-        setActiveMitigation( mitigationPlanWithActions[ 0 ] )
+    if ( predictions !== null )  {
+      const predictionWithRegion = predictions.filter( p => p.region !== 'Ninguna' )
+      if ( predictionWithRegion.length > 0 ) {
+        setActiveDetection( predictionWithRegion[ 0 ] )
         setIsVisible( true )
         if ( audioRef.current ) {
           audioRef.current.play()
@@ -43,14 +44,24 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
         }
       }
     }
-  }, [ mitigationPlan ] )
+  }, [ predictions ] )
 
-  if (!isVisible || !activeMitigation || !activeMitigation.mitigationAction) return null
+  if ( !isVisible || !activeDetection || !activeDetection.region ) return null
 
-  const { mitigationAction } = activeMitigation
-  const { riskLevel, description, actionList } = mitigationAction
+  const { region, prediction, dangerIndicator, date } = activeDetection
 
-  const getBackgroundColor = (level: number) => {
+  const getRiskLevel = ( dangerIndicator : string ) => {
+    switch ( dangerIndicator ) {
+      case 'nivel bajo': return 1
+      case 'nivel moderado': return 2
+      case 'nivel alto': return 3
+      default: return 0
+    }
+  }
+
+  const riskLevel = getRiskLevel( dangerIndicator )
+
+  const getBackgroundColor = ( level : number ) => {
     switch ( level ) {
       case 1: return 'bg-[#e6fff7]' // Teal Cream
       case 2: return 'bg-[#fff5e6]' // Light Orange Cream
@@ -59,8 +70,8 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
     }
   }
 
-  const getEmoji = (level: number) => {
-    switch (level) {
+  const getEmoji = ( level: number ) => {
+    switch ( level ) {
       case 1: return '✅'
       case 2: return '⚠️'
       case 3: return '🚨'
@@ -68,8 +79,8 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
     }
   }
 
-  const getRiskIcon = (level: number) => {
-    switch (level) {
+  const getRiskIcon = ( level : number ) => {
+    switch ( level ) {
       case 1:
         return (
           <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,7 +111,7 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
   return (
     <>
       <audio ref={ audioRef } src="/alarm.ogg" />
-      <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-[32rem] p-6 rounded-xl shadow-2xl ${getBackgroundColor(riskLevel)} backdrop-filter backdrop-blur-lg bg-opacity-90 border border-white border-opacity-20 transition-all duration-300 ease-in-out z-20`}>
+      <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-[32rem] p-6 rounded-xl shadow-2xl ${getBackgroundColor(riskLevel)} backdrop-filter backdrop-blur-lg bg-opacity-90 border border-white border-opacity-20 transition-all duration-300 ease-in-out z-50`}>
         <div className="flex items-start space-x-4">
           <div className="flex-shrink-0">
             { getRiskIcon( riskLevel ) }
@@ -119,27 +130,22 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
                 </svg>
               </button>
             </div>
-            <p className="text-lg font-medium text-gray-900 mb-2">
-              {description}
+            <p className="text-lg font-medium text-gray-900 mb-2 capitalize">
+              { prediction }
             </p>
-            <div className="bg-white bg-opacity-50 rounded-lg p-3 mt-2">
-              <p className="text-sm font-semibold text-gray-700 mb-1"> Lista de Acciones </p>
-              <ul className="list-disc list-inside text-sm text-gray-600">
-                { actionList.split(';').map((action, index) => (
-                  <li key={index}>{action.trim()}</li>
-                )) }
-              </ul>
+            <div className="flex items-center mt-4 text-sm text-gray-600">
+              <p> { disasterTypes.find( d => d.name === activeDetection?.prediction )?.description }</p>
             </div>
             <div className="flex items-center mt-4 text-sm text-gray-600">
               <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              <span> { formatDate( activeMitigation.date ) }</span>
+              <span> { formatDate( date ) }</span>
               <svg className="w-5 h-5 ml-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span>{ activeMitigation.address }</span>
+              <span className="capitalize">{ region }</span>
             </div>
           </div>
         </div>
@@ -147,3 +153,4 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
     </>
   )
 }
+

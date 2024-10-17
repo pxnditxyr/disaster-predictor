@@ -1,4 +1,4 @@
-import type { IDisaster, IMitigationAction, IMitigationPlan } from "@/interfaces"
+import type { IDisaster, IMitigationAction, IMitigationPlan, IPrediction } from "@/interfaces"
 import { generateMitigationPlan, getPredictions, getRiskLevelName, getRowStyles } from "@/utils"
 import { useEffect, useState } from "react"
 
@@ -11,6 +11,18 @@ export const AllMitigations = ( { mitigationActions, disasterTypes }: Props ) =>
 
   const [ mitigationPlan, setMitigationPlan ] = useState<IMitigationPlan[] | null>( null )
   const [ date, setDate ] = useState<string>( new Date().toISOString().split( 'T' )[ 0 ] )
+
+  const [ predictions, setPredictions ] = useState<IPrediction[] | null>( null )
+
+  useEffect( () => {
+    const fetchPredictions = async () => {
+      const data = await getPredictions( date )
+      if ( data ) {
+        setPredictions( data.predictions )
+      }
+    }
+    fetchPredictions()
+  }, [ date ] )
 
   useEffect( () => {
     const fetchPredictions = async () => {
@@ -44,6 +56,7 @@ export const AllMitigations = ( { mitigationActions, disasterTypes }: Props ) =>
             <tr className="bg-[#B8d8d8]">
               <th className="text-teal-700 text-left font-semibold py-4 px-4 first:rounded-tl-lg"> Fecha </th>
               <th className="text-teal-700 text-left font-semibold py-4 px-4"> Región </th>
+              <th className="text-teal-700 text-left font-semibold py-4 px-4"> Evento Detectado </th>
               <th className="text-teal-700 text-left font-semibold py-4 px-4"> Acción de Mitigación </th>
               <th className="text-teal-700 text-left font-semibold py-4 px-4 last:rounded-tr-lg"> Indicador de Peligro </th>
             </tr>
@@ -59,6 +72,7 @@ export const AllMitigations = ( { mitigationActions, disasterTypes }: Props ) =>
                   >
                     <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.date }</td>
                     <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.address }</td>
+                    <td className={ `py-3 px-4 ${ styles.text }` }>{ predictions?.find( prediction => prediction.date === mitigation.date )?.prediction }</td>
                     <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.mitigationAction?.description ?? 'Ninguna acción de mitigación' }</td>
                     <td className={ `py-3 px-4 ${ styles.text }` }>{ getRiskLevelName( mitigation.dangerIndicator ) }</td>
                   </tr>

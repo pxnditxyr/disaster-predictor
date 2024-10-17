@@ -7,11 +7,24 @@ import Footer from '@/modules/shared/components/ui/Footer.astro'
 import { LastPredictions } from '@/modules/home/components/info/LastPredictions.tsx'
 
 import { HomeMap } from '@/modules/home/components/maps/HomeMap.tsx'
+import { DetectionToast } from '@/modules/home/components/toast/DetectionToast'
+import { actions } from 'astro:actions'
+
+const { data: disasterTypesData, error } = await actions.findAllDisasterTypes()
+
+if ( error ) return Astro.redirect( '/404' )
+
+const { disasterTypes } = disasterTypesData
 
 ---
 
 <Layout>
   <HomeNavbar />
+
+  <DetectionToast
+    disasterTypes={ disasterTypes }
+    client:only="react"
+  />
 
   <Title class="text-center text-pretty mt-8"> 🚨 Disaster Predictor 🌍 </Title>
 
