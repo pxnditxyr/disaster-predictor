@@ -76,9 +76,9 @@ export const LastPredictions = () => {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="capitalize">
             {
-              (predictions === null) ? (
+              ( predictions === null ) ? (
                 <tr>
                   <td colSpan={10} className="bg-orange-200 p-4 rounded-bl-lg rounded-br-lg">
                     <div className="flex justify-center items-center">

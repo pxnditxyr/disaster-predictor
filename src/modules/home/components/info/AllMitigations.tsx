@@ -61,7 +61,7 @@ export const AllMitigations = ( { mitigationActions, disasterTypes }: Props ) =>
               <th className="text-teal-700 text-left font-semibold py-4 px-4 last:rounded-tr-lg"> Indicador de Peligro </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="capitalize">
             {
               mitigationPlan?.map( ( mitigation ) => {
                 const styles = getRowStyles( mitigation.dangerIndicator )
@@ -73,7 +73,17 @@ export const AllMitigations = ( { mitigationActions, disasterTypes }: Props ) =>
                     <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.date }</td>
                     <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.address }</td>
                     <td className={ `py-3 px-4 ${ styles.text }` }>{ predictions?.find( prediction => prediction.date === mitigation.date )?.prediction }</td>
-                    <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.mitigationAction?.description ?? 'Ninguna acción de mitigación' }</td>
+                    <td className={ `py-3 px-4 ${ styles.text }` }>
+                        {
+                          ( mitigation.mitigationAction ) ? (
+                            <a href={ `/mitigations/${ mitigation.mitigationAction.id }` } className="text-blue-500" target="_blank" rel="noreferrer">
+                              { mitigation.mitigationAction.description }
+                            </a>
+                          ) : (
+                            <span className="text-gray-500"> Ninguna acción de mitigación </span>
+                          )
+                        }
+                      </td>
                     <td className={ `py-3 px-4 ${ styles.text }` }>{ getRiskLevelName( mitigation.dangerIndicator ) }</td>
                   </tr>
                 )

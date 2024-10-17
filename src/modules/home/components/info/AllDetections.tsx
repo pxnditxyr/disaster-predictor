@@ -69,7 +69,7 @@ export const AllDetections = () => {
               <th className="text-teal-700 text-left font-semibold py-4 px-4 last:rounded-tr-lg">Indicador de Peligro</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="capitalize">
             {
               ( predictions === null ) ? (
                 <tr>
@@ -89,7 +89,17 @@ export const AllDetections = () => {
                       >
                         <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.date }</td>
                         <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.region }</td>
-                        <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.prediction }</td>
+                        <td className={ `py-3 px-4 ${ styles.text }` }>
+                          {
+                            ( prediction.prediction === "Ninguna" ) ? (
+                              <span className="text-gray-500"> Ninguna predicción </span>
+                            ) : (
+                              <a href={ `/disasters/${ prediction.prediction }` } className="text-blue-500" target="_blank" rel="noreferrer">
+                                { prediction.prediction }
+                              </a>
+                            )
+                          }
+                        </td>
                         <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.dangerIndicator }</td>
                       </tr>
                     )

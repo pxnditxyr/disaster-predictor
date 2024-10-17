@@ -86,7 +86,7 @@ export const AllPredictions = () => {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="capitalize">
             {
               (predictions === null) ? (
                 <tr>

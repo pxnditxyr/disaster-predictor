@@ -3,7 +3,8 @@ import {
   toggleStatusDisasterType,
   findAllDisasterTypes,
   findOneDisasterType,
-  updateDisasterType
+  updateDisasterType,
+  findOneDisasterTypeByName
 } from './disasters'
 
 import {
@@ -30,6 +31,7 @@ export const server = {
   createDisasterType,
   updateDisasterType,
   toggleStatusDisasterType,
+  findOneDisasterTypeByName,
 
   // Mitigations
   createMitigationAction,
