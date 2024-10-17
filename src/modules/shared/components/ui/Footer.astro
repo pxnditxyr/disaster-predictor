@@ -55,13 +55,10 @@ const socialMedia = [
 </footer>
 
 <script>
-document.addEventListener( 'astro:page-load', () => {
-  const currentYear = new Date().getFullYear()
-  const currentYearElement = document.querySelector( '#current-year' ) as HTMLSpanElement
-  if ( !currentYearElement ) return
+const currentYear = new Date().getFullYear()
+const currentYearElement = document.querySelector( '#current-year' ) as HTMLSpanElement
 
-  currentYearElement.innerHTML = String( currentYear )
-} )
+currentYearElement.innerHTML = String( currentYear )
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components'
-const { isLoggedIn, user } = Astro.locals;
+const { isLoggedIn } = Astro.locals;
 
 interface Props {
   links: {
@@ -11,10 +11,16 @@ interface Props {
 }
 
 const { links }: Props = Astro.props
-
 const currentPath = Astro.url.pathname
 
 const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md font-medium flex flex-col items-center gap-2 capitalize'
+if ( !isLoggedIn ) {
+  links.push({
+    href: '/login',
+    title: 'Iniciar Sesión',
+    icon: 'engineer'
+  })
+}
 ---
 
 <nav class="bg-white shadow-md w-full relative">
@@ -35,50 +41,17 @@ const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 
                 <Icon name={ icon } size={ 24 } class="text-yellow-500" />
               )
             }
-            <span> { title } </span>
+            <span class="text-center"> { title } </span>
             {
               ( currentPath === href ) ? (
-                <div
-                  class="border-yellow-500 border-b-4 w-full"
-                  transition:name="menu-bar"
-                ></div>
+                <div class="border-yellow-500 border-b-4 w-full"></div>
               ) : (
-                <div
-                  class="border-transparent border-b-4 w-full"
-                ></div>
+                <div class="border-transparent border-b-4 w-full"></div>
               )
             }
           </a>
         ) )
       }
-
-      {
-       ( !isLoggedIn ) && (
-      <a
-        href={ '/login' }
-        class={`
-          ${ anchorClasses }
-          ${ currentPath === '/login' ? 'bg-gray-100 text-gray-900' : '' }
-        `}
-      >
-        <Icon name={ 'engineer' } size={ 24 } class="text-yellow-500" />
-        <span class="text-xs"> Iniciar Sesión </span>
-        {
-        ( currentPath === '/login' ) ? (
-        <div
-          class="border-yellow-500 border-b-4 w-full"
-          transition:name="menu-bar"
-        ></div>
-        ) : (
-        <div
-          class="border-transparent border-b-4 w-full"
-        ></div>
-        )
-        }
-      </a>
-      )
-      }
-
     </div>
     {
       ( isLoggedIn ) && (
@@ -97,15 +70,13 @@ const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 
 </nav>
 
 <script>
-  const { signOut } = await import( 'auth-astro/client' )
+import { navigate } from 'astro:transitions/client'
+const { signOut } = await import( 'auth-astro/client' )
 
-  document.addEventListener( 'astro:page-load', () => {
-    const logoutElement = document.querySelector( '#logout' ) as HTMLLIElement
-    if ( !logoutElement ) return
+const logoutElement = document.querySelector( '#logout' ) as HTMLLIElement
 
-    logoutElement.addEventListener( 'click', async () => {
-      await signOut()
-      window.location.href = '/login'
-    } );
-  })
+logoutElement?.addEventListener( 'click', async () => {
+  await signOut()
+  navigate( '/login' )
+} )
 </script>

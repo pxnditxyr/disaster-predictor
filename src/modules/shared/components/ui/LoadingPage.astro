@@ -80,17 +80,15 @@
 </style>
 
 <script>
-document.addEventListener( 'astro:page-load', () => {
-  const loadingPage = document.querySelector( '.loading-page' ) as HTMLElement
-  const logoSvg = document.querySelector( '.loading-page__logo svg' ) as SVGElement
+const loadingPage = document.querySelector( '.loading-page' ) as HTMLElement
+const logoSvg = document.querySelector( '.loading-page__logo svg' ) as SVGElement
 
-  logoSvg.addEventListener( 'animationend', () => {
-    loadingPage.style.opacity = '0'
-    loadingPage.style.transition = 'opacity 0.5s ease-out'
+logoSvg.addEventListener( 'animationend', () => {
+  loadingPage.style.opacity = '0'
+  loadingPage.style.transition = 'opacity 0.5s ease-out'
 
-    setTimeout( () => {
-      loadingPage.style.display = 'none'
-    }, 500 );
-  } )
+  setTimeout( () => {
+    loadingPage.style.display = 'none'
+  }, 500 );
 } )
 </script>

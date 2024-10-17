@@ -15,6 +15,14 @@ import {
 } from './mitigations'
 
 import { findAllOurIcons } from './our-icons'
+import { findAllRoles } from './roles'
+import {
+  createUser,
+  findAllUsers,
+  findOneUser,
+  toggleStatusUser,
+  updateUser
+} from './users'
 
 export const server = {
   findOneDisasterType,
@@ -32,4 +40,14 @@ export const server = {
 
   // Icons
   findAllOurIcons,
+
+  // Users
+  findOneUser,
+  findAllUsers,
+  createUser,
+  updateUser,
+  toggleStatusUser,
+
+  // Roles
+  findAllRoles,
 }

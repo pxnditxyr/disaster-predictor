@@ -1,0 +1,93 @@
+---
+import { Icon } from 'astro-icon/components'
+import ExpertLayout from '@/modules/expert/layouts/ExpertLayout.astro'
+import { Image } from 'astro:assets'
+import { formatDate, getStatusColor } from '@/utils'
+import { actions } from 'astro:actions'
+
+const { id } = Astro.params
+const { data, error } = await actions.findOneDisasterType({ id })
+
+if ( error ) return Astro.redirect( '/404' )
+
+const { disasterType } = data
+const {
+  name,
+  description,
+  icon,
+  imageUrl,
+  createdAt,
+  updatedAt,
+  status
+} = disasterType
+---
+
+<ExpertLayout>
+  <div class="bg-cream-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+      <div class="bg-coffee-600 p-6 text-cream-100">
+        <div class="flex items-center justify-between">
+          <h1 class="text-4xl font-bold flex items-center">
+            <Icon name={ icon } class="w-12 h-12 mr-4 text-teal-300" />
+            { name }
+          </h1>
+          <span class={ `px-3 py-1 rounded-full text-sm font-semibold ${ getStatusColor( status ) }` }>
+            { status ? 'Activo' : 'Inactivo' }
+          </span>
+        </div>
+      </div>
+      <div class="p-8 space-y-6">
+        <Image
+          src={ imageUrl ? imageUrl : '/multiple-disasters.jpg' }
+          alt={ name }
+          width={ 600 }
+          height={ 300 }
+          class="w-full h-80 object-cover rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+        />
+
+        <div>
+          <h2 class="text-2xl font-semibold text-coffee-800 mb-2">Descripción</h2>
+          <p class="text-coffee-700">{ description }</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 bg-cream-50 p-4 rounded-lg">
+          <div>
+            <h3 class="text-sm font-medium text-coffee-600">Creado el</h3>
+            <p class="text-coffee-800">{ formatDate( createdAt ) }</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-coffee-600">Última actualización</h3>
+            <p class="text-coffee-800">{ formatDate( updatedAt ) }</p>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <a
+            class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition duration-300 flex items-center"
+            href={ `/admin/disasters/edit/${ id }` }
+          >
+            <Icon name="mdi:pencil" class="w-5 h-5 mr-2" />
+            Editar información
+          </a>
+          <button
+            class="px-4 py-2 bg-coffee-500 text-white rounded-md hover:bg-coffee-600 transition duration-300 flex items-center"
+            id="back-button"
+          >
+            <Icon
+              name="mdi:arrow-left"
+              size={ 24 }
+            />
+            Volver a la lista
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ExpertLayout>
+<script>
+const backButton = document.querySelector( '#back-button' ) as HTMLButtonElement
+
+backButton.addEventListener( 'click', async () => {
+  window.history.back()
+} )
+</script>

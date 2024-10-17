@@ -1,0 +1,174 @@
+---
+import { Icon } from 'astro-icon/components'
+import AdminLayout from '@/modules/admin/layouts/AdminLayout.astro'
+import { Image } from 'astro:assets'
+import { formatDate, getStatusColor, getRiskLevelColor, getRiskLevelName } from '@/utils'
+import { actions } from 'astro:actions'
+
+const { id } = Astro.params
+const { data: mitigationActionsData, error: findMitigationActionsError } = await actions.findOneMitigationAction({ id })
+const { data: disasterTypesData, error: findOneError } = await actions.findAllDisasterTypes()
+
+if ( findOneError || findMitigationActionsError )
+  return Astro.redirect( '/404' )
+
+const { disasterTypes } = disasterTypesData
+const { mitigationAction } = mitigationActionsData
+
+const {
+  description,
+  actionList,
+  objectives,
+  disasterTypeId,
+  riskLevel,
+  icon,
+  imageUrl,
+  address,
+  safetyLevel,
+  createdAt,
+  updatedAt,
+  status
+} = mitigationAction
+
+const disasterTypeName = disasterTypes.find( d => d.id === disasterTypeId )?.name ?? 'No hay tipo de desastre'
+---
+
+<AdminLayout>
+  <div class="bg-cream-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+      <div class="bg-coffee-600 p-6 text-cream-100">
+        <div class="flex items-center justify-between">
+          <h1 class="text-4xl font-bold flex items-center">
+            <Icon name={ icon } class="w-12 h-12 mr-4 text-teal-300" />
+            { description }
+          </h1>
+          <span class={ `px-3 py-1 rounded-full text-sm font-semibold ${ getStatusColor( status ) }` }>
+            { status ? 'Activo' : 'Inactivo' }
+          </span>
+        </div>
+      </div>
+      <div class="p-8 space-y-6">
+        <Image
+          src={ imageUrl ? imageUrl : '/mitigations.jpg' }
+          alt={ description }
+          width={ 600 }
+          height={ 300 }
+          class="w-full h-80 object-cover rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+        />
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div class="bg-cream-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-coffee-800 mb-2">Nivel de Riesgo</h3>
+            <span class={`px-3 py-1 rounded-full text-sm font-semibold ${ getRiskLevelColor( mitigationAction.riskLevel ) }`}>
+              {
+                getRiskLevelName( riskLevel )
+              }
+            </span>
+          </div>
+
+          <div class="bg-cream-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-coffee-800 mb-2"> Tipo de Desastre </h3>
+            <span class={ `px-3 py-1 rounded-full text-sm font-semibold text-teal-600 bg-teal-100` }>
+              { disasterTypeName }
+            </span>
+          </div>
+          <div class="bg-cream-50 p-4 rounded-lg">
+            <h3 class="text-lg font-semibold text-coffee-800 mb-2">Nivel de Seguridad</h3>
+            <div class="flex items-center justify-center">
+              {
+                ( safetyLevel ) ? (
+                  [ ...Array( 5 ) ].map( ( _, index ) => (
+                    <Icon
+                      name="mdi:shield"
+                      class={`w-6 h-6 ${ index < safetyLevel ? 'text-[#d3a00d]' : 'text-gray-300' }`}
+                    />
+                  ) )
+                ) : (
+                  [ ...Array( 5 ) ].map( ( _, index ) => (
+                    <Icon
+                      name="mdi:shield"
+                      class={`w-6 h-6 ${ index < 5 ? 'text-gray-300' : 'text-gray-300' }`}
+                    />
+                  ) )
+                )
+              }
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-coffee-800 mb-2">Lista de Acciones</h3>
+          <ul class="list-disc list-inside space-y-2">
+            {
+              actionList.split(';').map( ( action ) => (
+                <li class="text-coffee-700">{ action }</li>
+              ) )
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-coffee-800 mb-2">Objetivos</h3>
+          <ul class="list-disc list-inside space-y-2">
+            {
+              ( objectives ) ? (
+                objectives.split(';').map( ( objective ) => (
+                <li class="text-coffee-700">{ objective }</li>
+              ) )
+              ) : (
+                <li class="text-coffee-700">Sin objetivos</li>
+              )
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-coffee-800 mb-2">Ubicación</h3>
+          <p class="text-coffee-700 flex items-center">
+            <Icon name="mdi:map-marker" class="w-5 h-5 mr-2 text-teal-500" />
+            { address }
+          </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div>
+            <h3 class="text-sm font-medium text-coffee-600">Creado el</h3>
+            <p class="text-coffee-800">{ formatDate( createdAt ) }</p>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-coffee-600">Última actualización</h3>
+            <p class="text-coffee-800">{ formatDate( updatedAt ) }</p>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center gap-4">
+          <a
+            class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition duration-300 flex items-center"
+            href={ `/admin/mitigations/edit/${ id }` }
+          >
+            <Icon name="mdi:pencil" class="w-5 h-5 mr-2" />
+            Editar información
+          </a>
+          <button
+            class="px-4 py-2 bg-coffee-500 text-white rounded-md hover:bg-coffee-600 transition duration-300 flex items-center"
+            id="back-button"
+          >
+            <Icon
+              name="mdi:arrow-left"
+              size={ 24 }
+            />
+            Volver a la lista
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+<script>
+
+const backButton = document.querySelector( '#back-button' ) as HTMLButtonElement
+backButton.addEventListener( 'click', async () => {
+  window.history.back()
+} )
+
+</script>

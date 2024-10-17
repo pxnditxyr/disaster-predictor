@@ -1,0 +1,169 @@
+---
+import { Icon } from 'astro-icon/components'
+import AdminLayout from '@/modules/admin/layouts/AdminLayout.astro'
+import { actions } from 'astro:actions'
+
+const { id } = Astro.params
+const { data: rolesData, error: findAllRolesError } = await actions.findAllRoles()
+const { data: usersData, error: findUsersError } = await actions.findOneUser({ id })
+
+if ( findAllRolesError || findUsersError ) {
+
+  console.log({ hola: 'uahsnheusa' })
+  return Astro.redirect( '/404' )
+}
+
+const { roles } = rolesData
+const { user } = usersData
+const { name, lastName, email, password, roleId } = user
+---
+
+<AdminLayout>
+  <div class="bg-cream-100 w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+      <div class="bg-coffee-600 bg-opacity-90 p-6 text-cream-100">
+        <h2 class="text-3xl font-bold flex items-center">
+          <Icon name="mdi:plus-circle" class="w-8 h-8 mr-3 text-teal-300" />
+          Editar Acción de Mitigación 🛡️
+        </h2>
+      </div>
+
+      <form class="p-8 space-y-6" id="form">
+        <input type="hidden" name="id" value={ id } />
+        <div>
+          <label for="description" class="block text-md font-medium text-coffee-700 mb-1">
+            Nombres 📝 <span class="text-red-500 text-xl">*</span>
+          </label>
+          <input
+            id="userName"
+            name="userName"
+            value={ name }
+            class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 text-coffee-800"
+            placeholder="Ingresa el nombre del usuario"
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            class="block text-md font-medium text-coffee-700 mb-1"
+            for="lastName"
+          >
+            Apellidos 📝 <span class="text-red-500 text-xl">*</span>
+          </label>
+          <input
+            id="lastName"
+            name="lastName"
+            value={ lastName }
+            class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 text-coffee-800"
+            placeholder="Ingresa el apellido del usuario"
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            class="block text-md font-medium text-coffee-700 mb-1"
+            for="email"
+          >
+            Email 📧 <span class="text-red-500 text-xl">*</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={ email }
+            name="email"
+            class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 text-coffee-800"
+            placeholder="Ingresa el email del usuario"
+          />
+        </div>
+
+        <div>
+          <label for="roleId" class="block text-md font-medium text-coffee-700 mb-1">
+            Rol del Usuario 📝 <span class="text-red-500 text-xl">*</span>
+          </label>
+          <select
+            id="roleId"
+            name="roleId"
+            class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 text-coffee-800"
+            required
+          >
+            {
+              roles.map( ( role ) => (
+                <option value={ role.id } selected={ role.id === roleId }>
+                  { role.name }
+                </option>
+              ) ).reverse()
+            }
+          </select>
+        </div>
+
+        <div>
+          <label for="password" class="block text-md font-medium text-coffee-700 mb-1">
+           🛡️ Contraseña 🔒 <span class="text-red-500 text-xl">*</span>
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            class="w-full px-3 py-2 border border-coffee-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 text-coffee-800"
+            placeholder="Ingresa la contraseña del usuario"
+            required
+          />
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-6">
+          <button
+            type="submit"
+            class="px-6 py-2 border border-transparent text-white bg-teal-600 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-300 shadow-md"
+          >
+            Editar Usuario
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</AdminLayout>
+<script>
+import { actions } from 'astro:actions'
+import { getErrorMessage } from '@/utils'
+import Swal from 'sweetalert2'
+
+const form = document.querySelector( '#form' ) as HTMLFormElement
+const submitButton = document.querySelector( 'button' ) as HTMLButtonElement
+
+form.addEventListener( 'submit', async ( event ) => {
+  event.preventDefault()
+  submitButton.disabled = true
+
+  const formData = new FormData( form )
+
+  const { error } = await actions.updateUser( formData )
+
+  if ( error ) {
+
+    const errorMessage = getErrorMessage( error )
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: errorMessage,
+    })
+
+    submitButton.disabled = false
+    return
+  }
+
+  window.location.href = '/admin/mitigations'
+} )
+
+</script>
+<style>
+textarea {
+  resize: none;
+  min-height: 100px;
+  form-sizing: content;
+  max-height: 200px;
+}
+</style>
+

@@ -1,0 +1,164 @@
+
+---
+import { actions } from 'astro:actions'
+import { Icon } from 'astro-icon/components'
+import AdminLayout from '@/modules/admin/layouts/AdminLayout.astro'
+
+const { data, error } = await actions.findAllDisasterTypes({})
+
+if ( error ) {
+  return Astro.redirect( '/admin' )
+}
+
+const { disasterTypes } = data
+---
+
+<AdminLayout>
+  <div class="w-full">
+    <div class="bg-cream-100 w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-extrabold text-coffee-800 mb-8 text-center">
+          Gestor de Desastres Naturales 🌎
+        </h1>
+
+        <div class="w-full flex justify-end">
+          <a
+            href={ `/admin/disasters/new` }
+            class="text-2xl font-bold text-coffee-700 flex items-center rounded-xl shadow-2xl bg-white p-4"
+          >
+            <Icon name="mdi:newspaper-plus" class="w-8 h-8 mr-2 text-teal-500" />
+            Nuevo Desastre
+          </a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-2xl p-8 mt-16">
+          <h2 class="text-2xl font-bold text-coffee-700 mb-6 flex items-center">
+            <Icon name="mdi:list-status" class="w-8 h-8 mr-2 text-teal-500" />
+            Lista de Tipos de Desastres Naturales
+          </h2>
+          <ul class="flex flex-col gap-4">
+            {
+            disasterTypes.map( ( disaster ) => (
+            <li class="bg-cream-50 rounded-lg p-4 flex items-center justify-between transition duration-300 ease-in-out transform hover:scale-102 hover:shadow-md gap-8">
+              <a href={ `/admin/disasters/${ disaster.id }` }>
+                <div class="flex items-center space-x-4">
+                  <div>
+                    <h3 class="text-xl font-semibold text-coffee-700 flex items-center">
+                      <Icon
+                        name={ disaster.icon ?? 'mdi:alert-circle' }
+                        class="w-6 h-6 mr-2 text-teal-500"
+                      />
+                      { disaster.name }
+                    </h3>
+                    <p class="text-coffee-600 mt-5 line-clamp-2">{ disaster.description }</p>
+
+                    <div class="flex items-center space-x-2 py-4">
+                      <span
+                        class:list={[
+                          "text-red-500 text-xs rounded-full px-2 py-1 bg-red-100 font-semibold flex items-center justify-center gap-2",
+                          {
+                            'hidden': disaster.status
+                          }
+                        ]}
+                      >
+                        <Icon name="mdi:close-circle" class="w-5 h-5" />
+                        Inactivo
+                      </span>
+                      <span
+                        class:list={[
+                          "text-green-500 text-xs rounded-full px-2 py-1 bg-green-100 font-semibold flex items-center justify-center gap-2",
+                          {
+                            'hidden': !disaster.status
+                          }
+                        ]}
+                      >
+                        <Icon name="mdi:check-circle" class="w-5 h-5" />
+                        Activo
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="flex space-x-2">
+                <a
+                  class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out edit-button"
+                  aria-label={ `Ver detalles del desastre ${ disaster.name }` }
+                  href={ `/admin/disasters/${ disaster.id }` }
+                >
+                  <Icon name="mdi:eye" class="w-5 h-5" />
+                </a>
+
+                <a
+                  class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out"
+                  aria-label={`Editar ${ disaster.name }`}
+                  href={ `/admin/disasters/edit/${ disaster.id }` }
+                >
+                  <Icon name="mdi:pencil" class="w-5 h-5" />
+                </a>
+                <button
+                  class="p-2 text-red-600 hover:bg-red-100 rounded-full transition duration-300 ease-in-out delete-button"
+                  aria-label={`Eliminar ${ disaster.name }`}
+                  data-id={ disaster.id }
+                  current-status={ disaster.status }
+                >
+                  <Icon name="mdi:delete" class="w-5 h-5" />
+                </button>
+              </div>
+            </li>
+            ) ).reverse()
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+import { actions } from 'astro:actions'
+import Swal from 'sweetalert2'
+
+
+const deleteButtons = document.querySelectorAll( '.delete-button' )
+
+deleteButtons.forEach( ( button ) => {
+  button.addEventListener( 'click', async ( _e ) => {
+
+    const id = Number( button.getAttribute( 'data-id' ) )
+    const currentStatus = button.getAttribute( 'current-status' ) === 'true'
+
+    const { error } = await actions.toggleStatusDisasterType( { id, currentStatus } )
+
+    if ( error ) {
+
+      Swal.fire( {
+        icon: 'error',
+        title: 'Error al eliminar el desastre',
+        text: 'No se pudo eliminar el desastre. Por favor, inténtelo de nuevo.',
+      } )
+      return
+    }
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Estado del desastre actualizado',
+      text: `El desastre ha sido marcado como ${ !currentStatus ? 'Activo' : 'Inactivo' }`,
+    })
+
+    button.setAttribute( 'current-status', ( !currentStatus ).toString() )
+
+    const listItem = button.closest( 'li' ) as HTMLLIElement
+
+    const spanStatusActive = listItem.querySelector('.text-green-500')
+    const spanStatusInactive = listItem.querySelector('.text-red-500')
+
+    if ( spanStatusActive ) {
+      spanStatusActive.classList.toggle( 'hidden', currentStatus )
+    }
+    if ( spanStatusInactive ) {
+      spanStatusInactive.classList.toggle( 'hidden', !currentStatus )
+    }
+  } )
+} )
+
+</script>

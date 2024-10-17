@@ -1,0 +1,28 @@
+---
+import Navbar from '@/modules/shared/components/ui/Navbar.astro'
+
+const links = [
+  {
+    href: '/admin',
+    title: 'dashboard',
+    icon: 'dashboard',
+  },
+  {
+    href: '/admin/disasters',
+    title: 'disasters',
+    icon: 'mdi:alert-circle-outline',
+  },
+  {
+    href: '/admin/mitigations',
+    title: 'mitigaciones',
+    icon: 'mitigations',
+  },
+  {
+    href: '/admin/users',
+    title: 'usuarios',
+    icon: 'users',
+  }
+]
+---
+
+<Navbar links={ links } />

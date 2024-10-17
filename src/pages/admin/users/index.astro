@@ -1,0 +1,209 @@
+
+---
+import { actions } from 'astro:actions'
+import { Icon } from 'astro-icon/components'
+import { getSession } from 'auth-astro/server'
+import AdminLayout from '@/modules/admin/layouts/AdminLayout.astro'
+
+const session = await getSession( Astro.request )
+
+const { user: currentUser } = session ?? {}
+
+const { data: usersData, error: findAllUsersError } = await actions.findAllUsers({})
+const { data: rolesData, error: findAllRolesError } = await actions.findAllRoles({})
+
+if ( findAllUsersError || findAllRolesError ) {
+  return Astro.redirect( '/admin' )
+}
+
+const { users } = usersData
+const { roles } = rolesData
+---
+
+<AdminLayout>
+  <div class="flex flex-col gap-8 py-8 px-6">
+    <h1 class="text-4xl font-extrabold text-coffee-800 text-center">
+      Administración de Usuarios 🧑‍💻
+    </h1>
+
+    <div class="w-full flex justify-end mt-8">
+      <a
+        href={ `/admin/users/new` }
+        class="text-2xl font-bold text-coffee-700 flex items-center rounded-xl bg-white p-4 shadow-[0_15px_30px_rgba(255,240,220,0.7)] border-2 border-white border-[rgba(255,240,220,0.9)] hover:border-teal-600 transition duration-300 ease-in-out"
+      >
+        Nuevo Usuario
+        <Icon name="mdi:account-plus" class="w-8 h-8 ml-2 text-teal-500" />
+      </a>
+    </div>
+    <div class="mb-4 flex gap-4">
+      <input type="text" id="searchInput" placeholder="Buscar usuarios... 🔍" class="w-full p-2 bg-cream-200 border-brown-100 focus:border-brown-300 focus:ring-brown-300 rounded-lg">
+      <button id="searchButton" class="bg-brown-100 hover:bg-brown-200 text-brown-300 font-bold py-2 px-4 rounded-lg bg-cream-200">
+        Buscar
+      </button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-cream-200 border border-brown-100 rounded-lg overflow-hidden">
+        <thead class="bg-brown-100">
+          <tr>
+            <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
+              <div class="flex gap-2 items-center">
+                <Icon name="mdi:account" size={ 24 } />
+                Nombre
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
+              <div class="flex gap-2 items-center">
+                <Icon name="mdi:gmail" size={ 24 } />
+                Email
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
+              <div class="flex gap-2 items-center">
+                <Icon name="mdi:check-decagram" size={ 24 } />
+                Estado
+              </div>
+
+            </th>
+            <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
+              <div class="flex gap-2 items-center">
+                <Icon name="mdi:account-cog" size={ 24 } />
+                Rol
+              </div>
+            </th>
+
+            <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
+              <div class="flex gap-2 items-center">
+                <Icon name="mdi:toggle-switch" size={ 24 } />
+                Acciones
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          {
+          users.filter( u => u.id !== currentUser?.id ).map( ( user ) => (
+          <tr class="bg-cream-100">
+
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="font-medium text-brown-300"> { user.name }</div>
+            </td>
+
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-brown-300"> { user.email } </div>
+            </td>
+
+            <td class="px-6 py-4 whitespace-nowrap flex items-center justify-center">
+              <span
+                class={ `px-3 py-2 inline-flex leading-5 font-semibold rounded-full ${ user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }` }
+                id={ `span-status-${ user.id }` }
+              >
+                { user.status ? 'Activo' : 'Inactivo' }
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-2 inline-flex leading-5 font-semibold rounded-full bg-cream-100 text-brown-300">
+                {
+                roles.find( ( role ) => role.id === user.roleId )?.name
+                }
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-brown-300 flex items-center justify-center gap-2">
+
+              <a
+                class="p-2 rounded-full transition duration-300 ease-in-out bg-teal-100 hover:bg-teal-200 text-teal-600"
+                href={ `/admin/users/${ user.id }` }
+              >
+                <Icon name="mdi:eye" size={ 24 } />
+              </a>
+
+              <a href={ `/admin/users/edit/${ user.id }` } class="p-2 rounded-full transition duration-300 ease-in-out bg-blue-100 hover:bg-blue-200 text-blue-600">
+                <span class="flex items-center justify-center gap-1">
+                  <Icon name="mdi:pencil" size={ 24 } />
+                </span>
+              </a>
+
+              <button
+                class={ `p-2 rounded-full transition duration-300 ease-in-out delete-button ${ user.status ? 'bg-red-100 hover:bg-red-200 text-red-600' : 'bg-green-100 hover:bg-green-200 text-green-600' }` }
+                data-id={ user.id }
+                data-current-status={ `${ JSON.stringify( user.status ) }` }
+              >
+                <span class={ `flex items-center justify-center gap-1 rounded-full ${ user.status ? '' : 'hidden' }` }>
+                  <Icon name="mdi:delete" size={ 24 } />
+                </span>
+
+                <span class={ `flex items-center justify-center gap-1 rounded-full ${ user.status ? 'hidden' : '' }` }>
+                  <Icon name="mdi:account-check" size={ 24 } />
+                </span>
+              </button>
+            </td>
+          </tr>
+        ) )
+        }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+import { actions } from 'astro:actions'
+import Swal from 'sweetalert2'
+const deleteButtons = document.querySelectorAll( '.delete-button' )
+if ( !deleteButtons ) return
+
+deleteButtons.forEach( ( button ) => {
+  button.addEventListener( 'click', async ( _e ) => {
+
+    const id = button.getAttribute( 'data-id' )
+    const currentStatus = button.getAttribute( 'data-current-status' ) === 'true'
+
+    if ( !id ) return
+
+    const { error } = await actions.toggleStatusUser( { id, currentStatus } )
+
+    if ( error ) {
+
+      Swal.fire( {
+        icon: 'error',
+        title: 'Error al eliminar el usuario',
+        text: 'No se pudo eliminar el usuario. Por favor, inténtelo de nuevo.',
+      } )
+      return
+    }
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Estado de usuario actualizado',
+      text: `El usuario ha sido marcado como ${ !currentStatus ? 'Activo' : 'Inactivo' }`,
+    })
+
+    button.setAttribute( 'data-current-status', ( !currentStatus ).toString() )
+
+    const spanStatus = document.getElementById( `span-status-${ id }` )
+    if ( !spanStatus ) return
+
+    spanStatus.textContent = !currentStatus ? 'Activo' : 'Inactivo'
+    if ( !currentStatus ) {
+      spanStatus.classList.add( 'bg-green-100', 'text-green-800' )
+      spanStatus.classList.remove( 'bg-red-100', 'text-red-800' )
+      const icon = button.querySelector( 'span:nth-child(1)' ) as HTMLElement
+      icon.classList.remove( 'hidden' )
+      const icon2 = button.querySelector( 'span:nth-child(2)' ) as HTMLElement
+      icon2.classList.add( 'hidden' )
+      button.classList.add( 'bg-red-100', 'hover:bg-red-200', 'text-red-600' )
+      button.classList.remove( 'bg-green-100', 'hover:bg-green-200', 'text-green-600' )
+    } else {
+      spanStatus.classList.add( 'bg-red-100', 'text-red-800' )
+      spanStatus.classList.remove( 'bg-green-100', 'text-green-800' )
+      const icon = button.querySelector( 'span:nth-child(1)' ) as HTMLElement
+      icon.classList.add( 'hidden' )
+      const icon2 = button.querySelector( 'span:nth-child(2)' ) as HTMLElement
+      icon2.classList.remove( 'hidden' )
+      button.classList.add( 'bg-green-100', 'hover:bg-green-200', 'text-green-600' )
+      button.classList.remove( 'bg-red-100', 'hover:bg-red-200', 'text-red-600' )
+    }
+
+  } )
+} )
+</script>

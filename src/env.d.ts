@@ -4,7 +4,7 @@
 interface User {
   name:       string
   email:      string
-  role:       string
+  roleId:       string
 }
 
 declare namespace App {
