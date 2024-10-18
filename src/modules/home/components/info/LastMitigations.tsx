@@ -1,5 +1,5 @@
 import type { IDisaster, IMitigationAction, IMitigationPlan, IPrediction } from "@/interfaces"
-import { generateMitigationPlan, getPredictions, getRiskLevelName, getRowStyles } from "@/utils"
+import { generateMitigationPlanes, getPredictions, getRiskLevelName, getRowStyles, type IMitigationPlanes } from "@/utils"
 import { useEffect, useState } from "react"
 
 interface Props {
@@ -9,14 +9,14 @@ interface Props {
 
 export const LastMitigations = ( { mitigationActions, disasterTypes }: Props ) => {
 
-  const [ mitigationPlan, setMitigationPlan ] = useState<IMitigationPlan[] | null>( null )
+  const [ mitigationPlan, setMitigationPlan ] = useState<IMitigationPlanes[] | null>( null )
   const [ predictions, setPredictions ] = useState<IPrediction[] | null>( null )
 
   useEffect( () => {
     const fetchPredictions = async () => {
       const data = await getPredictions( new Date().toISOString().split( 'T' )[ 0 ] )
       if ( data ) {
-        setMitigationPlan( generateMitigationPlan( mitigationActions, disasterTypes, data.fullDataPredictions ) )
+        setMitigationPlan( generateMitigationPlanes( mitigationActions, disasterTypes, data.fullDataPredictions ) )
       }
     }
     fetchPredictions()
@@ -68,15 +68,20 @@ export const LastMitigations = ( { mitigationActions, disasterTypes }: Props ) =
                       </td>
 
                       <td className={ `py-3 px-4 ${ styles.text }` }>
+                      <div className="flex flex-col gap-2 w-full justify-start items-start">
                         {
-                          ( mitigation.mitigationAction ) ? (
-                            <a href={ `/mitigations/${ mitigation.mitigationAction.id }` } className="text-blue-500" target="_blank" rel="noreferrer">
-                              { mitigation.mitigationAction.description }
-                            </a>
+
+                          ( mitigation.mitigationAction !== null && mitigation.mitigationAction.length > 0 ) ? (
+                            mitigation.mitigationAction.map((action, index) => (
+                              <a key={ index } href={ `/mitigations/${ action.id }` } className="text-blue-500 mr-2" target="_blank" rel="noreferrer">
+                                { action.description }
+                              </a>
+                            ))
                           ) : (
-                            <span className="text-gray-500"> Ninguna acción de mitigación </span>
-                          )
+                              <span className="text-gray-500"> Ninguna acción de mitigación </span>
+                            )
                         }
+                      </div>
                       </td>
                       <td className={ `py-3 px-4 ${ styles.text }` }>{ getRiskLevelName( mitigation.dangerIndicator ) }</td>
                     </tr>
