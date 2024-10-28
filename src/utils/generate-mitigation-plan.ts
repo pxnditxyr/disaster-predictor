@@ -62,8 +62,8 @@ const getHighestProbability = ( predictions: ITransformedApiResponse[] ): IHighe
 }
 
 const mapProbabilityToRiskLevel = ( probability : number ) : number => {
-  if ( probability >= 0.7 ) return 3
-  if ( probability >= 0.5 ) return 2
+  if ( probability >= 0.65 ) return 3
+  if ( probability >= 0.55 ) return 2
   return 1
 }
 
@@ -135,21 +135,13 @@ export const generateMitigationPlan = ( mitigationActions: IMitigationAction[], 
       }
     }
 
-    // Filtrar por safetyLevel si está disponible
-    const actionsWithSafety = possibleActions.filter( ( action ) => action.safetyLevel !== undefined )
+    const actionsWithSafety = possibleActions.filter( ( action ) => action.safetyLevel !== null )
     if ( actionsWithSafety.length > 0 ) {
-      possibleActions = actionsWithSafety.sort( ( a, b ) => {
-        if ( a.safetyLevel && b.safetyLevel ) {
-          return b.safetyLevel - a.safetyLevel // Ordenar descendente
-        }
-        return 0
-      } )
+      possibleActions = actionsWithSafety.sort( ( a, b ) => ( b.safetyLevel ?? 0 ) - ( a.safetyLevel ?? 0 ) );
     }
 
-    // Seleccionar la primera acción disponible
     const selectedAction = possibleActions.length > 0 ? possibleActions[0] : null
 
-    // Determinar el indicador de peligro basado en el nivel de riesgo
     const dangerIndicator = riskLevel
 
     return {
@@ -167,7 +159,6 @@ export const generateMitigationPlan = ( mitigationActions: IMitigationAction[], 
     dangerIndicator: 1
   }) )
 
-  console.log({ mitigationPlan })
    return baseMitigationPlan.map( ( baseMitigation ) => {
 
     const currentData = mitigationPlan.find( ( plan ) => plan.date === baseMitigation.date )
@@ -182,5 +173,3 @@ export const generateMitigationPlan = ( mitigationActions: IMitigationAction[], 
     }
   } )
 }
-
-

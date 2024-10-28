@@ -28,3 +28,26 @@ export const generateDayLinkForScraping = ( startDate : string ) : string => {
 
   return baseURL
 }
+
+export interface IGenerateMonthLinkForScraping {
+  links : string[]
+  startDate : Date
+  finalDate : Date
+}
+
+
+export const generateMonthLinkForScraping = ( desiredDate : string ) : IGenerateMonthLinkForScraping => {
+  const currentDate = new Date( desiredDate )
+
+  const startDate = new Date( currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate() )
+  const finalDate = new Date( currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() )
+
+  const links = generateLinksForScraping( startDate.toISOString(), finalDate.toISOString() )
+
+  return {
+    links,
+    startDate,
+    finalDate
+  }
+}
+

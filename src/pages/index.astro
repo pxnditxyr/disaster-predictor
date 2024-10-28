@@ -1,5 +1,6 @@
 ---
 import Layout from '@/modules/shared/layouts/Layout.astro'
+import { Icon } from 'astro-icon/components'
 import Title from '@/modules/shared/components/ui/Title.astro'
 import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
 import HomeInfo from '@/modules/home/components/info/HomeInfo.astro'
@@ -26,7 +27,7 @@ const { disasterTypes } = disasterTypesData
     client:only="react"
   />
 
-  <Title class="text-center text-pretty mt-8"> 🚨 Disaster Predictor 🌍 </Title>
+  <Title class="text-center text-pretty mt-8"> 🚨 Mitiga Ya! 🌍 </Title>
 
   <div class="w-full flex flex-col justify-center items-center mt-12 gap-12 lg:flex-row lg:gap-4 px-4">
     <div class="w-full px-4 lg:w-2/3 lg:px-0">
@@ -39,6 +40,27 @@ const { disasterTypes } = disasterTypesData
 
   <div class="pb-20">
     <HomeInfo />
+  </div>
+
+  <div class="pb-20">
+    <Title class="text-center text-pretty my-12"> ⛈️ Tipos de Desastres Naturales 🌋 </Title>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12 px-8">
+      {
+        disasterTypes.filter( d => d.status ).map( ({ title, description, icon }) => (
+          <div class="bg-[#faf3e0] border-[#d2b48c] p-4 rounded-xl shadow-lg shadow-[#f0e6d2] border-2">
+            <div class="flex flex-row items-center space-x-4 pb-2">
+              <Icon name={ icon } size={ 60 } />
+              <div class="text-xl font-semibold text-[#8B4513]">{ title }</div>
+            </div>
+            <div>
+              <p class="text-[#5c4f3d] text-md font-semibold text-pretty">
+                { description }
+              </p>
+            </div>
+          </div>
+        ) )
+      }
+    </div>
   </div>
 
   <div class="w-full mt-36">

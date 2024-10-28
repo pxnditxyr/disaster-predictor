@@ -44,14 +44,34 @@ export const AllPredictions = () => {
   }
 
   const riskEvents = [
-    "crisis del agua (sequia)",
-    "derrumbe",
-    "desborde de rio",
-    "deslizamiento",
-    "granizada",
-    "granizada e inundacion",
-    "inundacion",
-    "riada"
+    {
+      name: "crisis del agua (sequia)",
+      title: "Crisis del Agua (Sequía)"
+    },
+    {
+      name: "desborde de rio",
+      title: 'Desborde de Río',
+    },
+    {
+      name: 'derrumbe',
+      title: 'Derrumbe',
+    },
+    {
+      name: 'deslizamiento',
+      title: 'Deslizamiento de Tierra',
+    },
+    {
+      name: 'granizada',
+      title: 'Granizada',
+    },
+    {
+      name: 'inundacion',
+      title: 'Inundación',
+    },
+    {
+      name: 'riada',
+      title: 'Riada',
+    }
   ]
 
   return (
@@ -79,11 +99,11 @@ export const AllPredictions = () => {
                 Fecha
               </th>
               <th className="text-teal-700 text-left font-semibold py-4 px-4">Dirección</th>
-              {riskEvents.map(event => (
-                <th key={event} className="text-teal-700 text-left font-semibold py-4 px-4">
-                  {event}
+              { riskEvents.map( ( event ) => (
+                <th key={ event.name } className="text-teal-700 text-left font-semibold py-4 px-4">
+                  { event.title }
                 </th>
-              ))}
+              ) ) }
             </tr>
           </thead>
           <tbody className="capitalize">
@@ -106,11 +126,23 @@ export const AllPredictions = () => {
                       >
                         <td className={`py-3 px-4 ${styles.text}`}>{prediction.date}</td>
                         <td className={`py-3 px-4 ${styles.text}`}>{prediction.address}</td>
-                        {riskEvents.map(event => (
-                          <td key={event} className={`py-3 px-4 ${styles.text}`}>
-                            {(prediction[event] as number * 100).toFixed(2)}%
-                          </td>
-                        ))}
+                        {
+                          ( predictions ) ? (
+                            <>
+                              <td className={`py-3 px-4 ${styles.text}`}>{( prediction["crisis del agua (sequia)"] * 100 ).toFixed(2)}%</td>
+                              <td className={`py-3 px-4 ${styles.text}`}>{( prediction["desborde de rio"] * 100 ).toFixed(2)}%</td>
+                              <td className={`py-3 px-4 ${styles.text}`}>{( prediction.derrumbe * 100 ).toFixed(2)}%</td>
+                              <td className={`py-3 px-4 ${styles.text}`}>{( prediction.deslizamiento * 100 ).toFixed(2)}%</td>
+                              <td className={`py-3 px-4 ${styles.text}`}>{( prediction.granizada * 100 ).toFixed(2)}%</td>
+                              <td className={`py-3 px-4 ${styles.text}`}>{( prediction.inundacion * 100 ).toFixed(2)}%</td>
+                              <td className={`py-3 px-4 ${styles.text}`}>{( prediction.riada * 100 ).toFixed(2)}%</td>
+                            </>
+                          ) : (
+                            <td colSpan={riskEvents.length} className="py-3 px-4">
+                              No hay datos
+                            </td>
+                          )
+                        }
                       </tr>
                     )
                   } )

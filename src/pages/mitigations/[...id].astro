@@ -3,7 +3,7 @@ import { Icon } from 'astro-icon/components'
 import Layout from '@/modules/shared/layouts/Layout.astro'
 import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
 import { Image } from 'astro:assets'
-import { getStatusColor, getRiskLevelColor, getRiskLevelName } from '@/utils'
+import { getRiskLevelColor, getRiskLevelName } from '@/utils'
 import { actions } from 'astro:actions'
 
 const { id } = Astro.params
@@ -26,7 +26,6 @@ const {
   imageUrl,
   address,
   safetyLevel,
-  status
 } = mitigationAction
 
 const disasterTypeName = disasterTypes.find( d => d.id === disasterTypeId )?.name ?? 'No hay tipo de desastre'
@@ -42,13 +41,10 @@ const disasterTypeName = disasterTypes.find( d => d.id === disasterTypeId )?.nam
       <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden sm:max-w-[800px]">
         <div class="bg-coffee-600 p-6 text-cream-100">
           <div class="flex items-center justify-between">
-            <h1 class="text-4xl font-bold flex items-center">
+            <h1 class="text-4xl font-bold flex items-center capitalize">
               <Icon name={ icon } class="w-12 h-12 mr-4 text-teal-300" />
               { description }
             </h1>
-            <span class={ `px-3 py-1 rounded-full text-sm font-semibold ${ getStatusColor( status ) }` }>
-              { status ? 'Activo' : 'Inactivo' }
-            </span>
           </div>
         </div>
         <div class="p-8 space-y-6">

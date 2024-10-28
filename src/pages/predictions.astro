@@ -28,7 +28,7 @@ const { disasterTypes } = disasterTypesData
     />
 
 
-    <Title class="text-center text-pretty mt-16"> 🌪️ Detección de Desastres naturales 🌊 </Title>
+    <Title class="text-center text-pretty mt-16"> 🌪️ Detección de Desastres Naturales 🌊 </Title>
 
     <div class="w-full px-4 flex items-center justify-center mt-12">
       <p class="text-pretty text-[#5c4f3d] text-md max-w-[450px] font-semibold">
@@ -39,10 +39,7 @@ const { disasterTypes } = disasterTypesData
 
 
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12 lg:mt-16">
-      <div class="w-full px-4 lg:w-1/3 lg:px-0 flex items-center justify-center">
-        <Icon name="luggage-insurance" size={ 200 } />
-      </div>
-      <div class="w-full px-4 lg:w-2/3 lg:px-0">
+      <div class="w-full px-4  lg:px-0">
         <LastDetections client:only="react" />
       </div>
     </div>
@@ -60,10 +57,7 @@ const { disasterTypes } = disasterTypesData
 
 
   <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12 lg:mt-16">
-    <div class="w-full px-4 lg:w-1/3 lg:px-0 flex items-center justify-center">
-      <Icon name="luggage-insurance" size={ 200 } />
-    </div>
-    <div class="w-full px-4 lg:w-2/3 lg:px-0">
+    <div class="w-full px-4  lg:px-0">
       <LastPredictions client:only="react" />
     </div>
   </div>
@@ -71,7 +65,7 @@ const { disasterTypes } = disasterTypesData
 
 
   <div class="min-h-screen w-full">
-    <Title class="text-center text-pretty mt-16"> 📜 Generar Detecciones anteriores 🏥 </Title>
+    <Title class="text-center text-pretty mt-16"> 📜 Generar Detecciones Anteriores 🏥 </Title>
     <div class="w-full px-4 flex items-center justify-center mt-16">
       <p class="text-pretty text-[#5c4f3d] text-md max-w-[600px]">
         En esta sección se muestra las detecciones de la fecha que elijas.
@@ -79,7 +73,7 @@ const { disasterTypes } = disasterTypesData
       </p>
     </div>
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">
-      <div class="w-full px-4 lg:w-2/3 lg:px-0">
+      <div class="w-full px-4 lg:px-0">
         <AllDetections client:only="react" />
       </div>
     </div>
@@ -87,7 +81,7 @@ const { disasterTypes } = disasterTypesData
   </div>
 
   <div class="min-h-screen w-full">
-    <Title class="text-center text-pretty mt-16"> 📜 Generar Predicciones anteriores 🔮  </Title>
+    <Title class="text-center text-pretty mt-16"> 📜 Generar Predicciones Anteriores 🔮  </Title>
     <div class="w-full px-4 flex items-center justify-center mt-16">
       <p class="text-pretty text-[#5c4f3d] text-md max-w-[600px]">
         En esta sección se muestra las predicciones de la fecha que elijas.
@@ -95,7 +89,7 @@ const { disasterTypes } = disasterTypesData
       </p>
     </div>
     <div class="w-full flex flex-col justify-center items-center mt-16 gap-12 lg:flex-row lg:gap-4 px-4 sm:px-12">
-      <div class="w-full px-4 lg:w-2/3 lg:px-0">
+      <div class="w-full px-4  lg:px-0">
         <AllPredictions client:only="react" />
       </div>
     </div>
@@ -107,11 +101,11 @@ const { disasterTypes } = disasterTypesData
     <Title class="text-center text-pretty my-12"> ⛈️ Tipos de Desastres Naturales 🌋 </Title>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12 px-8">
       {
-        disasterTypes.filter( d => d.status ).map( ({ name, description, icon }) => (
+        disasterTypes.filter( d => d.status ).map( ({ title, description, icon }) => (
           <div class="bg-[#faf3e0] border-[#d2b48c] p-4 rounded-xl shadow-lg shadow-[#f0e6d2] border-2">
             <div class="flex flex-row items-center space-x-4 pb-2">
               <Icon name={ icon } size={ 60 } />
-              <div class="text-xl font-semibold text-[#8B4513]">{ name }</div>
+              <div class="text-xl font-semibold text-[#8B4513]">{ title }</div>
             </div>
             <div>
               <p class="text-[#5c4f3d] text-md font-semibold text-pretty">

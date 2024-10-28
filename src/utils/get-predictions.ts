@@ -55,6 +55,7 @@ export const getPredictions = async ( date : string ): Promise<{ predictions: IP
         date: prediction.date,
         region: prediction.address === 'no hay direccion' ? 'Ninguna' : prediction.address,
         prediction: prediction.address === 'no hay direccion' ? 'Ninguna' : maxPrediction[0],
+        riskLevel: dangerIndicator === 'nivel bajo' ? 1 : dangerIndicator === 'nivel moderado' ? 2 : 3,
         dangerIndicator: dangerIndicator,
         probablity: maxPrediction[ 1 ]
       }

@@ -1,0 +1,77 @@
+---
+import { Icon } from 'astro-icon/components'
+import Layout from '@/modules/shared/layouts/Layout.astro'
+import Title from '@/modules/shared/components/ui/Title.astro'
+import HomeNavbar from '@/modules/home/components/ui/HomeNavbar.astro'
+import Footer from '@/modules/shared/components/ui/Footer.astro'
+import { Steps } from '@/modules/how-it-works/components/steps/Steps.tsx'
+
+const steps = [
+  {
+    title: 'generación de enlaces 📊',
+    description: 'Se generan enlaces para la extracción de datos climáticos.',
+    icon: 'mdi:link-box-outline',
+    link: '#step-1'
+  },
+  {
+    title: 'extracción de datos 🔍',
+    description: 'Se realiza una extracción de datos web para obtener los datos climáticos',
+    icon: 'mdi:database-check',
+    link: '#step-2'
+  },
+  {
+    title: 'preparación de datos 🧠',
+    description: 'Se preparan los datos para la inserción en el Modelo Transformer.',
+    icon: 'mdi:brain',
+    link: '#step-3'
+  },
+  {
+    title: 'envío de datos y petición a la red neuronal ⚠️',
+    description: "Se envían los datos al modelo Transformer para obtener la predicción.",
+    icon: 'mdi:send',
+    link: '#step-4'
+  },
+  {
+    title: 'post procesamiento de los datos 🌍',
+    description: "Mostramos los resultados.",
+    icon: 'processing',
+    link: '#step-5'
+  },
+]
+
+---
+
+<Layout>
+  <HomeNavbar />
+
+  <Title class="text-center text-pretty mt-8"> ⚙️  ¿Cómo Funciona? 🤔 </Title>
+
+  <p class="text-xl text-center text-gray-600">
+    Descubre el proceso detrás de nuestras predicciones de desastres naturales
+  </p>
+
+  <div class="space-y-12">
+    {
+      steps.map( ( step, index ) => (
+      <a href={ step.link } class="block">
+        <div class="bg-white rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
+          <div class="flex items-center mb-4">
+            <Icon name={ step.icon } class="w-12 h-12 mr-4 text-teal-800" />
+            <h2 class="text-2xl font-semibold text-gray-800 ml-4 capitalize"> { index + 1 }. { step.title } </h2>
+          </div>
+          <p class="text-gray-600">{ step.description }</p>
+        </div>
+      </a>
+      ) )
+    }
+  </div>
+
+
+  <div>
+    <Steps client:only="react" />
+  </div>
+
+  <div class="w-full mt-36">
+    <Footer />
+  </div>
+</Layout>

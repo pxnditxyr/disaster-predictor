@@ -13,7 +13,8 @@ interface Props {
 const { links }: Props = Astro.props
 const currentPath = Astro.url.pathname
 
-const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md font-medium flex flex-col items-center gap-2 capitalize'
+const anchorClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded-md font-medium flex md:flex-col items-center gap-2 capitalize'
+
 if ( !isLoggedIn ) {
   links.push({
     href: '/login',
@@ -24,48 +25,51 @@ if ( !isLoggedIn ) {
 ---
 
 <nav class="bg-white shadow-md w-full relative">
-  <div class="flex items-center justify-center">
-    <div class="flex items-center justify-center gap-4">
-      {
-        links.map( ({ href, title, icon }) => (
+  <div class="flex items-center justify-center md:justify-center">
+    <div class="flex items-center justify-center flex-col md:flex-row w-full">
+      <div class="px-6 py-4 w-full flex items-center justify-between md:hidden">
+        <button id="menu">
+          <Icon name="hamburger" size={ 40 } class="" />
+        </button>
+        <button id="menu-close" class="hidden">
+          <Icon name="double-alt-arrow" size={ 40 } class="" />
+        </button>
+      </div>
+      <div id="nav-content" class="md:flex flex-col md:flex-row items-center justify-center gap-4 hidden py-2 text-sm">
+      { links.map( ({ href, title, icon }) => (
+        <div class="flex flex-col items-center">
           <a
             href={ href }
             class={`
-              ${ anchorClasses }
-              ${ currentPath === href ? 'bg-gray-100 text-gray-900' : '' }
-              ${ icon ? 'text-xs' : '' }
+            ${ anchorClasses }
+            ${ currentPath === href ? "bg-gray-100 text-gray-900" : "" }
             `}
           >
-            {
-              ( icon ) && (
-                <Icon name={ icon } size={ 24 } class="text-yellow-500" />
-              )
-            }
-            <span class="text-center"> { title } </span>
-            {
-              ( currentPath === href ) ? (
-                <div class="border-yellow-500 border-b-4 w-full"></div>
-              ) : (
-                <div class="border-transparent border-b-4 w-full"></div>
-              )
-            }
+            { icon && <Icon name={ icon } size={ 30 } class="text-yellow-500" /> }
+            <div class="flex flex-col items-center gap-3">
+              <span class="text-center"> { title } </span>
+            </div>
           </a>
-        ) )
-      }
+          { currentPath === href ? (
+            <div class="border-yellow-500 border-b-4 w-full"></div>
+          ) : (
+            <div class="border-transparent border-b-4 w-full"></div>
+          ) }
+        </div>
+      ) ) }
+      </div>
     </div>
-    {
-      ( isLoggedIn ) && (
-      <div class="absolute right-4 top-4">
+    { ( isLoggedIn ) && (
+      <div class="absolute right-4 top-4 md:top-8">
         <button
-          class="text-xs hover:bg-red-600 hover:text-white py-2 px-4 rounded-full flex items-center transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+          class="text-sm hover:bg-red-600 hover:text-white py-2 px-4 rounded-full flex items-center transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
           id="logout"
         >
           <Icon name="mdi:logout" class="w-5 h-5 mr-2" />
           Cerrar Sesión
         </button>
       </div>
-      )
-    }
+    ) }
   </div>
 </nav>
 
@@ -78,5 +82,23 @@ const logoutElement = document.querySelector( '#logout' ) as HTMLLIElement
 logoutElement?.addEventListener( 'click', async () => {
   await signOut()
   navigate( '/login' )
+} )
+
+const menuElement = document.querySelector( '#menu' ) as HTMLButtonElement
+const menuCloseElement = document.querySelector( '#menu-close' ) as HTMLButtonElement
+const navContentElement = document.querySelector( '#nav-content' ) as HTMLDivElement
+
+menuElement?.addEventListener( 'click', () => {
+  navContentElement.classList.toggle( 'hidden' )
+  navContentElement.classList.toggle( 'flex' )
+  menuElement.classList.toggle( 'hidden' )
+  menuCloseElement.classList.toggle( 'hidden' )
+} )
+
+menuCloseElement?.addEventListener( 'click', () => {
+  navContentElement.classList.toggle( 'flex' )
+  navContentElement.classList.toggle( 'hidden' )
+  menuElement.classList.toggle( 'hidden' )
+  menuCloseElement.classList.toggle( 'hidden' )
 } )
 </script>

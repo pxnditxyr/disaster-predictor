@@ -13,7 +13,7 @@ export const updateDisasterType = defineAction({
   }),
   handler: async ( { name, description, icon, imageUrl, id } ) => {
     await db.update( DisasterType ).set({
-      name,
+      title: name,
       description,
       icon,
       imageUrl,

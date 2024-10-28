@@ -48,7 +48,7 @@ const { disasterTypes } = data
                         name={ disaster.icon ?? 'mdi:alert-circle' }
                         class="w-6 h-6 mr-2 text-teal-500"
                       />
-                      { disaster.name }
+                      { disaster.title }
                     </h3>
                     <p class="text-coffee-600 mt-5 line-clamp-2">{ disaster.description }</p>
 
@@ -82,7 +82,7 @@ const { disasterTypes } = data
               <div class="flex space-x-2">
                 <a
                   class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out edit-button"
-                  aria-label={ `Ver detalles del desastre ${ disaster.name }` }
+                  aria-label={ `Ver detalles del desastre ${ disaster.title }` }
                   href={ `/admin/disasters/${ disaster.id }` }
                 >
                   <Icon name="mdi:eye" class="w-5 h-5" />
@@ -90,14 +90,14 @@ const { disasterTypes } = data
 
                 <a
                   class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out"
-                  aria-label={`Editar ${ disaster.name }`}
+                  aria-label={`Editar ${ disaster.title }`}
                   href={ `/admin/disasters/edit/${ disaster.id }` }
                 >
                   <Icon name="mdi:pencil" class="w-5 h-5" />
                 </a>
                 <button
                   class="p-2 text-red-600 hover:bg-red-100 rounded-full transition duration-300 ease-in-out delete-button"
-                  aria-label={`Eliminar ${ disaster.name }`}
+                  aria-label={`Eliminar ${ disaster.title }`}
                   data-id={ disaster.id }
                   current-status={ disaster.status }
                 >

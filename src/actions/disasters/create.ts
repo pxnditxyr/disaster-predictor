@@ -13,6 +13,7 @@ export const createDisasterType = defineAction({
   handler: async ( { name, description, icon, imageUrl } ) => {
     await db.insert( DisasterType ).values({
       name,
+      title: name,
       description,
       icon,
       imageUrl,

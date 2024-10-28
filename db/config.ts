@@ -49,6 +49,7 @@ const DisasterType = defineTable({
   columns: {
     id: column.number({ primaryKey: true }),
     name: column.text(),
+    title: column.text(),
     description: column.text(),
     icon: column.text({ optional: true }),
     imageUrl: column.text({ optional: true }),

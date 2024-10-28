@@ -108,6 +108,15 @@ export const DetectionToast = ( { disasterTypes } : IProps ) => {
     }
   }
 
+  const riskLevelDescription = ( level : number ) => {
+    switch ( level ) {
+      case 1: return 'Bajo'
+      case 2: return 'Moderado'
+      case 3: return 'Alto'
+      default: return 'Desconocido'
+    }
+  }
+
   return (
     <>
       <audio ref={ audioRef } src="/alarm.ogg" />
@@ -119,7 +128,7 @@ export const DetectionToast = ( { disasterTypes } : IProps ) => {
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <p className="text-2xl font-bold text-gray-900 mb-2">
-                { getEmoji( riskLevel ) } Nivel de Riesgo: { riskLevel }
+                { getEmoji( riskLevel ) } Nivel de Riesgo: { riskLevelDescription( riskLevel ) }
               </p>
               <button
                 onClick={ () => setIsVisible(false) }

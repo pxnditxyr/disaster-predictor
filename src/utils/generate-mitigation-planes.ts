@@ -42,7 +42,7 @@ const transformApiResponse = (apiResponse: IApiPredictionResponse): ITransformed
   };
 };
 
-export const filterPredictionsByProbability = (
+const filterPredictionsByProbability = (
   predictions: ITransformedApiResponse[],
   threshold: number
 ): ITransformedApiResponse[] => {
@@ -51,7 +51,7 @@ export const filterPredictionsByProbability = (
   });
 };
 
-export const discardPredictionsWithoutAddress = (
+const discardPredictionsWithoutAddress = (
   predictions: ITransformedApiResponse[]
 ): ITransformedApiResponse[] => {
   return predictions.filter(
@@ -77,8 +77,8 @@ const getHighestProbability = (
 };
 
 const mapProbabilityToRiskLevel = (probability: number): number => {
-  if (probability >= 0.7) return 3;
-  if (probability >= 0.5) return 2;
+  if (probability >= 0.65) return 3;
+  if (probability >= 0.55) return 2;
   return 1;
 };
 
@@ -120,7 +120,7 @@ export const generateMitigationPlanes = (
 
   const highestProbability = getHighestProbability(filteredPredictionsWithoutAddress);
 
-  const mitigationPlan: IMitigationPlan[] = highestProbability.map((prediction) => {
+  const mitigationPlan: IMitigationPlan[] = highestProbability.map( ( prediction ) => {
     const riskLevel = mapProbabilityToRiskLevel(prediction.probability);
 
     const disasterTypeId = getDisasterTypeIdByName(disasterTypes, prediction.disasterType);
@@ -154,18 +154,10 @@ export const generateMitigationPlanes = (
       }
     }
 
-    // Filter by safetyLevel if available
-    const actionsWithSafety = possibleActions.filter(
-      (action) => action.safetyLevel !== undefined
-    );
-
-    if (actionsWithSafety.length > 0) {
-      possibleActions = actionsWithSafety.sort((a, b) => {
-        if (a.safetyLevel && b.safetyLevel) {
-          return b.safetyLevel - a.safetyLevel; // Sort descending
-        }
-        return 0;
-      });
+    const actionsWithSafety = possibleActions.filter( ( action ) => action.safetyLevel !== undefined )
+    console.log({ actionsWithSafety })
+    if ( actionsWithSafety.length > 0 ) {
+      possibleActions = actionsWithSafety.sort( ( a, b ) => ( b.safetyLevel ?? 0 ) - ( a.safetyLevel ?? 0 ) );
     }
 
     // Instead of selecting a single action, return all possible actions
@@ -180,7 +172,7 @@ export const generateMitigationPlanes = (
       mitigationAction: selectedActions,
       dangerIndicator,
     };
-  });
+  } );
 
   const baseMitigationPlan = predictions.map((prediction) => ({
     date: prediction.date,
@@ -194,10 +186,12 @@ export const generateMitigationPlanes = (
 
     if (!currentData) return baseMitigation;
 
-    return {
+    const result = {
       ...baseMitigation,
       mitigationAction: currentData.mitigationAction,
       dangerIndicator: currentData.dangerIndicator,
-    };
+    }
+
+    return result
   });
 };
