@@ -60,6 +60,21 @@ const DisasterType = defineTable({
   },
 })
 
+const RealDisaster = defineTable({
+  columns: {
+    id: column.number({ primaryKey: true }),
+    date: column.date(),
+    address: column.text(),
+    disasterTypeId: column.number({ references: () => DisasterType.columns.id }),
+    severityLevel: column.number(),
+    description: column.text(),
+    imageUrl: column.text({ optional: true }),
+    createdAt: column.date({ default: new Date() }),
+    updatedAt: column.date({ default: new Date() }),
+    status: column.boolean({ default: true }),
+  },
+});
+
 const OurIcons = defineTable({
   columns: {
     id: column.number({ primaryKey: true }),
@@ -92,6 +107,7 @@ export default defineDb({
   tables: {
     MitigationAction,
     DisasterType,
+    RealDisaster,
     User,
     Role,
     OurIcons,
