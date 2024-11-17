@@ -110,7 +110,7 @@ const { disasterTypes } = data
                   <Icon
                     name="mdi:restore"
                     id="restore-icon"
-                    class={ disaster.status ? 'hidden' : 'text-green-500' }
+                    class={ `text-green-500 ${ ( disaster.status ) ? 'hidden' : '' }` }
                     size={ 24 }
                   />
                 </button>

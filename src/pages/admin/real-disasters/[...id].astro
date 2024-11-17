@@ -6,20 +6,23 @@ import { formatDate, getStatusColor } from '@/utils'
 import { actions } from 'astro:actions'
 
 const { id } = Astro.params
-const { data, error } = await actions.findOneDisasterType({ id })
+const { data: realDisasterData, error: realDisasterError } = await actions.findOneRealDisaster({ id })
 
-if ( error ) return Astro.redirect( '/404' )
+console.log({ realDisasterError })
+if ( realDisasterError ) return Astro.redirect( '/admin/real-disasters' )
 
-const { disasterType } = data
+const { realDisaster } = realDisasterData
 const {
-  title,
+  disasterType,
   description,
-  icon,
+  date,
+  address,
+  severityLevel,
   imageUrl,
   createdAt,
   updatedAt,
   status
-} = disasterType
+} = realDisaster
 ---
 
 <AdminLayout>
@@ -28,8 +31,8 @@ const {
       <div class="bg-coffee-600 p-6 text-cream-100">
         <div class="flex items-center justify-between">
           <h1 class="text-4xl font-bold flex items-center">
-            <Icon name={ icon } class="w-12 h-12 mr-4 text-teal-300" />
-            { title }
+            <Icon name={ disasterType.icon } class="w-12 h-12 mr-4 text-teal-300" />
+            { disasterType.title }
           </h1>
           <span class={ `px-3 py-1 rounded-full text-sm font-semibold ${ getStatusColor( status ) }` }>
             { status ? 'Activo' : 'Inactivo' }
@@ -39,11 +42,26 @@ const {
       <div class="p-8 space-y-6">
         <Image
           src={ imageUrl ? imageUrl : '/multiple-disasters.jpg' }
-          alt={ title }
+          alt={ disasterType.title }
           width={ 600 }
           height={ 300 }
           class="w-full h-80 object-cover rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
         />
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-cream-50 p-4 rounded-lg">
+          <div>
+            <h2 class="text-2xl font-semibold text-coffee-800 mb-2">Fecha</h2>
+            <p class="text-coffee-700">{ formatDate( date ) }</p>
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold text-coffee-800 mb-2">Dirección</h2>
+            <p class="text-coffee-700">{ address }</p>
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold text-coffee-800 mb-2">Nivel de Severidad</h2>
+            <p class="text-coffee-700">{ severityLevel }</p>
+          </div>
+        </div>
 
         <div>
           <h2 class="text-2xl font-semibold text-coffee-800 mb-2">Descripción</h2>
@@ -64,7 +82,7 @@ const {
         <div class="flex justify-between items-center">
           <a
             class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition duration-300 flex items-center"
-            href={ `/admin/disasters/edit/${ id }` }
+            href={ `/admin/real-disasters/edit/${ id }` }
           >
             <Icon name="mdi:pencil" class="w-5 h-5 mr-2" />
             Editar información
