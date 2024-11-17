@@ -39,7 +39,7 @@ class="text-2xl font-bold text-coffee-700 flex items-center rounded-xl bg-white 
       <ul class="flex flex-col gap-4">
         {
         mitigationActions.map( ( mitigationActions ) => (
-        <li class="bg-cream-50 rounded-lg p-4 flex items-center justify-between transition duration-300 ease-in-out transform hover:scale-102 hover:shadow-md gap-8">
+        <li class="bg-cream-50 rounded-lg p-4 flex transition duration-300 ease-in-out transform hover:scale-102 hover:shadow-md gap-8 flex-col justify-center md:flex-row md:items-center md:justify-between">
           <a href={ `/expert/mitigations/${ mitigationActions.id }` }>
             <div class="flex items-center space-x-4">
               <div>
@@ -94,7 +94,7 @@ class="text-2xl font-bold text-coffee-700 flex items-center rounded-xl bg-white 
               </div>
             </div>
           </a>
-          <div class="flex space-x-2">
+          <div class="flex items-center justify-center">
             <a
               class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out edit-button"
               aria-label={ `Ver detalles de la acción de mitigación ${ mitigationActions.description }` }
@@ -112,11 +112,21 @@ class="text-2xl font-bold text-coffee-700 flex items-center rounded-xl bg-white 
             </a>
             <button
               class="p-2 text-red-600 hover:bg-red-100 rounded-full transition duration-300 ease-in-out delete-button"
-              aria-label={`Eliminar ${ mitigationActions.description }`}
               data-id={ mitigationActions.id }
               current-status={ mitigationActions.status }
             >
-              <Icon name="mdi:delete" class="w-5 h-5" />
+              <Icon
+                name="mdi:delete"
+                id="delete-icon"
+                class={ mitigationActions.status ? 'text-red-500' : 'hidden' }
+                size={ 24 }
+              />
+              <Icon
+                name="mdi:restore"
+                id="restore-icon"
+                class={ `text-green-500 ${ ( mitigationActions.status ) ? 'hidden' : '' }` }
+                size={ 24 }
+              />
             </button>
           </div>
         </li>
@@ -139,6 +149,8 @@ deleteButtons.forEach( ( button ) => {
     const id = Number( button.getAttribute( 'data-id' ) )
     const currentStatus = button.getAttribute( 'current-status' ) === 'true'
 
+    if ( !id ) return
+
     const { error } = await actions.toggleStatusMitigationAction( { id, currentStatus } )
 
     if ( error ) {
@@ -159,16 +171,21 @@ deleteButtons.forEach( ( button ) => {
 
     button.setAttribute( 'current-status', ( !currentStatus ).toString() )
 
-    const listItem = button.closest( 'li' ) as HTMLLIElement
+    const listItem = button.closest( 'li' )
+    if ( !listItem ) return
 
     const spanStatusActive = listItem.querySelector('.text-green-500')
     const spanStatusInactive = listItem.querySelector('.text-red-500')
+    const iconDelete = listItem.querySelector('#delete-icon') as HTMLDivElement
+    const iconRestore = listItem.querySelector('#restore-icon') as HTMLDivElement
 
     if ( spanStatusActive ) {
       spanStatusActive.classList.toggle( 'hidden', currentStatus )
+      iconDelete.classList.toggle( 'hidden', currentStatus )
     }
     if ( spanStatusInactive ) {
       spanStatusInactive.classList.toggle( 'hidden', !currentStatus )
+      iconRestore.classList.toggle( 'hidden', !currentStatus )
     }
   } )
 } )

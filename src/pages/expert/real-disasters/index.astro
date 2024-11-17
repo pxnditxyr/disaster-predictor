@@ -1,15 +1,12 @@
+
 ---
 import { actions } from 'astro:actions'
 import { Icon } from 'astro-icon/components'
 import ExpertLayout from '@/modules/expert/layouts/ExpertLayout.astro'
 
-const { data, error } = await actions.findAllDisasterTypes({})
-
-if ( error ) {
-  return Astro.redirect( '/expert' )
-}
-
-const { disasterTypes } = data
+const { data: realDisastersData, error: realDisastersError } = await actions.findAllRealDisasters()
+if ( realDisastersError ) return Astro.redirect( '/404' )
+const { realDisasters } = realDisastersData
 ---
 
 <ExpertLayout>
@@ -22,11 +19,11 @@ const { disasterTypes } = data
 
         <div class="w-full flex justify-end">
           <a
-            href={ `/expert/disasters/new` }
+            href={ `/expert/real-disasters/new` }
             class="text-2xl font-bold text-coffee-700 flex items-center rounded-xl shadow-2xl bg-white p-4"
           >
             <Icon name="mdi:newspaper-plus" class="w-8 h-8 mr-2 text-teal-500" />
-            Nuevo Desastre
+            Nuevo Desastre Ocurrido
           </a>
         </div>
 
@@ -37,17 +34,27 @@ const { disasterTypes } = data
           </h2>
           <ul class="flex flex-col gap-4">
             {
-            disasterTypes.map( ( disaster ) => (
+            realDisasters.map( ( disaster ) => (
             <li class="bg-cream-50 rounded-lg p-4 flex flex-col items-center justify-between transition duration-300 ease-in-out transform hover:scale-102 hover:shadow-md gap-8 md:flex-row">
-              <a href={ `/expert/disasters/${ disaster.id }` }>
+              <a href={ `/expert/real-disasters/${ disaster.id }` }>
                 <div class="flex items-center space-x-4">
                   <div>
-                    <h3 class="text-xl font-semibold text-coffee-700 flex items-center">
-                      <Icon
-                        name={ disaster.icon ?? 'mdi:alert-circle' }
-                        class="w-6 h-6 mr-2 text-teal-500"
-                      />
-                      { disaster.title }
+                    <h3 class="text-xl font-semibold text-coffee-700 flex items-center gap-8">
+                      {
+                        ( disaster.imageUrl ) ? (
+                        <img
+                          src={ disaster.imageUrl }
+                          alt={ disaster.disasterType.title }
+                          class="w-16 h-16 object-cover rounded-full"
+                        />
+                        ) : (
+                        <Icon
+                          name={ 'mdi:alert-circle' }
+                          class="w-6 h-6 mr-2 text-teal-500"
+                        />
+                        )
+                      }
+                      { disaster.disasterType.title }
                     </h3>
                     <p class="text-coffee-600 mt-5 line-clamp-2">{ disaster.description }</p>
 
@@ -81,22 +88,19 @@ const { disasterTypes } = data
               <div class="flex space-x-2">
                 <a
                   class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out edit-button"
-                  aria-label={ `Ver detalles del desastre ${ disaster.title }` }
-                  href={ `/expert/disasters/${ disaster.id }` }
+                  href={ `/expert/real-disasters/${ disaster.id }` }
                 >
                   <Icon name="mdi:eye" size={ 24 } />
                 </a>
 
                 <a
                   class="p-2 text-teal-600 hover:bg-teal-100 rounded-full transition duration-300 ease-in-out"
-                  aria-label={`Editar ${ disaster.title }`}
-                  href={ `/expert/disasters/edit/${ disaster.id }` }
+                  href={ `/expert/real-disasters/edit/${ disaster.id }` }
                 >
                   <Icon name="mdi:pencil" size={ 24 } />
                 </a>
                 <button
                   class="p-2 text-red-600 hover:bg-red-100 rounded-full transition duration-300 ease-in-out delete-button"
-                  aria-label={`Eliminar ${ disaster.title }`}
                   data-id={ disaster.id }
                   current-status={ disaster.status }
                 >
@@ -118,7 +122,7 @@ const { disasterTypes } = data
             ) )
             }
             {
-            disasterTypes.length === 0 && (
+            realDisasters.length === 0 && (
             <li class="bg-cream-50 rounded-lg p-4 flex items-center justify-center">
               <p class="text-coffee-600 text-center">No hay desastres naturales registrados</p>
             </li>
@@ -144,10 +148,9 @@ deleteButtons.forEach( ( button ) => {
     const id = Number( button.getAttribute( 'data-id' ) )
     const currentStatus = button.getAttribute( 'current-status' ) === 'true'
 
-    const { error } = await actions.toggleStatusDisasterType( { id, currentStatus } )
+    const { error } = await actions.toggleStatusRealDisaster({ id })
 
     if ( error ) {
-
       Swal.fire( {
         icon: 'error',
         title: 'Error al eliminar el desastre',
