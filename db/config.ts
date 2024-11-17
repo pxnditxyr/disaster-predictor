@@ -73,7 +73,7 @@ const RealDisaster = defineTable({
     updatedAt: column.date({ default: new Date() }),
     status: column.boolean({ default: true }),
   },
-});
+})
 
 const OurIcons = defineTable({
   columns: {
@@ -103,6 +103,19 @@ const Mitigation = defineTable({
   },
 })
 
+const ContactMessage = defineTable({
+  columns: {
+    id: column.number({ primaryKey: true }),
+    name: column.text(),
+    email: column.text(),
+    message: column.text(),
+    reason: column.text(),
+    createdAt: column.date({ default: new Date() }),
+    updatedAt: column.date({ default: new Date() }),
+    status: column.boolean({ default: true }),
+  },
+})
+
 export default defineDb({
   tables: {
     MitigationAction,
@@ -113,5 +126,6 @@ export default defineDb({
     OurIcons,
     Prediction,
     Mitigation,
+    ContactMessage,
   },
-});
+})

@@ -15,8 +15,8 @@ import { Icon } from 'astro-icon/components'
         <div class="points center">
           10 pts Disc.
         </div>
-        <div class="w-full flex justify-center items-center h-full">
-          <Icon name="profile" size={ 100 } />
+        <div class="w-full flex justify-center items-center mt-16">
+          <Icon name="profile" size={ 100 } class="rounded-full bg-white" />
         </div>
       </div>
       <div class="more-info">
@@ -246,5 +246,21 @@ import { Icon } from 'astro-icon/components'
 .eyes { fill: #1f1f1f; }
 .hair { fill: #2f1b0d; }
 .line { fill: none; stroke: #2f1b0d; stroke-width:2px; }
+
+@media ( width < 400px ) {
+  .center {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.green {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .card .general {
+    width: 100%;
+  }
+}
 </style>
 

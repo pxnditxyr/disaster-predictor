@@ -1,19 +1,23 @@
-import { defineAction } from "astro:actions";
-import { db, DisasterType, eq } from "astro:db";
+import { defineAction } from 'astro:actions'
+import { db, DisasterType, eq, RealDisaster } from 'astro:db'
 
 export const findOneRealDisaster = defineAction({
   accept: 'json',
   handler: async ({ id }) => {
-    const [ disasterType ] = await db
+    const [ data ] = await db
       .select()
-      .from( DisasterType )
-      .where( eq( DisasterType.id, id ) )
+      .from( RealDisaster )
+      .innerJoin( DisasterType, eq( DisasterType.id, RealDisaster.disasterTypeId ) )
+      .where( eq( RealDisaster.id, id ) )
 
-    if ( !disasterType )
+    if ( !data )
       throw new Error( 'Parece que el desastre no existe' )
 
     return {
-      disasterType
+      realDisaster: {
+        ...data.RealDisaster,
+        disasterType: data.DisasterType
+      }
     }
   }
 })

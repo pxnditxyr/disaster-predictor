@@ -61,6 +61,13 @@ const { disasterTypes } = disasterTypesData
         ) )
       }
     </div>
+    {
+    ( disasterTypes.length === 0 ) && (
+    <div class="text-pretty text-xl font-semibold w-full flex items-center justify-center">
+      No hay tipos de desastres naturales registrados aún.
+    </div>
+    )
+    }
   </div>
 
   <div class="w-full mt-36">

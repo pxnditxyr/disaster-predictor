@@ -122,6 +122,13 @@ const { disasterTypes } = disasterTypesData
       ) )
       }
     </div>
+    {
+    ( mitigationActions.length === 0 ) && (
+    <div class="text-pretty text-xl font-semibold w-full flex items-center justify-center">
+      No hay acciones de mitigación registradas aún.
+    </div>
+    )
+    }
   </div>
 
   <div class="w-full mt-36">

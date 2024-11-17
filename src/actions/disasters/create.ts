@@ -5,15 +5,16 @@ import { z } from 'astro:schema'
 export const createDisasterType = defineAction({
   accept: 'form',
   input: z.object({
-    name: z.string().min( 2, { message: '👤 El nombre debe tener al menos 2 caracteres.' } ),
-    description: z.string().min( 2, { message: '📝 La descripción debe tener al menos 2 caracteres.' } ),
+    title: z.string({ message: '👤 El titulo es obligatorio.' }).min( 2, { message: '👤 El titulo debe tener al menos 2 caracteres.' } ),
+    name: z.string({ message: '👤 El nombre es obligatorio.' }).min( 2, { message: '👤 El nombre debe tener al menos 2 caracteres.' } ),
+    description: z.string({ message: '📝 La descripción es obligatoria.' }).min( 2, { message: '📝 La descripción debe tener al menos 2 caracteres.' } ),
     icon: z.string({ message: '📸 La imagen debe ser una URL válida.' } ).optional(),
     imageUrl: z.string({ message: '📸 La imagen debe ser una URL válida.' } ).optional(),
   }),
-  handler: async ( { name, description, icon, imageUrl } ) => {
+  handler: async ( { title, name, description, icon, imageUrl } ) => {
     await db.insert( DisasterType ).values({
       name,
-      title: name,
+      title,
       description,
       icon,
       imageUrl,

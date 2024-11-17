@@ -48,33 +48,33 @@ const { roles } = rolesData
           <tr>
             <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
               <div class="flex gap-2 items-center">
-                <Icon name="mdi:account" size={ 24 } />
+                <Icon name="mdi:account" class="text-blue-600" size={ 24 } />
                 Nombre
               </div>
             </th>
             <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
               <div class="flex gap-2 items-center">
-                <Icon name="mdi:gmail" size={ 24 } />
+                <Icon name="mdi:gmail" class="text-red-500" size={ 24 } />
                 Email
               </div>
             </th>
             <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
               <div class="flex gap-2 items-center">
-                <Icon name="mdi:check-decagram" size={ 24 } />
+                <Icon name="mdi:check-decagram" class="text-green-500" size={ 24 } />
                 Estado
               </div>
 
             </th>
             <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
               <div class="flex gap-2 items-center">
-                <Icon name="mdi:account-cog" size={ 24 } />
+                <Icon name="mdi:briefcase" class="text-yellow-900" size={ 24 } />
                 Rol
               </div>
             </th>
 
             <th class="px-6 py-3 text-left font-medium text-brown-300 uppercase tracking-wider">
               <div class="flex gap-2 items-center">
-                <Icon name="mdi:toggle-switch" size={ 24 } />
+                <Icon name="mdi:account-cog" class="text-blue-600" size={ 24 } />
                 Acciones
               </div>
             </th>
@@ -138,8 +138,17 @@ const { roles } = rolesData
               </button>
             </td>
           </tr>
-        ) )
-        }
+          ) )
+          }
+          {
+          ( users.length < 2 ) && (
+          <tr class="bg-cream-100">
+            <td class="px-6 py-4 whitespace-nowrap" colspan="5">
+              <div class="text-center text-brown-300 font-semibold"> No hay usuarios registrados aún, aparte de ti. </div>
+            </td>
+          </tr>
+          )
+          }
         </tbody>
       </table>
     </div>

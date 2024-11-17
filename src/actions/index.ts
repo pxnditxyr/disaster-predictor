@@ -16,6 +16,7 @@ import {
 } from './mitigations'
 
 import { findAllOurIcons } from './our-icons'
+import { createRealDisaster, findAllRealDisasters, findOneRealDisaster, toggleStatusRealDisaster, updateRealDisaster } from './real-disasters'
 import { findAllRoles } from './roles'
 import {
   createUser,
@@ -49,6 +50,13 @@ export const server = {
   createUser,
   updateUser,
   toggleStatusUser,
+
+  // Real Disasters
+  findAllRealDisasters,
+  findOneRealDisaster,
+  createRealDisaster,
+  updateRealDisaster,
+  toggleStatusRealDisaster,
 
   // Roles
   findAllRoles,

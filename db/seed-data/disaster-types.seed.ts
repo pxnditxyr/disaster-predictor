@@ -1,7 +1,7 @@
 export const disasterTypesSeed = [
   {
     id: 1,
-    name: "crisis del agua (sequia)",
+    name: 'crisis del agua (sequia)',
     title: 'Crisis de Agua (Sequía)',
     description: 'La crisis del agua, o sequía, es un fenómeno natural caracterizado por una disminución significativa y prolongada en la disponibilidad de agua en una región. Esta escasez puede afectar tanto el suministro de agua potable como las fuentes de agua para la agricultura, la industria y otros usos domésticos. Las sequías pueden ser causadas por factores climáticos como la falta de precipitaciones, altas temperaturas y vientos secos, así como por la sobreexplotación de recursos hídricos. Sus consecuencias incluyen la reducción de cultivos, la pérdida de biodiversidad, problemas de salud pública y conflictos por el acceso al agua.',
     icon: 'no-water',
@@ -9,7 +9,7 @@ export const disasterTypesSeed = [
   },
   {
     id: 2,
-    name: "desborde de rio",
+    name: 'desborde de rio',
     title: 'Desbordamiento de Río',
     description: 'El desborde de río se produce cuando el caudal de un río excede su capacidad de contención, provocando que el agua se desborde de sus márgenes y se extienda sobre áreas adyacentes. Este fenómeno suele estar asociado a lluvias intensas, rápidos deshielos o bloqueos naturales o artificiales que impiden el flujo normal del agua. Las inundaciones resultantes pueden causar daños considerables a viviendas, cultivos, infraestructuras y ecosistemas, además de poner en riesgo la vida de las personas y animales que habitan en las zonas ribereñas.',
     icon: 'overflow',

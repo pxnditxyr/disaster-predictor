@@ -1,25 +1,29 @@
 import { defineAction } from 'astro:actions'
-import { db, DisasterType, eq } from 'astro:db'
+import { db, RealDisaster, eq } from 'astro:db'
 import { z } from 'astro:schema'
 
-export const updateDisasterType = defineAction({
+export const updateRealDisaster = defineAction({
   accept: 'form',
   input: z.object({
-    id: z.number({ message: 'Parece que el ID no es válido.' } ),
-    name: z.string().min( 2, { message: '👤 El nombre debe tener al menos 2 caracteres.' } ),
-    description: z.string().min( 2, { message: '📝 La descripción debe tener al menos 2 caracteres.' } ),
-    icon: z.string({ message: '📸 La imagen debe ser una URL válida.' } ).optional(),
-    imageUrl: z.string({ message: '📸 La imagen debe ser una URL válida.' } ).optional(),
+    id: z.number({ message: '🆔 Parece que el ID no es válido.' } ),
+    date: z.string({ message: '📅 La fecha debe ser válida.' }),
+    address: z.string({ message: '🏠 La dirección debe tener al menos 2 caracteres.' }),
+    disasterTypeId: z.number({ message: '🌪️ El tipo de desastre debe ser válido.' }),
+    severityLevel: z.number({ message: '📈 El nivel de severidad debe ser válido.' }),
+    description: z.string({ message: '📝 La descripción debe tener al menos 2 caracteres.' }),
+    imageUrl: z.string({ message: '📸 La imagen debe ser una URL válida.' }).optional(),
   }),
-  handler: async ( { name, description, icon, imageUrl, id } ) => {
-    await db.update( DisasterType ).set({
-      title: name,
+  handler: async ( { id, date, address, disasterTypeId, severityLevel, description, imageUrl } ) => {
+    await db.update( RealDisaster ).set({
+      date: new Date( date ),
+      address,
+      disasterTypeId,
+      severityLevel,
       description,
-      icon,
       imageUrl,
       updatedAt: new Date(),
     }).where(
-      eq( DisasterType.id, id )
+      eq( RealDisaster.id, id )
     )
 
     return {

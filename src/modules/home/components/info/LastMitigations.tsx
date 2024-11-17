@@ -40,34 +40,34 @@ export const LastMitigations = ( { mitigationActions, disasterTypes }: Props ) =
         <h2 className="text-2xl font-bold"> Últimas Acciones de Mitigación </h2>
       </section>
 
-        <section className="w-full overflow-x-auto max-w-[850px]">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-[#B8d8d8]">
-                <th className="text-teal-700 text-left font-semibold py-4 px-4 first:rounded-tl-lg"> Fecha </th>
-                <th className="text-teal-700 text-left font-semibold py-4 px-4"> Región </th>
-                <th className="text-teal-700 text-left font-semibold py-4 px-4"> Evento Detectado </th>
-                <th className="text-teal-700 text-left font-semibold py-4 px-4"> Acción de Mitigación </th>
-                <th className="text-teal-700 text-left font-semibold py-4 px-4 last:rounded-tr-lg"> Indicador de Peligro </th>
-              </tr>
-            </thead>
-            <tbody className="capitalize">
-              {
-                mitigationPlan?.map( ( mitigation, index ) => {
-                  const styles = getRowStyles( mitigation.dangerIndicator )
-                  return (
-                    <tr
-                      key={ mitigation.date }
-                      className={ `border-b transition-colors ${ styles.base }` }
-                    >
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.date }</td>
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.address }</td>
+      <section className="w-full overflow-x-auto max-w-[850px]">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-[#B8d8d8]">
+              <th className="text-teal-700 text-left font-semibold py-4 px-4 first:rounded-tl-lg"> Fecha </th>
+              <th className="text-teal-700 text-left font-semibold py-4 px-4"> Región </th>
+              <th className="text-teal-700 text-left font-semibold py-4 px-4"> Evento Detectado </th>
+              <th className="text-teal-700 text-left font-semibold py-4 px-4"> Acción de Mitigación </th>
+              <th className="text-teal-700 text-left font-semibold py-4 px-4 last:rounded-tr-lg"> Indicador de Peligro </th>
+            </tr>
+          </thead>
+          <tbody className="capitalize">
+            {
+              mitigationPlan?.map( ( mitigation, index ) => {
+                const styles = getRowStyles( mitigation.dangerIndicator )
+                return (
+                  <tr
+                    key={ mitigation.date }
+                    className={ `border-b transition-colors ${ styles.base }` }
+                  >
+                    <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.date }</td>
+                    <td className={ `py-3 px-4 ${ styles.text }` }>{ mitigation.address }</td>
 
-                      <td className={ `py-3 px-4 ${ styles.text }` }>
-                        { predictions?.[ index ].prediction }
-                      </td>
+                    <td className={ `py-3 px-4 ${ styles.text }` }>
+                      { predictions?.[ index ].prediction }
+                    </td>
 
-                      <td className={ `py-3 px-4 ${ styles.text }` }>
+                    <td className={ `py-3 px-4 ${ styles.text }` }>
                       <div className="flex flex-col gap-2 w-full justify-start items-start">
                         {
 
@@ -82,17 +82,24 @@ export const LastMitigations = ( { mitigationActions, disasterTypes }: Props ) =
                             )
                         }
                       </div>
-                      </td>
-                      <td className={ `py-3 px-4 ${ styles.text }` }>{ getRiskLevelName( mitigation.dangerIndicator ) }</td>
-                    </tr>
-                  )
-                } )
-              }
-            </tbody>
-          </table>
+                    </td>
+                    <td className={ `py-3 px-4 ${ styles.text }` }>{ getRiskLevelName( mitigation.dangerIndicator ) }</td>
+                  </tr>
+                )
+              } )
+            }
+            {
+              ( mitigationPlan === null || mitigationPlan.length === 0 ) && (
+                <tr>
+                  <td colSpan={ 5 } className="text-center py-4 font-semibold text-yellow-900 bg-yellow-200 rounded-b-lg"> No hay datos disponibles </td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
 
-        </section>
+      </section>
 
-      </article>
+    </article>
   )
 }

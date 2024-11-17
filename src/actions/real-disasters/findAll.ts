@@ -1,19 +1,23 @@
 import { defineAction } from 'astro:actions'
-import { db, desc, DisasterType } from 'astro:db'
+import { db, desc, DisasterType, eq, RealDisaster } from 'astro:db'
 
-export const findAllDisasterTypes = defineAction({
+export const findAllRealDisasters = defineAction({
   accept: 'json',
   handler: async () => {
-    const disasterTypes = await db
+    const data = await db
       .select()
-      .from( DisasterType )
+      .from( RealDisaster )
+      .innerJoin( DisasterType, eq( DisasterType.id, RealDisaster.disasterTypeId ) )
       .orderBy(
         desc(
-          DisasterType.createdAt
+          RealDisaster.createdAt
         )
       )
     return {
-      disasterTypes
+      realDisasters: data.map( ({ RealDisaster, DisasterType }) => ({
+        ...RealDisaster,
+        disasterType: DisasterType
+      }) )
     }
   }
 })
