@@ -12,11 +12,8 @@ import { DetectionToast } from '@/modules/home/components/toast/DetectionToast'
 import { actions } from 'astro:actions'
 
 const { data: disasterTypesData, error } = await actions.findAllDisasterTypes()
-
 if ( error ) return Astro.redirect( '/404' )
-
 const { disasterTypes } = disasterTypesData
-
 ---
 
 <Layout>
