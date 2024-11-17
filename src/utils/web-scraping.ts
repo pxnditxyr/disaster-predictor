@@ -36,8 +36,6 @@ export const getWeatherFromHtml = ( figureChart : string ) : IWeather => {
 export const getPageData = async ( url : string ) => {
   const article = await extract( url )
 
-  console.log( article )
-
   setTimeout( async () => {
     console.log( 'Getting weather data...' )
   }, 500 )

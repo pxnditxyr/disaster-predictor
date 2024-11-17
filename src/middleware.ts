@@ -48,20 +48,12 @@ export const onRequest = defineMiddleware(
 
 
     if ( isLoggedIn && user ) {
-      console.log( 'is logged in' )
-      console.log({ user } )
-
       if ( user.roleId === 'admin' ) {
-        console.log( 'is admin' )
         if ( adminProtectedRoutes() ) return redirect( adminRoutes[ 0 ] )
       }
-      console.log({ isEqual: user.roleId === 'expert' })
-
       if ( user.roleId === 'expert' ) {
-        console.log( 'is expert' )
         if ( expertProtectedRoutes() ) return redirect( expertRoutes[ 0 ] )
       }
-      console.log( 'sale' )
     } else {
       if ( publicProtectedRoutes() ) return redirect( notAuthenticatedRoutes[ 0 ] )
     }

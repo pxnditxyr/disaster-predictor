@@ -155,7 +155,6 @@ export const generateMitigationPlanes = (
     }
 
     const actionsWithSafety = possibleActions.filter( ( action ) => action.safetyLevel !== undefined )
-    console.log({ actionsWithSafety })
     if ( actionsWithSafety.length > 0 ) {
       possibleActions = actionsWithSafety.sort( ( a, b ) => ( b.safetyLevel ?? 0 ) - ( a.safetyLevel ?? 0 ) );
     }

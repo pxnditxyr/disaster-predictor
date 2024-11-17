@@ -68,15 +68,12 @@ const mapProbabilityToRiskLevel = ( probability : number ) : number => {
 }
 
 const getDisasterTypeIdByName = ( disasterTypes: IDisaster[], name: string ): number | null => {
-  console.log({ disasterTypes, name })
   const disaster = disasterTypes.find( ( disaster ) => disaster.name.toLowerCase() === name.toLowerCase() )
   return disaster ? disaster.id : null
 }
 
 
 export const generateMitigationPlan = ( mitigationActions: IMitigationAction[], disasterTypes: IDisaster[], predictions: IApiPredictionResponse[] ) : IMitigationPlan[] => {
-  console.log({ predictions })
-
   const threshold = 0.3
   const transformedApiResponses = predictions.map( transformApiResponse )
   const filteredPredictions = filterPredictionsByProbability( transformedApiResponses, threshold )

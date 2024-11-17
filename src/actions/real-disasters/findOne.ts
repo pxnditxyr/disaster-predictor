@@ -4,7 +4,6 @@ import { db, DisasterType, eq, RealDisaster } from 'astro:db'
 export const findOneRealDisaster = defineAction({
   accept: 'json',
   handler: async ({ id }) => {
-    console.log({ id })
     const [ data ] = await db
       .select()
       .from( RealDisaster )

@@ -17,10 +17,14 @@ export const updateMitigationAction = defineAction({
     id: z.number({ message: 'Parece que el ID no es válido.' } ),
   }),
   handler: async ( { description, actionList, objectives, disasterTypeId, riskLevel, icon, address, safetyLevel, imageUrl, id } ) => {
+
+    const newActionList = actionList.trim().split( '\n' )
+    const newObjectives = objectives.trim().split( '\n' )
+
     await db.update( MitigationAction ).set({
       description,
-      actionList,
-      objectives,
+      actionList: newActionList.join( ';' ),
+      objectives: newObjectives.join( ';' ),
       disasterTypeId,
       riskLevel,
       icon,

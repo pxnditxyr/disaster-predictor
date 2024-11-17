@@ -61,7 +61,6 @@ export const getPredictions = async ( date : string ): Promise<{ predictions: IP
       }
     } )
 
-    console.log({ fullDataPredictions: data.predictions, predictions: formattedPredictions })
     return {
       predictions: formattedPredictions ,
       fullDataPredictions: data.predictions

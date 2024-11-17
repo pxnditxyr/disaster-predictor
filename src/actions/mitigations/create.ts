@@ -16,10 +16,14 @@ export const createMitigationAction = defineAction({
     imageUrl: z.string({ message: '📸 La imagen debe ser una URL válida.' } ).optional(),
   }),
   handler: async ( { description, actionList, objectives, disasterTypeId, riskLevel, icon, address, safetyLevel, imageUrl } ) => {
+
+    const listOfActions = actionList.trim().split( '\n' )
+    const listOfObjectives = objectives?.trim().split( '\n' ) ?? []
+
     await db.insert( MitigationAction ).values({
       description,
-      actionList: actionList.replace( '\n', ';' ),
-      objectives: ( objectives ) ? objectives.replace( '\n', ';' ) : null,
+      actionList: listOfActions.join( ';' ),
+      objectives: listOfObjectives.join( ';' ),
       disasterTypeId,
       riskLevel,
       icon,

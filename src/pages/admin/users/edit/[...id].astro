@@ -7,15 +7,11 @@ const { id } = Astro.params
 const { data: rolesData, error: findAllRolesError } = await actions.findAllRoles()
 const { data: usersData, error: findUsersError } = await actions.findOneUser({ id })
 
-if ( findAllRolesError || findUsersError ) {
-
-  console.log({ hola: 'uahsnheusa' })
-  return Astro.redirect( '/404' )
-}
+if ( findAllRolesError || findUsersError ) return Astro.redirect( '/404' )
 
 const { roles } = rolesData
 const { user } = usersData
-const { name, lastName, email, password, roleId } = user
+const { name, lastName, email, roleId } = user
 ---
 
 <AdminLayout>
@@ -93,7 +89,7 @@ const { name, lastName, email, password, roleId } = user
                 <option value={ role.id } selected={ role.id === roleId }>
                   { role.name }
                 </option>
-              ) ).reverse()
+              ) )
             }
           </select>
         </div>
