@@ -14,23 +14,23 @@ import { Icon } from 'astro-icon/components'
       </div>
     </div>
     <div class="mt-12">
-      <form>
+      <form id="contact-form">
         <div class="grid w-full items-center gap-8">
           <div class="flex flex-col space-y-4">
-            <label htmlFor"nombre" class="text-[#008B8B] text-lg font-semibold flex items-center">
+            <label for="name" class="text-[#008B8B] text-lg font-semibold flex items-center">
               <Icon name="profile" size={ 24 } class="mr-2" />
               Nombre
             </label>
             <input
-              id="nombre"
-              name="nombre"
+              id="name"
+              name="name"
               placeholder="Tu nombre"
               class="bg-[#F0FFFF] border-[#48D1CC] rounded-xl text-lg font-semibold px-4 py-3 focus:outline-[#20B2AA]"
               title="Ejemplo: Juan Pérez"
             />
           </div>
           <div class="flex flex-col space-y-4">
-            <label htmlFor"email" class="text-[#008B8B] text-lg font-semibold flex items-center">
+            <label for="email" class="text-[#008B8B] text-lg font-semibold flex items-center">
               <Icon name="mail" size={ 24 } class="mr-2" />
               Correo electrónico
             </label>
@@ -44,12 +44,12 @@ import { Icon } from 'astro-icon/components'
             />
           </div>
           <div class="flex flex-col space-y-4">
-            <label htmlFor"motivo" class="text-[#008B8B] text-lg font-semibold flex items-center">
+            <label for="reason" class="text-[#008B8B] text-lg font-semibold flex items-center">
               <Icon name="category" size={ 24 } class="mr-2" />
               Motivo de contacto
             </label>
             <select
-              name="motivo"
+              name="reason"
               class="bg-[#F0FFFF] border-[#48D1CC] rounded-xl text-lg font-semibold px-4 py-3 focus:outline-[#20B2AA]"
               title="Selecciona el motivo de tu contacto"
             >
@@ -61,28 +61,63 @@ import { Icon } from 'astro-icon/components'
             </select>
           </div>
           <div class="flex flex-col space-y-4">
-            <label htmlFor"mensaje" class="text-[#008B8B] text-lg font-semibold flex items-center">
+            <label for="message" class="text-[#008B8B] text-lg font-semibold flex items-center">
               <Icon name="message" size={ 24 } class="mr-2" />
               Mensaje
             </label>
             <textarea
-              id="mensaje"
-              name="mensaje"
+              id="message"
+              name="message"
               placeholder="Escribe tu mensaje aquí"
               class="bg-[#F0FFFF] border-[#48D1CC] rounded-xl text-lg font-semibold px-4 py-3 min-h-[150px] focus:outline-[#20B2AA]"
-            />
+            ></textarea>
           </div>
+        </div>
+        <div class="mt-8 w-full flex justify-end">
+          <button
+            type="submit"
+            class="bg-[#00CED1] hover:bg-[#20B2AA] text-white text-xl py-3 px-4 rounded-xl flex items-center justify-center gap-2"
+          >
+            <Icon name="send" size={ 35 } />
+            Enviar mensaje
+          </button>
         </div>
       </form>
     </div>
-    <div class="mt-8 w-full flex justify-end">
-      <button
-        type="submit"
-        class="bg-[#00CED1] hover:bg-[#20B2AA] text-white text-xl py-3 px-4 rounded-xl flex items-center justify-center gap-2"
-      >
-        <Icon name="send" size={ 35 } />
-        Enviar mensaje
-      </button>
-    </div>
   </div>
 </div>
+
+<script>
+import { actions } from 'astro:actions'
+import Swal from 'sweetalert2'
+import { getErrorMessage } from '@/utils'
+
+const form = document.getElementById( 'contact-form' ) as HTMLFormElement
+
+form.addEventListener( 'submit', async ( event ) => {
+  event.preventDefault()
+
+  const formData = new FormData( form )
+
+  const { error } = await actions.createContactMessage( formData )
+
+  if ( error ) {
+    const errorMessage = getErrorMessage( error )
+    Swal.fire( {
+      title: 'Error al enviar el mensaje',
+      text: errorMessage,
+      icon: 'error',
+      confirmButtonText: 'Entendido',
+    } )
+    return
+  }
+  Swal.fire( {
+    title: 'Mensaje enviado',
+    text: 'Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo lo antes posible.',
+    icon: 'success',
+    confirmButtonText: 'Entendido',
+  } )
+} )
+
+
+</script>

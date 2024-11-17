@@ -1,3 +1,4 @@
+import { createContactMessage, findAllContactMessages, findOneContactMessage } from './contact-messages'
 import {
   createDisasterType,
   toggleStatusDisasterType,
@@ -57,6 +58,11 @@ export const server = {
   createRealDisaster,
   updateRealDisaster,
   toggleStatusRealDisaster,
+
+  // contact messages
+  findAllContactMessages,
+  findOneContactMessage,
+  createContactMessage,
 
   // Roles
   findAllRoles,

@@ -80,12 +80,12 @@ const { roles } = rolesData
             </th>
           </tr>
         </thead>
-        <tbody id="userTableBody" class="capitalize">
+        <tbody id="userTableBody">
           {
           users.filter( u => u.id !== currentUser?.id ).map( ( user ) => (
           <tr class="bg-cream-100">
 
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4 whitespace-nowrap capitalize">
               <div class="font-medium text-brown-300"> { user.name }</div>
             </td>
 
@@ -93,7 +93,7 @@ const { roles } = rolesData
               <div class="text-brown-300"> { user.email } </div>
             </td>
 
-            <td class="px-6 py-4 whitespace-nowrap flex items-center justify-center">
+            <td class="px-6 py-4 whitespace-nowrap flex items-center justify-center capitalize">
               <span
                 class={ `px-3 py-2 inline-flex leading-5 font-semibold rounded-full ${ user.status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }` }
                 id={ `span-status-${ user.id }` }
@@ -101,7 +101,7 @@ const { roles } = rolesData
                 { user.status ? 'Activo' : 'Inactivo' }
               </span>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4 whitespace-nowrap capitalize">
               <span class="px-2 inline-flex leading-5 font-semibold rounded-full bg-cream-100 text-brown-300">
                 {
                 roles.find( ( role ) => role.id === user.roleId )?.name
