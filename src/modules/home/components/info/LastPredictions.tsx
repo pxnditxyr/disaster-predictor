@@ -76,13 +76,13 @@ export const LastPredictions = () => {
   ]
 
   return (
-    <article className="w-full flex flex-col justify-center items-center gap-8">
+    <article className="w-full flex flex-col justify-center items-center gap-8 max-w-[800px] px-2 md:px-0 mx-auto">
       <section>
         <h2 className="text-2xl font-bold">Últimas Predicciones</h2>
       </section>
 
-      <section className="w-full overflow-x-auto max-w-[850px]">
-        <table className="w-full">
+      <section className="w-full overflow-x-auto">
+        <table className="min-w-full">
           <thead>
             <tr className="bg-[#B8d8d8]">
               <th className="text-teal-700 text-left font-semibold py-4 px-4 first:rounded-tl-lg">

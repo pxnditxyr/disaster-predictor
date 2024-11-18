@@ -18,7 +18,7 @@ export const HomeMap = () => {
   const coordinates = laPazGeoJson.features[0].geometry.coordinates;
 
   return (
-    <div className="flex items-center justify-center rounded-xl">
+    <div className="relative flex items-center justify-center rounded-xl z-0">
       <MapContainer
         center={ center }
         zoom={ zoom }
