@@ -1,11 +1,13 @@
 import type { IPrediction } from "@/interfaces"
 import { getPredictions } from "@/utils"
+import { actions } from "astro:actions"
 import { useEffect, useState } from "react"
 
 export const AllDetections = () => {
 
   const [ predictions, setPredictions ] = useState<IPrediction[] | null>(null)
   const [ date, setDate ] = useState<string>( new Date().toISOString().split( 'T' )[ 0 ] )
+  const [ realDisasters, setRealDisasters ] = useState<any[]>( [] )
 
   useEffect( () => {
     const fetchPredictions = async () => {
@@ -15,6 +17,17 @@ export const AllDetections = () => {
       }
     }
     fetchPredictions()
+  }, [ date ] )
+
+  useEffect( () => {
+    const fetchRealDisasters = async () => {
+      const { data, error } = await actions.findFiveRealDisastersByDate({ initialDate: date })
+      if ( error ) return
+      if ( data ) {
+        setRealDisasters( data.realDisasters )
+      }
+    }
+    fetchRealDisasters()
   }, [ date ] )
 
   const getRowStyles = ( dangerIndicator : string ) => {
@@ -66,6 +79,11 @@ export const AllDetections = () => {
               <th className="text-teal-700 text-left font-semibold py-4 px-4 first:rounded-tl-lg"> Fecha </th>
               <th className="text-teal-700 text-left font-semibold py-4 px-4">Región</th>
               <th className="text-teal-700 text-left font-semibold py-4 px-4">Predicción</th>
+              {
+                ( realDisasters.length > 0 ) && (
+                  <th className="text-teal-700 text-left font-semibold py-4 px-4">Desastre Real</th>
+                )
+              }
               <th className="text-teal-700 text-left font-semibold py-4 px-4 last:rounded-tr-lg">Indicador de Peligro</th>
             </tr>
           </thead>
@@ -100,6 +118,33 @@ export const AllDetections = () => {
                             )
                           }
                         </td>
+                        {
+                          ( realDisasters.length > 0 ) && (
+                            <td className={ `py-3 px-4 ${ styles.text }` }>
+                              {
+                                realDisasters.map( ( disaster ) => {
+                                  if ( disaster.date.toISOString().split( 'T' )[ 0 ] === prediction.date ) {
+                                    return (
+                                      <a
+                                        key={ disaster.id }
+                                        href={ `/real-disasters/${ disaster.id }` }
+                                        className="text-blue-500"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                      >
+                                        Ver desastre real
+                                      </a>
+                                    )
+                                  } else {
+                                    return (
+                                      <span className="text-gray-500"> Ningún desastre real </span>
+                                    )
+                                  }
+                                } )
+                              }
+                            </td>
+                          )
+                        }
                         <td className={ `py-3 px-4 ${ styles.text }` }>{ prediction.dangerIndicator }</td>
                       </tr>
                     )

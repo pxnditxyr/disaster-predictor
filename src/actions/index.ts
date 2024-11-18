@@ -17,7 +17,7 @@ import {
 } from './mitigations'
 
 import { findAllOurIcons } from './our-icons'
-import { createRealDisaster, findAllRealDisasters, findOneRealDisaster, toggleStatusRealDisaster, updateRealDisaster } from './real-disasters'
+import { createRealDisaster, findAllRealDisasters, findFiveRealDisastersByDate, findOneRealDisaster, toggleStatusRealDisaster, updateRealDisaster } from './real-disasters'
 import { findAllRoles } from './roles'
 import {
   createUser,
@@ -58,6 +58,7 @@ export const server = {
   createRealDisaster,
   updateRealDisaster,
   toggleStatusRealDisaster,
+  findFiveRealDisastersByDate,
 
   // contact messages
   findAllContactMessages,
