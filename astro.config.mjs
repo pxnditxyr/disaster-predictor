@@ -4,15 +4,14 @@ import react from "@astrojs/react";
 
 import icon from "astro-icon";
 
-import netlify from "@astrojs/netlify";
-
 import db from "@astrojs/db";
 
 import auth from "auth-astro";
 
-// https://astro.build/config
+import cloudflare from "@astrojs/cloudflare";
+
 export default defineConfig({
   integrations: [tailwind(), react(), icon(), db(), auth()],
-  output: "server",
-  adapter: netlify()
+  output: 'server',
+  adapter: cloudflare(),
 });

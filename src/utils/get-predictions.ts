@@ -1,5 +1,4 @@
-import type { IApiPredictionResponse, IPrediction } from "@/interfaces"
-
+import type { IApiPredictionResponse, IPrediction } from '@/interfaces'
 
 export const getPredictions = async ( date : string ): Promise<{ predictions: IPrediction[], fullDataPredictions: IApiPredictionResponse[] } | null> => {
   const adjustedDate = new Date( date )
@@ -7,8 +6,10 @@ export const getPredictions = async ( date : string ): Promise<{ predictions: IP
   adjustedDate.setDate(adjustedDate.getDate() - 1)
   const formattedDate = adjustedDate.toISOString().split('T')[0]
 
+  const PUBLIC_NEURAL_NETWORK_API_URL = import.meta.env.PUBLIC_NEURAL_NETWORK_API_URL
+
   try {
-    const response = await fetch( 'http://localhost:5000/api/get-predictions', {
+    const response = await fetch( PUBLIC_NEURAL_NETWORK_API_URL + '/get-predictions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

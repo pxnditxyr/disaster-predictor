@@ -13,3 +13,11 @@ declare namespace App {
     user: User | null
   }
 }
+
+interface ImportMetaEnv {
+  readonly NEURAL_NETWORK_API_URL: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
