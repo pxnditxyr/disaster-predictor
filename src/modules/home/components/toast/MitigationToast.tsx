@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import type { IMitigationAction, IDisaster, IMitigationPlan } from '@/interfaces'
-import { formatDate, generateMitigationPlan, getPredictions } from '@/utils'
+import { formatDate, generateMitigationPlanes, getPredictions } from '@/utils'
 
 interface IProps {
   mitigationActions: IMitigationAction[]
@@ -19,7 +19,12 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
     const fetchPredictions = async () => {
       const data = await getPredictions( new Date().toISOString().split( 'T' )[ 0 ] )
       if ( data ) {
-        setMitigationPlan( generateMitigationPlan( mitigationActions, disasterTypes, data.fullDataPredictions ) )
+        const mitigationPlanes = generateMitigationPlanes( mitigationActions, disasterTypes, data.fullDataPredictions )
+        const mitigationPlan : IMitigationPlan[] | null = mitigationPlanes.map( ( mitigationPlan ) => ({
+          ...mitigationPlan,
+          mitigationAction: mitigationPlan.mitigationAction ? mitigationPlan.mitigationAction[ 0 ] : null
+        }) )
+        setMitigationPlan( mitigationPlan )
       }
     }
     fetchPredictions()
@@ -97,6 +102,15 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
     }
   }
 
+  const riskLevelName = (level: number) => {
+    switch (level) {
+      case 1: return 'Bajo'
+      case 2: return 'Medio'
+      case 3: return 'Alto'
+      default: return 'Desconocido'
+    }
+  }
+
   return (
     <>
       <audio ref={ audioRef } src="/alarm.ogg" />
@@ -108,7 +122,7 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <p className="text-2xl font-bold text-gray-900 mb-2">
-                { getEmoji( riskLevel ) } Nivel de Riesgo: { riskLevel }
+                { getEmoji( riskLevel ) } Nivel de Riesgo: { riskLevelName( riskLevel ) }
               </p>
               <button
                 onClick={ () => setIsVisible(false) }
@@ -119,14 +133,14 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
                 </svg>
               </button>
             </div>
-            <p className="text-lg font-medium text-gray-900 mb-2">
-              {description}
+            <p className="text-lg font-medium text-gray-900 mb-2 capitalize">
+              { description }
             </p>
             <div className="bg-white bg-opacity-50 rounded-lg p-3 mt-2">
               <p className="text-sm font-semibold text-gray-700 mb-1"> Lista de Acciones </p>
               <ul className="list-disc list-inside text-sm text-gray-600">
                 { actionList.split(';').map((action, index) => (
-                  <li key={index}>{action.trim()}</li>
+                  <li key={index} className="capitalize">{action.trim()}</li>
                 )) }
               </ul>
             </div>
@@ -139,7 +153,7 @@ export const MitigationToast = ( { mitigationActions, disasterTypes } : IProps )
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span>{ activeMitigation.address }</span>
+              <span className="capitalize">{ activeMitigation.address }</span>
             </div>
           </div>
         </div>

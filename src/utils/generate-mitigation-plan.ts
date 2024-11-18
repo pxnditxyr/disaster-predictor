@@ -114,8 +114,9 @@ export const generateMitigationPlan = ( mitigationActions: IMitigationAction[], 
     }
 
     let possibleActions = mitigationActions.filter(
-      ( action ) => action.disasterTypeId === disasterTypeId
+      ( action ) => ( action.disasterTypeId === disasterTypeId && action.status )
     )
+    console.log({ possibleActions })
 
     possibleActions = possibleActions.filter((action) => action.riskLevel === riskLevel)
 

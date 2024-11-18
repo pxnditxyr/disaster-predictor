@@ -1,6 +1,6 @@
-import type { IDisaster, IMitigationAction, IMitigationPlan, IPrediction } from "@/interfaces"
-import { generateMitigationPlanes, getPredictions, getRiskLevelName, getRowStyles, type IMitigationPlanes } from "@/utils"
-import { useEffect, useState } from "react"
+import type { IDisaster, IMitigationAction, IPrediction } from '@/interfaces'
+import { generateMitigationPlanes, getPredictions, getRiskLevelName, getRowStyles, type IMitigationPlanes } from '@/utils'
+import { useEffect, useState } from 'react'
 
 interface Props {
   mitigationActions: IMitigationAction[]
