@@ -1,51 +1,103 @@
-# 🚨 Disaster Predictor 🌍 | AI-Powered Natural Disaster Mitigation 🛡️
+# 🚨 Disaster Predictor 🌍
 
-**Disaster Predictor** es un sistema avanzado para la **detección**, **predicción** y **mitigación** de desastres naturales asociados al fenómeno de **El Niño** en **Bolivia**. Utiliza técnicas de **aprendizaje profundo** y modelos basados en **Transformers** para analizar datos históricos y en tiempo real, proporcionando alertas tempranas y estrategias efectivas de respuesta.
+<p align="center">
+  <strong>Aplicación web de detección, predicción y mitigación de desastres asociados a El Niño en Bolivia.</strong><br />
+  <em>Web app for detection, prediction and mitigation of El Niño related disasters in Bolivia.</em>
+</p>
 
-## 🌟 Características
+<p align="center">
+  <img alt="Astro" src="https://img.shields.io/badge/Astro-SSR-BC52EE?style=for-the-badge&logo=astro&logoColor=white" />
+  <img alt="React" src="https://img.shields.io/badge/React-islands-149ECA?style=for-the-badge&logo=react&logoColor=white" />
+  <img alt="Leaflet" src="https://img.shields.io/badge/Leaflet-mapas-199900?style=for-the-badge&logo=leaflet&logoColor=white" />
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img alt="Cloudflare" src="https://img.shields.io/badge/Cloudflare-adapter-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" />
+</p>
 
-- **📈 Predicciones Precisas**: Analiza grandes conjuntos de datos para predecir eventos climáticos con alta precisión.
-- **⏰ Alertas Tempranas**: Notifica oportunamente sobre posibles desastres naturales, permitiendo una respuesta proactiva.
-- **🗺️ Visualización de Datos**: Ofrece representaciones gráficas intuitivas para comprender mejor los patrones y tendencias climáticas.
-- **⚙️ Escalabilidad**: Diseñado para adaptarse y manejar crecientes volúmenes de datos y complejidad.
-- **🔒 Seguridad**: Garantiza la integridad y confidencialidad de los datos manejados.
+---
 
-## 🛠️ Tecnologías Utilizadas
+## ✨ ¿Qué es?
 
-- **Astro**: Framework de construcción de aplicaciones web con **Node.js**.
+**Disaster Predictor** es la aplicación web de mi tesis de Ingeniería de Sistemas, *"Sistema de Detección, Predicción y Mitigación de Incidentes de Desastres Naturales mediante el Uso de Redes Neuronales"*. Muestra las predicciones de una red neuronal, las ubica en un mapa y le da a las autoridades y a los expertos un lugar para gestionar los desastres y sus acciones de mitigación.
 
-## 🎯 Objetivos del Proyecto
+La red neuronal no vive en este repositorio: la aplicación la consulta a través de una API externa, cuya URL se configura con `PUBLIC_NEURAL_NETWORK_API_URL`.
 
-1. **Reducir el impacto** de los desastres naturales mediante la anticipación y preparación adecuada.
-2. **Mejorar la toma de decisiones** de las autoridades y organismos de respuesta ante emergencias.
-3. **Fomentar la resiliencia comunitaria** proporcionando información accesible y oportuna.
-4. **Contribuir al avance científico** en el campo de la predicción climática utilizando técnicas de inteligencia artificial.
+## 🧩 Funcionalidades
 
-## 🚀 Inicio Rápido
+### 🌐 Sitio público
+- **Mapa interactivo de La Paz** con [Leaflet](https://leafletjs.com/) y un GeoJSON de la ciudad.
+- **Predicciones**: las más recientes en la portada y el listado completo en su propia página.
+- **Detecciones y mitigaciones** con avisos emergentes y sonido de alarma.
+- Páginas de detalle de cada **tipo de desastre** y de cada **acción de mitigación**.
+- Sección **"Cómo funciona"** paso a paso, página **"Acerca de"** y **formulario de contacto**, cuyos mensajes quedan guardados.
 
-Sigue estos pasos para configurar y ejecutar **DisasterPredictor** en tu entorno local:
+### 🛡️ Paneles de gestión
+- Inicio de sesión con dos roles: **administrador** y **experto**.
+- Crear, editar y activar o desactivar:
+  - **Tipos de desastre**
+  - **Acciones de mitigación**
+  - **Desastres reales** ocurridos
+- El administrador además gestiona **usuarios** y lee los **mensajes de contacto**.
 
-1. **Clona este repositorio**:
-   ```bash
-   git clone https://github.com/pxnditxyr/disaster-predictor.git
-   ````
-2. **Instala las dependencias**:
-   ```bash
-    npm i
-    ```
-3. **Inicia la aplicación**:
-   ```bash
-   node run dev
-   ```
-4. **Abre tu navegador** y accede a `http://localhost:4321` para ver la aplicación en funcionamiento.
+## 🧱 Stack
 
-## 📚 Documentación
+| Capa | Herramientas |
+| --- | --- |
+| Framework | [Astro](https://astro.build/) en modo servidor, islas de React |
+| Base de datos | [Astro DB](https://docs.astro.build/en/guides/astro-db/) (libSQL) |
+| Mapas | Leaflet y react-leaflet |
+| Estilos y animación | Tailwind CSS, Framer Motion, SweetAlert2 |
+| Autenticación | `auth-astro` (Auth.js), `bcryptjs` |
+| Despliegue | Adaptador de Cloudflare |
+| Lenguaje | TypeScript |
 
-Para más detalles sobre la arquitectura del sistema, uso de la API y contribución al proyecto, consulta la documentación completa.
+## 🗂️ Estructura
 
-## 🤝 Contribuir
+```text
+db/                  Tablas de Astro DB y datos semilla (roles, usuarios, desastres, mitigaciones)
+public/              Sonido de alarma y recursos estáticos
+src/
+├── actions/         Astro Actions: desastres, mitigaciones, desastres reales, usuarios, contacto
+├── modules/         Interfaz por área: home, admin, expert, auth, how-it-works, shared
+├── pages/           Rutas públicas, /admin y /expert
+├── utils/           Consulta de predicciones y utilidades
+└── middleware.ts    Protección de rutas por rol
+```
 
-Si deseas contribuir a este proyecto, por favor lee las [pautas de contribución](CONTRIBUTING.md) y envía un *pull request*. ¡Tus aportes son bienvenidos!
+## 🚀 Inicio rápido
+
+### Requisitos
+- Node.js 18.17 o superior
+- La URL de la API de la red neuronal, si quieres ver predicciones
+
+### Instalación
+
+```bash
+git clone https://github.com/pxnditxyr/disaster-predictor.git
+cd disaster-predictor
+npm install
+cp .example.env .env
+npm run dev
+```
+
+Abre `http://localhost:4321`. En desarrollo, Astro DB corre en local y carga los datos semilla de `db/seed.ts`.
+
+### Variables de entorno
+
+| Variable | Para qué sirve |
+| --- | --- |
+| `AUTH_SECRET` | Secreto con el que Auth.js firma las sesiones |
+| `AUTH_TRUST_HOST` | Pon `true` detrás de un proxy o en Cloudflare |
+| `ASTRO_DB_REMOTE_URL` / `ASTRO_DB_APP_TOKEN` | Base de datos remota, para `dev:remote` y `build` |
+| `PUBLIC_NEURAL_NETWORK_API_URL` | URL base de la API de la red neuronal |
+
+### Scripts
+
+| Comando | Qué hace |
+| --- | --- |
+| `npm run dev` | Servidor de desarrollo con base de datos local |
+| `npm run dev:remote` | Servidor de desarrollo con la base de datos remota |
+| `npm run build` | Compila contra la base de datos remota |
+| `npm run preview` | Vista previa de la compilación |
 
 ## 📝 Licencia
 
@@ -53,4 +105,4 @@ Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE)
 
 ## 🧑‍💻 Autor
 
-Creado con ❤️ por [Pxndxs](https://www.twitch.tv/tortilladev)
+Creado por [Pxndxs](https://github.com/pxnditxyr) 🐼
